@@ -139,7 +139,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ComputerController.cpp" />
+    <ClCompile Include="KartController.cpp" />
+    <ClCompile Include="src\gamelogic\CollisionObject2D.cpp" />
+    <ClCompile Include="src\gamelogic\GameObject.cpp" />
+    <ClCompile Include="src\gamelogic\Kart.cpp" />
+    <ClCompile Include="src\gamelogic\GameWorld.cpp" />
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\gamelogic\Track.cpp" />
+    <ClCompile Include="VisionController.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ComputerController.h" />
+    <ClInclude Include="KartController.h" />
+    <ClInclude Include="src\gamelogic\CollisionObject2D.h" />
+    <ClInclude Include="src\gamelogic\GameObject.h" />
+    <ClInclude Include="src\gamelogic\Kart.h" />
+    <ClInclude Include="src\gamelogic\GameWorld.h" />
+    <ClInclude Include="src\gamelogic\Track.h" />
+    <ClInclude Include="VisionController.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
