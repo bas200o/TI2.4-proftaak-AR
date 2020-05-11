@@ -20,7 +20,7 @@ void GameWorld::addGameObject(GameObject gameObject)
 
 void GameWorld::removeGameObject(GameObject gameObject)
 {
-	this->gameObjects.remove(gameObject);
+	//this->gameObjects.remove(gameObject);
 }
 
 void GameWorld::checkCollosion()

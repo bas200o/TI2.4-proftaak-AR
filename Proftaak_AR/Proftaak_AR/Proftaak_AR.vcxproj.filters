@@ -33,13 +33,10 @@
     <ClCompile Include="src\gamelogic\CollisionObject2D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="KartController.cpp">
+    <ClCompile Include="src\gamelogic\controllers\ComputerController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ComputerController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="VisionController.cpp">
+    <ClCompile Include="src\gamelogic\controllers\VisionController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -59,13 +56,13 @@
     <ClInclude Include="src\gamelogic\CollisionObject2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="KartController.h">
+    <ClInclude Include="src\gamelogic\controllers\ComputerController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ComputerController.h">
+    <ClInclude Include="src\gamelogic\controllers\VisionController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="VisionController.h">
+    <ClInclude Include="src\gamelogic\controllers\IKartController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
