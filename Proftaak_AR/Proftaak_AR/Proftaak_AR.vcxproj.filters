@@ -21,15 +21,6 @@
     <ClCompile Include="src\gamelogic\GameWorld.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\gamelogic\GameObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gamelogic\Kart.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gamelogic\Track.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\gamelogic\CollisionObject2D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -39,18 +30,18 @@
     <ClCompile Include="src\gamelogic\controllers\VisionController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\gamelogic\gameobjects\GameObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gamelogic\gameobjects\Kart.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gamelogic\gameobjects\Track.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\gamelogic\GameWorld.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\gamelogic\GameObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\gamelogic\Kart.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\gamelogic\Track.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\gamelogic\CollisionObject2D.h">
@@ -63,6 +54,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\gamelogic\controllers\IKartController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gamelogic\gameobjects\GameObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gamelogic\gameobjects\Kart.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gamelogic\gameobjects\Track.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

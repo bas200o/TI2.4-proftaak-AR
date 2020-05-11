@@ -7,6 +7,8 @@ private:
 	//TODO Mesh
 	//TODO Shader
 	//TODO Texture
+
+protected:
 	CollisionObject2D collisionObject;
 
 public:

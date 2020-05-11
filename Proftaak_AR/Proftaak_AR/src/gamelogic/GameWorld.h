@@ -1,5 +1,5 @@
 #pragma once
-#include <gamelogic\GameObject.h>
+#include <gamelogic\gameobjects\GameObject.h>
 #include <vector>
 #include <list>
 

@@ -141,21 +141,21 @@
   <ItemGroup>
     <ClCompile Include="src\gamelogic\controllers\ComputerController.cpp" />
     <ClCompile Include="src\gamelogic\CollisionObject2D.cpp" />
-    <ClCompile Include="src\gamelogic\GameObject.cpp" />
-    <ClCompile Include="src\gamelogic\Kart.cpp" />
+    <ClCompile Include="src\gamelogic\gameobjects\GameObject.cpp" />
+    <ClCompile Include="src\gamelogic\gameobjects\Kart.cpp" />
     <ClCompile Include="src\gamelogic\GameWorld.cpp" />
     <ClCompile Include="src\Main.cpp" />
-    <ClCompile Include="src\gamelogic\Track.cpp" />
+    <ClCompile Include="src\gamelogic\gameobjects\Track.cpp" />
     <ClCompile Include="src\gamelogic\controllers\VisionController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\gamelogic\controllers\ComputerController.h" />
     <ClInclude Include="src\gamelogic\controllers\IKartController.h" />
     <ClInclude Include="src\gamelogic\CollisionObject2D.h" />
-    <ClInclude Include="src\gamelogic\GameObject.h" />
-    <ClInclude Include="src\gamelogic\Kart.h" />
+    <ClInclude Include="src\gamelogic\gameobjects\GameObject.h" />
+    <ClInclude Include="src\gamelogic\gameobjects\Kart.h" />
     <ClInclude Include="src\gamelogic\GameWorld.h" />
-    <ClInclude Include="src\gamelogic\Track.h" />
+    <ClInclude Include="src\gamelogic\gameobjects\Track.h" />
     <ClInclude Include="src\gamelogic\controllers\VisionController.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
