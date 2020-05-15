@@ -1,6 +1,6 @@
 #include "GameObject.h"
 
-GameObject::GameObject(CollisionObject2D collisionObject)
+GameObject::GameObject(CollisionObject2D collisionObject) : collisionObject(collisionObject)
 {
 	this->collisionObject = collisionObject;
 }

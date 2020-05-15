@@ -2,7 +2,7 @@
 
 GameWorld::GameWorld()
 {
-	this->gameObjects = std::list<GameObject>();
+	this->gameObjects = std::vector<GameObject>();
 }
 
 void GameWorld::update()

@@ -1,12 +1,11 @@
 #pragma once
 #include <gamelogic\gameobjects\GameObject.h>
 #include <vector>
-#include <list>
 
 class GameWorld
 {
 private:
-	std::list<GameObject> gameObjects;
+	std::vector<GameObject> gameObjects; //vector?
 
 public:
 	GameWorld();
