@@ -1,9 +1,10 @@
-#include <GL/glew.h>
-#include <opencv2/opencv.hpp>
-#include "opencv2/imgproc/imgproc.hpp" 
-#include "opencv2/highgui/highgui.hpp"
+/*
+	TI 2.4 B3
 
-int main()
+*/
+
+int main(int argc, char* argv[])
 {
+
 	return 0;
 }
