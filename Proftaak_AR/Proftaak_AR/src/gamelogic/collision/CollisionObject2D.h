@@ -1,7 +1,7 @@
 #pragma once
 #include <glm/vec2.hpp>
 #include <vector>
-#include "gamelogic/CollisionBox.h"
+#include "gamelogic/collision/CollisionBox.h"
 
 /* A single collision object can contain multiple "hitboxes" */
 class CollisionObject2D
@@ -15,13 +15,9 @@ public:
 
 	CollisionObject2D(glm::vec2 position, double angle, std::vector<CollisionBox> boxes);
 
-	/* Moves the collision object into a specified direction
-	This does not change the angle of the collision object itself */
-	//void move(double distance, double direction);
+	bool collidesWith(CollisionObject2D collisionObject);
 
-	/* Moves the collision object according to its current angle while applying an offset to the direction
-	This does not change the angle of the collision object itself */
-	//void moveWithOffset(double distance, double directionOffset);
+	//TODO move methods
 
 	glm::vec2 const& getPosition();
 

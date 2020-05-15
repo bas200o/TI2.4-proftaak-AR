@@ -1,5 +1,5 @@
 #pragma once
-#include <gamelogic\CollisionObject2D.h>
+#include <gamelogic\collision\CollisionObject2D.h>
 
 class GameObject
 {

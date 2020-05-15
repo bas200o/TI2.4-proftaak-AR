@@ -4,6 +4,7 @@
 class CollisionBox
 {
 private:
+	//TODO make these protected?
 	glm::vec2 position;
 	double angle;
 	double width;
