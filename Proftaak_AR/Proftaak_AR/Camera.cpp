@@ -1,5 +1,5 @@
 #include "Camera.h"
-#include "SkinDetector.h"
+#include "RedColorDetector.h"
 #include "Blobdetectionavans.h"
 #include <opencv2/opencv.hpp>
 #include "opencv2/imgproc/imgproc.hpp" 
@@ -23,9 +23,9 @@ void Camera::ActivateCamera()
 	cv::namedWindow("MyVideo", CV_WINDOW_AUTOSIZE);
 
 	Mat frame;
-	Mat skinDetectorFrame;
+	Mat redDetectorFrame;
 
-	SkinDetector skinDetector;
+	SkinDetector redDetector;
 	while (1)
 	{
 		bool bSuccess = cap.read(frame);
@@ -40,10 +40,11 @@ void Camera::ActivateCamera()
 
 		imshow("MyVideo", frame);
 
+
+		redDetectorFrame = redDetector.redColorDetection(frame);
+		imshow("Red", redDetectorFrame);
 		drawRegionOfInterest(dWidth, dHeight, frame);
 
-		skinDetectorFrame = skinDetector.skinColorDetection(frame);
-		imshow("Skin", skinDetectorFrame);
 
 		if (cv::waitKey(1) == 27)
 		{

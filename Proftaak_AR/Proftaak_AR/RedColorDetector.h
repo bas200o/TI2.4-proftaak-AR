@@ -7,5 +7,5 @@
 class SkinDetector 
 {
 public:
-	cv::Mat skinColorDetection(cv::Mat frame);
+	cv::Mat redColorDetection(cv::Mat frame);
 };
