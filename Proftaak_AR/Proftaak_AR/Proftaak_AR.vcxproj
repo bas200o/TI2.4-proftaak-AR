@@ -112,8 +112,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\OpenGL\Renderer\RawModel.cpp" />
-    <ClCompile Include="src\OpenGL\Renderer\Loader.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\OpenGL\Renderer\Loader.cpp" />
@@ -126,8 +124,6 @@
     <ClCompile Include="src\OpenGL\windowhandling\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\OpenGL\Renderer\Loader.h" />
-    <ClInclude Include="src\OpenGL\Renderer\RawModel.h" />
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\OpenGL\Renderer\Loader.h" />
     <ClInclude Include="src\OpenGL\Renderer\RawModel.h" />
