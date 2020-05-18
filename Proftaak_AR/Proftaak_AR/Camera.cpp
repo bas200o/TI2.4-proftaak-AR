@@ -1,18 +1,19 @@
 #include "Camera.h"
+#include "SkinDetector.h"
+#include "Blobdetectionavans.h"
 #include <opencv2/opencv.hpp>
 #include "opencv2/imgproc/imgproc.hpp" 
 #include "opencv2/highgui/highgui.hpp"
 #include <iostream>
 #include <string>
 
-int Camera::ActivateCamera()
+void Camera::ActivateCamera()
 {
-	cv::VideoCapture cap(1);
+	VideoCapture cap(0);
 
 	if (!cap.isOpened())
 	{
 		std::cout << "Cannot open the video cam" << std::endl;
-		return -1;
 	}
 
 	double dWidth = cap.get(CV_CAP_PROP_FRAME_WIDTH);
@@ -21,8 +22,10 @@ int Camera::ActivateCamera()
 
 	cv::namedWindow("MyVideo", CV_WINDOW_AUTOSIZE);
 
-	cv::Mat frame;
+	Mat frame;
+	Mat skinDetectorFrame;
 
+	SkinDetector skinDetector;
 	while (1)
 	{
 		bool bSuccess = cap.read(frame);
@@ -37,11 +40,27 @@ int Camera::ActivateCamera()
 
 		imshow("MyVideo", frame);
 
+		drawRegionOfInterest(dWidth, dHeight, frame);
+
+		skinDetectorFrame = skinDetector.skinColorDetection(frame);
+		imshow("Skin", skinDetectorFrame);
+
 		if (cv::waitKey(1) == 27)
 		{
 			std::cout << "esc key is pressed by user" << std::endl;
 			break;
 		}
 	}
-	return 0;
+}
+
+void Camera::drawRegionOfInterest(int width, int height, cv::Mat frame)
+{
+	int xCenter = (width - width / 2) / 2;
+	int yCenter = (height - height / 2) / 2;
+	cv::Rect rec(xCenter, yCenter, (width / 2), (height / 2));
+
+	rectangle(frame, rec, cv::Scalar(255), 1, 8, 0);
+
+	cv::namedWindow("Step 2 draw Rectangle", cv::WINDOW_AUTOSIZE);
+	cv::imshow("Step 2 draw Rectangle", frame);
 }

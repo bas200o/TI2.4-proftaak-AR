@@ -78,11 +78,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Blobdetectionavans.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="SkinDetector.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Blobdetectionavans.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="SkinDetector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
