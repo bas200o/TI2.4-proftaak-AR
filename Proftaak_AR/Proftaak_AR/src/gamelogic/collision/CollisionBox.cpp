@@ -1,7 +1,5 @@
 #include "CollisionBox.h"
 
-
-
 CollisionBox::CollisionBox(glm::vec2 position, double angle, double width, double height)
 {
 	this->position = position;
@@ -14,7 +12,6 @@ bool CollisionBox::collidesWith(CollisionBox collisionBox)
 {
 	//TODO test
 	//TODO fix warnings
-	//TODO move other box accroding to collision direction?
 	std::vector<glm::vec2> rectangles[] = { this->getPoints(), collisionBox.getPoints() };
 
 	for (std::vector<glm::vec2> points : rectangles) //for each box
@@ -84,14 +81,4 @@ glm::vec2 const& CollisionBox::getPosition()
 double const& CollisionBox::getAngle()
 {
 	return this->angle;
-}
-
-double const& CollisionBox::getWidth()
-{
-	return this->width;
-}
-
-double const& CollisionBox::getHeight()
-{
-	return this->height;
 }

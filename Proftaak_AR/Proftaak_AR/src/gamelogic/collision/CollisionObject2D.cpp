@@ -1,15 +1,15 @@
 #include "CollisionObject2D.h"
 
-CollisionObject2D::CollisionObject2D(glm::vec2 position, double angle, std::vector<CollisionBox> boxes)
+CollisionObject2D::CollisionObject2D(glm::vec2 position, std::vector<CollisionBox> boxes)
 {
 	this->position = position;
-	this->angle = angle;
+	this->angle = 0.0;
 	this->collisionBoxes = boxes;
 }
 
 bool CollisionObject2D::collidesWith(CollisionObject2D collisionObject)
 {
-	for (CollisionBox box1 : this->collisionBoxes) 
+	for (CollisionBox box1 : this->collisionBoxes)
 	{
 		for (CollisionBox box2 : collisionObject.getCollisionBoxes())
 		{
@@ -19,6 +19,18 @@ bool CollisionObject2D::collidesWith(CollisionObject2D collisionObject)
 		}
 	}
 	return false;
+}
+
+void CollisionObject2D::rotate(double angleChange)
+{
+	this->angle = collutil::wrapChangedAngle(this->angle, angleChange);
+	//Rotate all boxes around object position
+	for (CollisionBox box : this->collisionBoxes) 
+	{
+		box.angle = collutil::wrapChangedAngle(box.angle, angleChange);
+		box.position = glm::vec2(cos(this->angle) * (box.position.x - this->position.x) - sin(this->angle) * (box.position.y - this->position.y), 
+			sin(this->angle) * (box.position.x - this->position.x) - cos(this->angle) * (box.position.y - this->position.y));
+	}
 }
 
 glm::vec2 const& CollisionObject2D::getPosition()
