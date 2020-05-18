@@ -1,7 +1,5 @@
 #include "Loader.h"
 
-
-
 OpenGL::RawModel OpenGL::Loader::loadToVAO(std::vector<float> positions) {
 	int vaoID = createVAO();
 	storeDataInAttributeList(0, positions);
@@ -34,9 +32,9 @@ void OpenGL::Loader::unbindVao() {
 
 void OpenGL::Loader::cleanup() {
 	for (GLuint vao : vaos) {
-		glDeleteVertexArrays(vao);
+		glDeleteVertexArrays(1, &vao);
 	}
 	for (GLuint vbo : vbos) {
-		glDeleteBuffers(GL_ARRAY_BUFFER, vbo);
+		glDeleteBuffers(1, &vbo);
 	}
 }
