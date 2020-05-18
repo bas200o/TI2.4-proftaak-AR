@@ -59,6 +59,12 @@ bool CollisionBox::collidesWith(CollisionBox collisionBox)
 	return false;
 }
 
+void CollisionBox::push(double distance, double angleOffset)
+{
+	this->position = glm::vec2(	this->position.x + cos(this->angle) * distance,
+								this->position.y + sin(this->angle) * distance);
+}
+
 std::vector<glm::vec2> CollisionBox::getPoints()
 {
 	glm::vec2 TL = this->position; //top left

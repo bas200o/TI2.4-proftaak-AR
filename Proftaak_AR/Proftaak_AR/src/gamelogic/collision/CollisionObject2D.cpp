@@ -33,6 +33,15 @@ void CollisionObject2D::rotate(double angleChange)
 	}
 }
 
+void CollisionObject2D::push(double distance, double angleOffset)
+{
+	this->position = glm::vec2(	this->position.x + cos(this->angle) * distance,
+								this->position.y + sin(this->angle) * distance);
+	for (CollisionBox box : this->collisionBoxes) {
+		box.push(distance, angleOffset);
+	}
+}
+
 glm::vec2 const& CollisionObject2D::getPosition()
 {
 	return this->position;

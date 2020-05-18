@@ -17,4 +17,8 @@ namespace collutil {
 		return currentAngle;
 	}
 
+	static glm::vec2 pushInDirection(glm::vec2 position, double angle, double angleOffset)
+	{
+
+	}
 }

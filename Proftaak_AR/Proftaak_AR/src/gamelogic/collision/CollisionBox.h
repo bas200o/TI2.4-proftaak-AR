@@ -22,6 +22,9 @@ public:
 	/* Checks if this box collides with another */
 	bool collidesWith(CollisionBox collisionBox);
 
+	/* Pushes this box in the direction it's facing, changed by the angle offset */
+	void push(double distance, double angleOffset);
+
 	glm::vec2 const& getPosition();
 
 	double const& getAngle();

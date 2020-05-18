@@ -13,11 +13,6 @@ private:
 	std::vector<CollisionBox> collisionBoxes;
 	//double weight;
 
-	/* Returns what the angle would be if it was changed by the amount specified in the parameter 
-	This does not change the angle of the collision object */
-	//double changedAngle(double angleChange);
-	void changeAngle(double angleChange);
-
 protected:
 	double getCollisionForce();//TODO
 
@@ -32,14 +27,14 @@ public:
 	/*Checks collision between objects and moves them if necessary */
 	void collisionCheck(CollisionObject2D collisionObject);//
 
-	//TODO move methods
 	/* Rotates the collision object and all of its boxes around the position of the object*/
 	void rotate(double angleChange);
 
 	/* Moves the collision object and all of its boxes*/
 	void move();//TODO
 
-	void push();//TODO
+	/* Pushes this object in the direction it's facing, changed by the angle offset */
+	void push(double distance, double angleOffset);
 
 	glm::vec2 const& getPosition();
 
