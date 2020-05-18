@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 
-class SkinDetector 
+class ColorDetector 
 {
 public:
 	cv::Mat redColorDetection(cv::Mat frame);

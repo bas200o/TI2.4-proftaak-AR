@@ -5,7 +5,7 @@
 #include <iostream>
 #include <string>
 
-cv::Mat SkinDetector::redColorDetection(cv::Mat frame)
+cv::Mat ColorDetector::redColorDetection(cv::Mat frame)
 {
 	cv::Mat hsvImage;
 	cvtColor(frame, hsvImage, CV_BGR2HSV);

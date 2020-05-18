@@ -23,9 +23,10 @@ void Camera::ActivateCamera()
 	cv::namedWindow("MyVideo", CV_WINDOW_AUTOSIZE);
 
 	Mat frame;
+	
 	Mat redDetectorFrame;
+	ColorDetector redDetector;
 
-	SkinDetector redDetector;
 	while (1)
 	{
 		bool bSuccess = cap.read(frame);
@@ -40,11 +41,10 @@ void Camera::ActivateCamera()
 
 		imshow("MyVideo", frame);
 
-
 		redDetectorFrame = redDetector.redColorDetection(frame);
 		imshow("Red", redDetectorFrame);
-		drawRegionOfInterest(dWidth, dHeight, frame);
 
+		drawRegionOfInterest(dWidth, dHeight, frame);
 
 		if (cv::waitKey(1) == 27)
 		{
