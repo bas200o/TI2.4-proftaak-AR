@@ -12,7 +12,7 @@ namespace OpenGL
 	public:
 		RawModel(int vaoID, int vertexCount);
 		int getVaoID() { return this->vaoID; };
-		int getVaoID() { return this->vertexCount; };
+		int getvertexCount() { return this->vertexCount; };
 
 	};
 }

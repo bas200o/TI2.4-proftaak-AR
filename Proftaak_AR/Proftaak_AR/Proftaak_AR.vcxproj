@@ -70,7 +70,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>$(SolutionDir)\Dependencies\opencv\build\x64\vc15\lib;$(SolutionDir)\Dependencies\opencv\build\x64\vc15\bin;$(SolutionDir)Dependencies\GLEW\lib\Release\x64;$(SolutionDir)Dependencies\GLFW\lib-vc2019\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32s.lib;glfw3.lib;opengl32.lib;opencv_world430d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glew32s.lib;glfw3.lib;opengl32.lib;opencv_world341d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -112,15 +112,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="RawModel.cpp" />
-    <ClCompile Include="Loader.cpp" />
+    <ClCompile Include="src\OpenGL\Renderer\RawModel.cpp" />
+    <ClCompile Include="src\OpenGL\Renderer\Loader.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\OpenGL\windowhandling\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Loader.h" />
-    <ClInclude Include="RawModel.h" />
+    <ClInclude Include="src\OpenGL\Renderer\Loader.h" />
+    <ClInclude Include="src\OpenGL\Renderer\RawModel.h" />
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\OpenGL\windowhandling\EventHandler.h" />
     <ClInclude Include="src\OpenGL\windowhandling\Events.h" />
