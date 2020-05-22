@@ -24,9 +24,6 @@
     <ClCompile Include="src\OpenGL\windowhandling\Window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\OpenGL\Renderer\Loader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\OpenGL\Renderer\RawModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -59,9 +56,6 @@
     <ClInclude Include="src\OpenGL\windowhandling\Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\OpenGL\Renderer\Loader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\OpenGL\Renderer\RawModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -87,5 +81,7 @@
   <ItemGroup>
     <None Include="res\shaders\vertex\V_Text.glsl" />
     <None Include="res\shaders\fragment\F_Text.glsl" />
+    <None Include="..\..\..\..\..\Users\luket\Downloads\VertexShader.glsl" />
+    <None Include="..\..\..\..\..\Users\luket\Downloads\FragmentShader.glsl" />
   </ItemGroup>
 </Project>

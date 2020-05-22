@@ -11,6 +11,8 @@
 #include "OpenGL/Renderer/ui/text/Text.h"
 #include "OpenGL/Renderer/Renderer.h"
 
+#include "OpenGL/Renderer/RawModel.h"
+
 namespace Game
 {
 	class Application : public OpenGL::EventHandler

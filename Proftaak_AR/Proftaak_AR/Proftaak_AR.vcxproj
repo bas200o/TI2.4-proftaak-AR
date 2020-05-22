@@ -114,7 +114,6 @@
   <ItemGroup>
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\Main.cpp" />
-    <ClCompile Include="src\OpenGL\Renderer\Loader.cpp" />
     <ClCompile Include="src\OpenGL\Renderer\RawModel.cpp" />
     <ClCompile Include="src\OpenGL\Renderer\Renderer.cpp" />
     <ClCompile Include="src\OpenGL\Renderer\shading\Shader.cpp" />
@@ -125,7 +124,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
-    <ClInclude Include="src\OpenGL\Renderer\Loader.h" />
     <ClInclude Include="src\OpenGL\Renderer\RawModel.h" />
     <ClInclude Include="src\OpenGL\Renderer\Renderer.h" />
     <ClInclude Include="src\OpenGL\Renderer\shading\Shader.h" />
@@ -138,6 +136,8 @@
     <ClInclude Include="src\utilities\StringUtil.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\..\..\..\Users\luket\Downloads\FragmentShader.glsl" />
+    <None Include="..\..\..\..\..\Users\luket\Downloads\VertexShader.glsl" />
     <None Include="res\shaders\fragment\F_Text.glsl" />
     <None Include="res\shaders\vertex\V_Text.glsl" />
   </ItemGroup>

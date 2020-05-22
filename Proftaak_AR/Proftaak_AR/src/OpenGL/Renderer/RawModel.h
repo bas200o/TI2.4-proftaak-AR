@@ -1,4 +1,7 @@
 #pragma once
+#include "../OpenGL/Renderer/shading/Shader.h"
+#include <vector>
+#include <algorithm>
 
 
 namespace OpenGL
@@ -7,12 +10,25 @@ namespace OpenGL
 	{
 		
 	private: 
-		int vaoID;
-		int vertexCount;
+		unsigned int vaoID;
+		unsigned int vertexCount;
+		unsigned int indexBuffer;
+		unsigned int vertexBuffer;
+		std::vector<unsigned int> indices;
+		std::vector<glm::vec3> positions; 
+		std::vector<glm::vec3> normals; 
+		std::vector<glm::vec2> textureCoords;
+
+		void genBuffers();
+		std::vector<float> createVertices();
 	public:
-		RawModel(int vaoID, int vertexCount);
-		int getVaoID() { return this->vaoID; };
-		int getvertexCount() { return this->vertexCount; };
+		RawModel(std::vector<glm::vec3> positions, std::vector<glm::vec3> normals, std::vector<glm::vec2> textureCoords, std::vector<unsigned int> indices);
+		int getIndexCount() { return this->indices.size(); };
+
+
+		
+		void unbind();
+		void bind();
 
 	};
 }
