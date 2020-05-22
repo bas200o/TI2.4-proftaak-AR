@@ -1,4 +1,5 @@
 #include "CollisionBox.h"
+using namespace collutil;
 
 CollisionBox::CollisionBox(glm::vec2 position, double angle, double width, double height)
 {
@@ -10,8 +11,6 @@ CollisionBox::CollisionBox(glm::vec2 position, double angle, double width, doubl
 
 bool CollisionBox::collidesWith(CollisionBox collisionBox)
 {
-	//TODO test
-	//TODO fix warnings
 	std::vector<glm::vec2> rectangles[] = { this->getPoints(), collisionBox.getPoints() };
 
 	for (std::vector<glm::vec2> points : rectangles) //for each box
@@ -62,11 +61,16 @@ void CollisionBox::push(double distance, double angleOffset)
 }
 
 std::vector<glm::vec2> CollisionBox::getPoints()
-{
-	glm::vec2 TL = this->position; //top left
-	glm::vec2 TR = this->position + glm::vec2(cos(angle), sin(angle)); //top right
-	glm::vec2 BL = this->position + glm::vec2(cos(angle + 270.0), sin(angle + 270.0)); //bottom left
-	glm::vec2 BR = BL + glm::vec2(cos(angle), sin(angle)); //bottom right
+{ //TODO save these points and recalculate when box is moved
+	glm::vec2 TL = this->position;//top left
+	glm::vec2 TR = this->position + glm::vec2(this->width, 0);//top right
+	glm::vec2 BL = this->position + glm::vec2(0, this->height);//bottom left
+	glm::vec2 BR = this->position + glm::vec2(this->width, this->height);//bottom right
+	
+	//glm::vec2 TL = this->position;//top left
+	//glm::vec2 TR = this->position + glm::vec2(cos(degreesToRadians(angle)) * this->width, sin(degreesToRadians(angle)) * this->height);//top right
+	//glm::vec2 BL = this->position + glm::vec2(cos(degreesToRadians(angle + 270.0)) * this->width, sin(degreesToRadians(angle + 270.0)) * this->height);//bottom left
+	//glm::vec2 BR = BL + glm::vec2(cos(degreesToRadians(angle)) * this->width, sin(degreesToRadians(angle)) * this->height);//bottom right
 	std::vector<glm::vec2> points = std::vector<glm::vec2>();
 	points.push_back(TL);
 	points.push_back(TR);
