@@ -29,7 +29,6 @@ bool CollisionBox::collidesWith(CollisionBox collisionBox)
 			for (glm::vec2 point : this->getPoints()) //this box
 			{
 				double projected = normal.x * point.x + normal.y * point.y;
-
 				if (projected < minA) {
 					minA = projected;
 				} if (projected > maxA) {
@@ -42,7 +41,6 @@ bool CollisionBox::collidesWith(CollisionBox collisionBox)
 			for (glm::vec2 point : collisionBox.getPoints()) //other box
 			{
 				double projected = normal.x * point.x + normal.y * point.y;
-
 				if (projected < minB) {
 					minB = projected;
 				} if (projected > maxB) {
@@ -53,10 +51,8 @@ bool CollisionBox::collidesWith(CollisionBox collisionBox)
 				return false;
 			}
 		}
-
 	}
-
-	return false;
+	return true;
 }
 
 void CollisionBox::push(double distance, double angleOffset)
