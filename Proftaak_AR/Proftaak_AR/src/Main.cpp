@@ -27,4 +27,8 @@ void collisionTest()
 	o1.rotate(90);
 
 	std::cout << o1.collidesWith(o2) << "\n";
+	//collision:
+	//make sure boxes are placed around the object, using the object position as origin
+	//make sure boxes are rotated around object position as origin
+	//make sure box corner positions are calculated correctly
 }

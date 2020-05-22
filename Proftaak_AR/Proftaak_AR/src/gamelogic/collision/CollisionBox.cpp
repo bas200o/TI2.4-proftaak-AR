@@ -66,7 +66,11 @@ std::vector<glm::vec2> CollisionBox::getPoints()
 	glm::vec2 TR = this->position + glm::vec2(this->width, 0);//top right
 	glm::vec2 BL = this->position + glm::vec2(0, this->height);//bottom left
 	glm::vec2 BR = this->position + glm::vec2(this->width, this->height);//bottom right
-	
+	//TODO get the object position to rotate the corners
+	TL = rotatedPoint(TL, glm::vec2(0, 0), this->angle);
+	TR = rotatedPoint(TR, glm::vec2(0, 0), this->angle);
+	BL = rotatedPoint(BL, glm::vec2(0, 0), this->angle);
+	BR = rotatedPoint(BR, glm::vec2(0, 0), this->angle);
 	//glm::vec2 TL = this->position;//top left
 	//glm::vec2 TR = this->position + glm::vec2(cos(degreesToRadians(angle)) * this->width, sin(degreesToRadians(angle)) * this->height);//top right
 	//glm::vec2 BL = this->position + glm::vec2(cos(degreesToRadians(angle + 270.0)) * this->width, sin(degreesToRadians(angle + 270.0)) * this->height);//bottom left

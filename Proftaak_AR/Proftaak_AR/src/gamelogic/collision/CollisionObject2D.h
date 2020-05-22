@@ -14,12 +14,11 @@ private:
 	//TODO position of added collisionboxes should be relative to this object
 
 protected:
-	//double getCollisionForce();//TODO
-
 	//bool collidesWith(CollisionObject2D collisionObject);
 
 public:
 	bool collidesWith(CollisionObject2D collisionObject); //make protected after testing
+
 	/* Creates a collision object 
 	The positions of the boxes should be absolute
 	Keep in mind that the angle starts at 0.0 degrees */
