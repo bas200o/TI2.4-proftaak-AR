@@ -4,8 +4,9 @@
 #include <iostream>
 #include <string>
 
-class ColorDetector 
+class ColorDetection 
 {
 public:
 	cv::Mat redColorDetection(cv::Mat frame);
+	void trackObject(cv::Mat frame, cv::Mat threshold);
 };

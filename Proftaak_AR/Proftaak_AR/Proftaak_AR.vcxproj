@@ -80,13 +80,13 @@
   <ItemGroup>
     <ClCompile Include="Blobdetectionavans.cpp" />
     <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="RedColorDetector.cpp" />
+    <ClCompile Include="ColorDetection.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Blobdetectionavans.h" />
     <ClInclude Include="Camera.h" />
-    <ClInclude Include="RedColorDetector.h" />
+    <ClInclude Include="ColorDetection.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

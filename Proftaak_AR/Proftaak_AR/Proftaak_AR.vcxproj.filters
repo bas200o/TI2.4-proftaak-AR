@@ -24,7 +24,7 @@
     <ClCompile Include="Blobdetectionavans.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RedColorDetector.cpp">
+    <ClCompile Include="ColorDetection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -35,7 +35,7 @@
     <ClInclude Include="Blobdetectionavans.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RedColorDetector.h">
+    <ClInclude Include="ColorDetection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

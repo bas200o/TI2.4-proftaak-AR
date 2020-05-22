@@ -1,5 +1,5 @@
 #include "Camera.h"
-#include "RedColorDetector.h"
+#include "ColorDetection.h"
 #include "Blobdetectionavans.h"
 #include <opencv2/opencv.hpp>
 #include "opencv2/imgproc/imgproc.hpp" 
@@ -24,8 +24,8 @@ void Camera::ActivateCamera()
 
 	Mat frame;
 	
-	Mat redDetectorFrame;
-	ColorDetector redDetector;
+	Mat redDetection;
+	ColorDetection detection;
 
 	while (1)
 	{
@@ -41,8 +41,10 @@ void Camera::ActivateCamera()
 
 		imshow("MyVideo", frame);
 
-		redDetectorFrame = redDetector.redColorDetection(frame);
-		imshow("Red", redDetectorFrame);
+		redDetection = detection.redColorDetection(frame);
+		imshow("Red", redDetection);
+
+		detection.trackObject(frame, redDetection);
 
 		drawRegionOfInterest(dWidth, dHeight, frame);
 
