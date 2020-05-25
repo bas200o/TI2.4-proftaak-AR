@@ -17,9 +17,6 @@ protected:
 	std::vector<CollisionBox2D> collisionBoxes;
 
 public:
-	//TODO add mesh, shader and texture in the future
-	//GameObject();
-
 	/* Updates this gameobject */
 	virtual void update() = 0;
 

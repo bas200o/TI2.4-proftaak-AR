@@ -25,6 +25,5 @@ void collisionTest()
 }
 
 /*TODO
-Collision object bumping and weight
-Collision object interface to allow a group of immovable collision boxes in a gameobject
+Collision object bumping and weight/force?
 */

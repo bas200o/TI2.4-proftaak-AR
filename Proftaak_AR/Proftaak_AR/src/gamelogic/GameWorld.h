@@ -31,8 +31,6 @@ private:
 	/* Private method to check collision during an update */
 	void checkCollosion();
 
-	//TODO add list of gameobjects
-
 };
 
 #endif
