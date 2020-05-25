@@ -12,6 +12,7 @@
 #include "OpenGL/Renderer/Renderer.h"
 
 #include "OpenGL/Renderer/RawModel.h"
+#include "OpenGL/Renderer/Camera.h"
 
 namespace Game
 {
@@ -20,6 +21,7 @@ namespace Game
 	private:
 		OpenGL::Window window;
 		OpenGL::Text* text;
+		OpenGL::Camera camera;
 
 	public:
 		Application();

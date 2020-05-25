@@ -11,7 +11,7 @@ void OpenGL::Renderer::draw(Text& text, Window& window)
 	text.unbind();
 }
 
-void OpenGL::Renderer::draw3D(RawModel& model, Shader& shader, Window& window) {
+void OpenGL::Renderer::draw3D(RawModel& model, Shader& shader, Window& window, Camera& camera) {
 	glEnable(GL_DEPTH_TEST);
 	glm::vec3 lightpos(1.2f, 1.0f, 2.0f);
 	glm::vec3 lightcolor(1.0f, 1.0f, 1.0f);
@@ -19,7 +19,7 @@ void OpenGL::Renderer::draw3D(RawModel& model, Shader& shader, Window& window) {
 	shader.bind();
 	model.bind();
 
-	setMVPUniforms(model.transform, window, shader);
+	setMVPUniforms(model.transform, window, shader, camera);
 
 	shader.setUniformVec3f("lightPos", lightpos);
 	shader.setUniformVec3f("lightColor", lightcolor);
@@ -30,12 +30,9 @@ void OpenGL::Renderer::draw3D(RawModel& model, Shader& shader, Window& window) {
 	model.unbind();
 }
 
-void OpenGL::Renderer::setMVPUniforms(Transform3D& modelTranform, Window& window, Shader& shader)
+void OpenGL::Renderer::setMVPUniforms(Transform3D& modelTranform, Window& window, Shader& shader, Camera& camera)
 {
-	glm::mat4 projection = glm::perspective(glm::radians(90.0f), (float)window.getWidth() / (float)window.getHeight(), 0.01f, 100.0f);
-	glm::mat4 view = glm::lookAt(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-
 	shader.setUniformMat4f("model", modelTranform.getWorldTransform());
-	shader.setUniformMat4f("view", view);
-	shader.setUniformMat4f("projection", projection);
+	shader.setUniformMat4f("view", camera.getViewMatrix());
+	shader.setUniformMat4f("projection", camera.getProjectionMatrix(window));
 }
