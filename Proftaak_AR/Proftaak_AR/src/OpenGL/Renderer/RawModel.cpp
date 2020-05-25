@@ -9,7 +9,7 @@ OpenGL::RawModel::RawModel(std::vector<glm::vec3> positions, std::vector<glm::ve
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
 
     std::vector<float> vertices = createVertices();
-	glBufferData(GL_ARRAY_BUFFER, vertices.size()*sizeof(float), &vertices[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), &vertices[0], GL_STATIC_DRAW);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
