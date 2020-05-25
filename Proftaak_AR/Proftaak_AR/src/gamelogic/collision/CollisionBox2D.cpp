@@ -56,16 +56,16 @@ bool CollisionBox2D::collidesWith(CollisionBox2D collisionBox)
 	return true;
 }
 
-void CollisionBox2D::push(double distance, double angleOffset)
+void CollisionBox2D::push(double distance, double degreesOffset)
 {
-	this->center += glm::vec2(cos(collutil::degreesToRadians(this->angle + angleOffset)) * distance,
-							sin(collutil::degreesToRadians(this->angle + angleOffset)) * distance);
+	this->center += glm::vec2(cos(collutil::degreesToRadians(this->angle + degreesOffset)) * distance,
+		sin(collutil::degreesToRadians(this->angle + degreesOffset)) * distance);
 	this->corners = this->calculateCorners();
 }
 
-void CollisionBox2D::rotate(double angleChange)
+void CollisionBox2D::rotate(double degreesChange)
 {
-	this->angle += collutil::degreesToRadians(angleChange);
+	this->angle = collutil::radiansToDegrees(collutil::wrapChangedDegrees(collutil::radiansToDegrees(this->angle), degreesChange));
 	this->corners = this->calculateCorners();
 }
 
@@ -75,15 +75,14 @@ void CollisionBox2D::setCenter(glm::vec2 center)
 	this->corners = this->calculateCorners();
 }
 
-void CollisionBox2D::setAngle(double angle)
+void CollisionBox2D::setAngle(double degrees)
 {
-	this->angle = collutil::degreesToRadians(angle);
+	this->angle = collutil::degreesToRadians(degrees);
 	this->corners = this->calculateCorners();
 }
 
 std::array<glm::vec2, 4>& CollisionBox2D::getCorners()
 {
-	//TODO return stored corners
 	return this->corners;
 }
 
@@ -91,15 +90,15 @@ std::array<glm::vec2, 4>& CollisionBox2D::getCorners()
 std::array<glm::vec2, 4> CollisionBox2D::calculateCorners()
 {
 	glm::vec2 TL = glm::vec2(this->center.x - ((this->width / 2) * cos(this->angle)) - ((this->height / 2) * sin(this->angle)),
-							this->center.y - ((this->width / 2) * sin(this->angle)) + ((this->height / 2) * cos(this->angle)));//top left
+		this->center.y - ((this->width / 2) * sin(this->angle)) + ((this->height / 2) * cos(this->angle)));//top left
 
 	glm::vec2 TR = glm::vec2(this->center.x + ((this->width / 2) * cos(this->angle)) - ((this->height / 2) * sin(this->angle)),
-							this->center.y + ((this->width / 2) * sin(this->angle)) + ((this->height / 2) * cos(this->angle)));//top right
+		this->center.y + ((this->width / 2) * sin(this->angle)) + ((this->height / 2) * cos(this->angle)));//top right
 
 	glm::vec2 BL = glm::vec2(this->center.x - ((this->width / 2) * cos(this->angle)) + ((this->height / 2) * sin(this->angle)),
-							this->center.y - ((this->width / 2) * sin(this->angle)) - ((this->height / 2) * cos(this->angle)));//bottom left
+		this->center.y - ((this->width / 2) * sin(this->angle)) - ((this->height / 2) * cos(this->angle)));//bottom left
 
 	glm::vec2 BR = glm::vec2(this->center.x + ((this->width / 2) * cos(this->angle)) + ((this->height / 2) * sin(this->angle)),
-							this->center.y + ((this->width / 2) * sin(this->angle)) - ((this->height / 2) * cos(this->angle)));//bottom right
+		this->center.y + ((this->width / 2) * sin(this->angle)) - ((this->height / 2) * cos(this->angle)));//bottom right
 	return std::array<glm::vec2, 4> {TL, TR, BL, BR};
 }

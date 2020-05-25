@@ -29,13 +29,13 @@ public:
 
 	/*Pushes this box in the direction it's facing, changed by the angle offset in degrees
 	This method does not change the angle of the box*/
-	void push(double distance, double angleOffset);
+	void push(double distance, double degreesOffset);
 
-	void rotate(double angleChange);
+	void rotate(double degreesChange);
 
 	void setCenter(glm::vec2 center);
 
-	void setAngle(double angle);
+	void setAngle(double degrees);
 
 	std::array<glm::vec2, 4>& getCorners();
 };
