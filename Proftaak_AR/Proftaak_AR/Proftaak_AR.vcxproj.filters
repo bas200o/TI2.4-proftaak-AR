@@ -18,18 +18,18 @@
     <ClCompile Include="src\Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Vision\Camera.cpp">
+    <ClCompile Include="src\Vision\ColorDetection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Vision\ColorDetection.cpp">
+    <ClCompile Include="src\Vision\VisionCamera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Vision\Camera.h">
+    <ClInclude Include="src\Vision\ColorDetection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Vision\ColorDetection.h">
+    <ClInclude Include="src\Vision\VisionCamera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

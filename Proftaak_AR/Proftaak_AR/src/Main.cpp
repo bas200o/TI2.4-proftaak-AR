@@ -1,4 +1,4 @@
-#include "Vision/Camera.h"
+#include "Vision/VisionCamera.h"
 #include <iostream>
 #include <string>
 
@@ -8,7 +8,7 @@
 
 int main(int argc, char* argv[])
 {
-	Camera camera;
+	VisionCamera camera;
 	camera.ActivateCamera();
 
 	return 0;

@@ -1,6 +1,6 @@
-#include "Camera.h"
+#include "VisionCamera.h"
 #include "ColorDetection.h"
-#include "Blobdetectionavans.h"
+#include "blobdetectionavans.h"
 #include <opencv2/opencv.hpp>
 #include "opencv2/imgproc/imgproc.hpp" 
 #include "opencv2/highgui/highgui.hpp"
@@ -15,7 +15,7 @@ const bool debugInfo = true;
 const bool debugInfo = false;
 #endif
 
-void Camera::ActivateCamera()
+void VisionCamera::ActivateCamera()
 {
 
 	VideoCapture cap(1);
@@ -73,7 +73,7 @@ void Camera::ActivateCamera()
 	}
 }
 
-void Camera::drawRegionOfInterest(double width, double height, cv::Mat frame)
+void VisionCamera::drawRegionOfInterest(double width, double height, cv::Mat frame)
 {
 	if (debugInfo)
 	{
@@ -82,7 +82,7 @@ void Camera::drawRegionOfInterest(double width, double height, cv::Mat frame)
 	}
 }
 
-float Camera::calculateAngle(std::vector<cv::Point2f> points)
+float VisionCamera::calculateAngle(std::vector<cv::Point2f> points)
 {
 	if (points.size() != 2)
 	{

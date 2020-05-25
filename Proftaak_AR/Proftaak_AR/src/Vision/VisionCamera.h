@@ -5,7 +5,7 @@
 #include <iostream>
 #include <string>
 
-class Camera
+class VisionCamera
 {
 private:
 	void drawRegionOfInterest(double width, double height, cv::Mat frame);
