@@ -13,6 +13,8 @@ void OpenGL::Renderer::draw(Text& text, Window& window)
 
 void OpenGL::Renderer::draw3D(RawModel& model, Shader& shader, Window& window) {
 	glEnable(GL_DEPTH_TEST);
+	glm::vec3 lightpos(1.2f, 1.0f, 2.0f);
+	glm::vec3 lightcolor(1.0f, 1.0f, 1.0f);
 	
 	shader.bind();
 	model.bind();
@@ -23,6 +25,9 @@ void OpenGL::Renderer::draw3D(RawModel& model, Shader& shader, Window& window) {
 	shader.setUniformMat4f("model", modelMatrix);
 	shader.setUniformMat4f("view", view);
 	shader.setUniformMat4f("projection", projection);
+
+	shader.setUniformVec3f("lightPos", lightpos);
+	shader.setUniformVec3f("lightColor", lightcolor);
 
 	glDrawElements(GL_TRIANGLES, model.getIndexCount(), GL_UNSIGNED_INT, nullptr);
 	

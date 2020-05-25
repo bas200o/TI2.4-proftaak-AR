@@ -81,7 +81,7 @@
   <ItemGroup>
     <None Include="res\shaders\vertex\V_Text.glsl" />
     <None Include="res\shaders\fragment\F_Text.glsl" />
-    <None Include="..\..\..\..\..\Users\luket\Downloads\VertexShader.glsl" />
-    <None Include="..\..\..\..\..\Users\luket\Downloads\FragmentShader.glsl" />
+    <None Include="res\shaders\fragment\FragmentShader.glsl" />
+    <None Include="res\shaders\vertex\VertexShader.glsl" />
   </ItemGroup>
 </Project>
