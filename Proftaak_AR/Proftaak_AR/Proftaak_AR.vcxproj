@@ -78,15 +78,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Blobdetectionavans.cpp" />
-    <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="ColorDetection.cpp" />
-    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="src\Vision\Camera.cpp" />
+    <ClCompile Include="src\Vision\ColorDetection.cpp" />
+    <ClCompile Include="src\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Blobdetectionavans.h" />
-    <ClInclude Include="Camera.h" />
-    <ClInclude Include="ColorDetection.h" />
+    <ClInclude Include="src\Vision\Camera.h" />
+    <ClInclude Include="src\Vision\ColorDetection.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

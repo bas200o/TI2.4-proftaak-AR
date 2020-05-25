@@ -25,7 +25,7 @@ void Camera::ActivateCamera()
 	cv::namedWindow("MyVideo", CV_WINDOW_AUTOSIZE);
 
 	Mat frame;
-	
+
 	Mat redDetection;
 	ColorDetection detection;
 
@@ -58,7 +58,7 @@ void Camera::ActivateCamera()
 	}
 }
 
-void Camera::drawRegionOfInterest(int width, int height, cv::Mat frame)
+void Camera::drawRegionOfInterest(double width, double height, cv::Mat frame)
 {
 	int xCenter = (width - width / 2) / 2;
 	int yCenter = (height - height / 2) / 2;

@@ -23,7 +23,7 @@ cv::Mat ColorDetection::redColorDetection(cv::Mat frame)
 
 	for (int i = 0; i < 4; i++)
 		cv::dilate(mask, mask, dilateElement);
-	
+
 	return mask;
 }
 
@@ -55,15 +55,15 @@ void ColorDetection::trackObject(cv::Mat frame, cv::Mat threshold)
 
 void ColorDetection::checkIfInROI(cv::Rect rec, cv::Rect rec2, cv::Rect rec3, cv::Rect rec4)
 {
-	if (rec.contains(cv::Point2f(x, y)) && rec3.contains(cv::Point2f(x, y))) {
+	/*if (rec.contains(cv::Point2f(x, y)) && rec3.contains(cv::Point2f(x, y))) {
 		std::cout << "Go right" << std::endl;
 	}
 
 	if (rec2.contains(cv::Point2f(x, y)) && rec4.contains(cv::Point2f(x, y))) {
 		std::cout << "Go left" << std::endl;
-	}
+	}*/
 
-	/*if (rec.contains(cv::Point2f(x, y))) {
+	if (rec.contains(cv::Point2f(x, y))) {
 		std::cout << "UpperLeft" << std::endl;
 	}
 
@@ -77,5 +77,5 @@ void ColorDetection::checkIfInROI(cv::Rect rec, cv::Rect rec2, cv::Rect rec3, cv
 
 	if (rec4.contains(cv::Point2f(x, y))) {
 		std::cout << "LowerRight" << std::endl;
-	}*/
+	}
 }

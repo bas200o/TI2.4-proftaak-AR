@@ -8,7 +8,7 @@
 class Camera
 {
 private:
-	void drawRegionOfInterest(int width, int height, cv::Mat frame);
+	void drawRegionOfInterest(double width, double height, cv::Mat frame);
 
 public:
 	void ActivateCamera();
