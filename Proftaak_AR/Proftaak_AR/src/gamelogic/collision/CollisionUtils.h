@@ -29,8 +29,6 @@ namespace collutil {
 	static double radiansToDegrees(double radians) {
 		return radians * 180.0 / M_PI;
 	}
-
-	//TODO create collision detection testing method
 }
 
 #endif

@@ -139,8 +139,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\gamelogic\collision\CollisionBox2D.cpp" />
     <ClCompile Include="src\gamelogic\controllers\ComputerController.cpp" />
-    <ClCompile Include="src\gamelogic\CollisionObject2D.cpp" />
     <ClCompile Include="src\gamelogic\gameobjects\GameObject.cpp" />
     <ClCompile Include="src\gamelogic\gameobjects\Kart.cpp" />
     <ClCompile Include="src\gamelogic\GameWorld.cpp" />
@@ -149,9 +149,10 @@
     <ClCompile Include="src\gamelogic\controllers\VisionController.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\gamelogic\collision\CollisionBox2D.h" />
+    <ClInclude Include="src\gamelogic\collision\CollisionUtils.h" />
     <ClInclude Include="src\gamelogic\controllers\ComputerController.h" />
     <ClInclude Include="src\gamelogic\controllers\IKartController.h" />
-    <ClInclude Include="src\gamelogic\CollisionObject2D.h" />
     <ClInclude Include="src\gamelogic\gameobjects\GameObject.h" />
     <ClInclude Include="src\gamelogic\gameobjects\Kart.h" />
     <ClInclude Include="src\gamelogic\GameWorld.h" />
