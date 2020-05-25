@@ -7,6 +7,8 @@
 #include <iostream>
 #include <string>
 
+RNG rng(12345);
+
 void Camera::ActivateCamera()
 {
 	VideoCapture cap(0);
@@ -60,9 +62,33 @@ void Camera::drawRegionOfInterest(int width, int height, cv::Mat frame)
 {
 	int xCenter = (width - width / 2) / 2;
 	int yCenter = (height - height / 2) / 2;
-	cv::Rect rec(xCenter, yCenter, (width / 2), (height / 2));
+	int roiWidth = width / 2;
+	int roiHeight = height / 2;
 
-	rectangle(frame, rec, cv::Scalar(255), 1, 8, 0);
+	//Draw a rectangle
+	//cv::Rect rec(xCenter, yCenter, roiWidth, roiHeight);
+	//rectangle(frame, rec, cv::Scalar(255), 1, 8, 0);
+
+	cv::Rect recUpperLeft(0, 0, roiWidth, roiHeight);
+	rectangle(frame, recUpperLeft, cv::Scalar(255), 1, 8, 0);
+
+	cv::Rect recUpperRight(320, 0, roiWidth, roiHeight);
+	rectangle(frame, recUpperRight, cv::Scalar(255), 1, 8, 0);
+
+	cv::Rect recLowerLeft(0, 240, roiWidth, roiHeight);
+	rectangle(frame, recLowerLeft, cv::Scalar(255), 1, 8, 0);
+
+	cv::Rect recLowerRight(320, 240, roiWidth, roiHeight);
+	rectangle(frame, recLowerRight, cv::Scalar(255), 1, 8, 0);
+
+	//cv::Rect recLowerRight(320, 0, roiWidth, roiHeight);
+	//rectangle(frame, recUpperRight, cv::Scalar(255), 1, 8, 0);
+
+	//cv::Rect rec4(160, 120, 20, 20);
+	//rectangle(frame, rec3, cv::Scalar(255), 1, 8, 0);
+
+	ColorDetection check;
+	check.checkIfInROI(recUpperLeft, recUpperRight, recLowerLeft, recLowerRight);
 
 	cv::namedWindow("Step 2 draw Rectangle", cv::WINDOW_AUTOSIZE);
 	cv::imshow("Step 2 draw Rectangle", frame);
