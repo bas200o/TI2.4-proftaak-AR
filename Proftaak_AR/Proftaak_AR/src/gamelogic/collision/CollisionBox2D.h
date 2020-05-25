@@ -7,7 +7,10 @@ class CollisionBox2D
 private:
 	double width;
 	double height;
+	std::array<glm::vec2, 4> corners;
 
+	/*Calculates where the corners of the box should be
+	This method is used to recalculate te positions of the corners after the box is moved*/
 	std::array<glm::vec2, 4> calculateCorners();
 
 protected:
@@ -17,16 +20,24 @@ public:
 	glm::vec2 center;
 	double angle;
 
-	/* give angle in degrees */
+	/*Constructor for a CollisionBox2D
+	The angle should be provided in degrees*/
 	CollisionBox2D(glm::vec2 center, double angle, double width, double height);
 
-	/* Checks if this box collides with another */
+	/*Checks if this box collides with another*/
 	bool collidesWith(CollisionBox2D collisionBox);
 
-	/* Pushes this box in the direction it's facing, changed by the angle offset in degrees */
+	/*Pushes this box in the direction it's facing, changed by the angle offset in degrees
+	This method does not change the angle of the box*/
 	void push(double distance, double angleOffset);
 
-	std::array<glm::vec2, 4> getCorners();
+	void rotate(double angleChange);
+
+	void setCenter(glm::vec2 center);
+
+	void setAngle(double angle);
+
+	std::array<glm::vec2, 4>& getCorners();
 };
 
 /*Notes:

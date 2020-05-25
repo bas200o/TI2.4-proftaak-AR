@@ -1,5 +1,4 @@
 #pragma once
-#include <gamelogic\collision\CollisionObject2D.h>
 
 class GameObject
 {

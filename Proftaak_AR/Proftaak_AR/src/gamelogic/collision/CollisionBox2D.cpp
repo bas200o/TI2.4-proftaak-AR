@@ -8,6 +8,7 @@ CollisionBox2D::CollisionBox2D(glm::vec2 center, double angle, double width, dou
 	this->angle = collutil::degreesToRadians(angle);
 	this->width = width;
 	this->height = height;
+	this->corners = this->calculateCorners();
 }
 
 bool CollisionBox2D::collidesWith(CollisionBox2D collisionBox)
@@ -57,13 +58,33 @@ bool CollisionBox2D::collidesWith(CollisionBox2D collisionBox)
 
 void CollisionBox2D::push(double distance, double angleOffset)
 {
-	//take input as degrees and turn them into radians
+	this->center += glm::vec2(cos(collutil::degreesToRadians(this->angle + angleOffset)) * distance,
+							sin(collutil::degreesToRadians(this->angle + angleOffset)) * distance);
+	this->corners = this->calculateCorners();
 }
 
-std::array<glm::vec2, 4> CollisionBox2D::getCorners()
+void CollisionBox2D::rotate(double angleChange)
+{
+	this->angle += collutil::degreesToRadians(angleChange);
+	this->corners = this->calculateCorners();
+}
+
+void CollisionBox2D::setCenter(glm::vec2 center)
+{
+	this->center = center;
+	this->corners = this->calculateCorners();
+}
+
+void CollisionBox2D::setAngle(double angle)
+{
+	this->angle = collutil::degreesToRadians(angle);
+	this->corners = this->calculateCorners();
+}
+
+std::array<glm::vec2, 4>& CollisionBox2D::getCorners()
 {
 	//TODO return stored corners
-	return this->calculateCorners();
+	return this->corners;
 }
 
 //private:
@@ -82,12 +103,3 @@ std::array<glm::vec2, 4> CollisionBox2D::calculateCorners()
 							this->center.y + ((this->width / 2) * sin(this->angle)) - ((this->height / 2) * cos(this->angle)));//bottom right
 	return std::array<glm::vec2, 4> {TL, TR, BL, BR};
 }
-
-
-/*
-void CollisionBox::push(double distance, double angleOffset)
-{
-	this->position = glm::vec2(	this->position.x + cos(this->angle) * distance,
-								this->position.y + sin(this->angle) * distance);
-}
-*/
