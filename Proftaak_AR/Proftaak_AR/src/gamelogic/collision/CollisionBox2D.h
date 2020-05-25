@@ -13,9 +13,6 @@ private:
 	This method is used to recalculate te positions of the corners after the box is moved*/
 	std::array<glm::vec2, 4> calculateCorners();
 
-protected:
-	
-
 public:
 	glm::vec2 center;
 	double angle;
@@ -37,7 +34,8 @@ public:
 
 	void setAngle(double degrees);
 
-	std::array<glm::vec2, 4>& getCorners();
+	/*Returns the current positions of the corners of the box*/
+	std::array<glm::vec2, 4> getCorners();
 };
 
 /*Notes:

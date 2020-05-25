@@ -81,7 +81,7 @@ void CollisionBox2D::setAngle(double degrees)
 	this->corners = this->calculateCorners();
 }
 
-std::array<glm::vec2, 4>& CollisionBox2D::getCorners()
+std::array<glm::vec2, 4> CollisionBox2D::getCorners()
 {
 	return this->corners;
 }
