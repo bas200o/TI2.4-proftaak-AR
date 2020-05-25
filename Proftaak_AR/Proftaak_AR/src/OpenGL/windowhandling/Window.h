@@ -61,6 +61,7 @@ namespace OpenGL
 		inline void setClearColor(const glm::vec4 color) { glClearColor(color.x, color.y, color.x, color.w); }
 		inline void setEventHandler(EventHandler* eventHandler) { this->eventHandler = eventHandler; }
 		inline void setCursorMode(const CursorMode cursorMode) { glfwSetInputMode(this->glfwWindow, GLFW_CURSOR, cursorMode); }
+		bool isKeyDown(int key);
 
 	private:
 		static void framebufferSizeCallback(GLFWwindow* window, int width, int height);

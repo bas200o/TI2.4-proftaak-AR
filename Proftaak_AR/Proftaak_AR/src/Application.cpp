@@ -163,6 +163,7 @@ bool Game::Application::run()
 	OpenGL::Shader shader = OpenGL::Shader("res/shaders/vertex/VertexShader.glsl", "res/shaders/fragment/FragmentShader.glsl");
 	rawmodel.transform.setLocalPosition(glm::vec3(0.0f, 0.0f, -4.0f));
 
+	this->camera = OpenGL::Camera();
 	float counter = 0.0f;
 	while (!window.shouldClose())
 	{
@@ -170,7 +171,8 @@ bool Game::Application::run()
 		float deltatime = window.getDeltaTime();
 		window.clear(OpenGL::Window::ClearType::COLOR_BUFFER | OpenGL::Window::ClearType::DEPTH_BUFFER);
 		//OpenGL::Renderer::draw(*this->text, this->window);
-		OpenGL::Renderer::draw3D(rawmodel, shader, this->window);
+		OpenGL::Renderer::draw3D(rawmodel, shader, this->window, camera);
+		this->camera.update(this->window, deltatime);
 
 		//rawmodel.transform.rotateBy(glm::pi<float>() * deltatime, glm::vec3(0.0f, 0.0f, 1.0f));
 		//rawmodel.transform.translateBy(glm::vec3(0.0f, 0.0f, -1.0f) * deltatime);
@@ -197,6 +199,12 @@ void Game::Application::handleEvent(OpenGL::Event& event)
 		{
 			OpenGL::WindowResizeEvent& windowResizeEvent = static_cast<OpenGL::WindowResizeEvent&>(event);
 			this->text->onWindowResize(glm::vec2(windowResizeEvent.getWidth(), windowResizeEvent.getHeight()));
+			break;
+		}
+		case OpenGL::Event::EventType::MouseMovedEvent:
+		{
+			OpenGL::MouseMovedEvent& moved = static_cast<OpenGL::MouseMovedEvent&>(event);
+			this->camera.rotate(moved.getXOffset(), moved.getYOffset());
 			break;
 		}
 	}

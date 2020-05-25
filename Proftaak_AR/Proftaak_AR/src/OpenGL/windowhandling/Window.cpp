@@ -57,6 +57,11 @@ bool OpenGL::Window::shouldClose()
 	return glfwWindowShouldClose(this->glfwWindow);
 }
 
+bool OpenGL::Window::isKeyDown(int key)
+{
+	return (glfwGetKey(this->glfwWindow, key) == GLFW_PRESS);
+}
+
 void OpenGL::Window::update()
 {
 	glfwSwapBuffers(this->glfwWindow);
