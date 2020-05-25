@@ -161,6 +161,8 @@ bool Game::Application::run()
 
 	OpenGL::RawModel rawmodel = OpenGL::RawModel(positionsA, normalsA, uvCoordinatesA, indicesA);
 	OpenGL::Shader shader = OpenGL::Shader("res/shaders/vertex/VertexShader.glsl", "res/shaders/fragment/FragmentShader.glsl");
+	rawmodel.transform.setLocalPosition(glm::vec3(0.0f, 0.0f, -4.0f));
+
 	float counter = 0.0f;
 	while (!window.shouldClose())
 	{
@@ -169,6 +171,10 @@ bool Game::Application::run()
 		window.clear(OpenGL::Window::ClearType::COLOR_BUFFER | OpenGL::Window::ClearType::DEPTH_BUFFER);
 		//OpenGL::Renderer::draw(*this->text, this->window);
 		OpenGL::Renderer::draw3D(rawmodel, shader, this->window);
+
+		//rawmodel.transform.rotateBy(glm::pi<float>() * deltatime, glm::vec3(0.0f, 0.0f, 1.0f));
+		//rawmodel.transform.translateBy(glm::vec3(0.0f, 0.0f, -1.0f) * deltatime);
+		//rawmodel.transform.scaleBy(glm::vec3(1.0f) * deltatime);
 
 		window.update();
 	}

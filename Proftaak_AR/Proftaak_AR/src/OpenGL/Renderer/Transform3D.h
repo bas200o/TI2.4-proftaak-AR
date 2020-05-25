@@ -9,7 +9,7 @@
 #include <glm/gtx/quaternion.hpp>
 #include <glm/common.hpp>
 
-namespace Engine
+namespace OpenGL
 {
 	class Transform3D
 	{

@@ -1,6 +1,6 @@
 #include "Transform3D.h"
 
-Engine::Transform3D::Transform3D()
+OpenGL::Transform3D::Transform3D()
 	: parent(nullptr)
 {
 	this->position = glm::vec3(0.0f);
@@ -8,7 +8,7 @@ Engine::Transform3D::Transform3D()
 	this->scale = glm::vec3(1.0f);
 }
 
-Engine::Transform3D::Transform3D(std::shared_ptr<Transform3D> parent)
+OpenGL::Transform3D::Transform3D(std::shared_ptr<Transform3D> parent)
 	: parent(parent)
 {
 	this->position = glm::vec3(0.0f);
@@ -16,7 +16,7 @@ Engine::Transform3D::Transform3D(std::shared_ptr<Transform3D> parent)
 	this->scale = glm::vec3(1.0f);
 }
 
-Engine::Transform3D::Transform3D(const glm::vec3 position)
+OpenGL::Transform3D::Transform3D(const glm::vec3 position)
 	: parent(nullptr)
 {
 	this->position = position;
@@ -24,27 +24,27 @@ Engine::Transform3D::Transform3D(const glm::vec3 position)
 	this->scale = glm::vec3(1.0f);
 }
 
-void Engine::Transform3D::translateBy(const glm::vec3 translate)
+void OpenGL::Transform3D::translateBy(const glm::vec3 translate)
 {
 	this->position += translate;
 }
 
-void Engine::Transform3D::rotateBy(const float angle, const glm::vec3 axis)
+void OpenGL::Transform3D::rotateBy(const float angle, const glm::vec3 axis)
 {
 	this->rotation = glm::normalize(glm::angleAxis(angle, axis) * this->rotation);
 }
 
-void Engine::Transform3D::rotateBy(const glm::quat rotation)
+void OpenGL::Transform3D::rotateBy(const glm::quat rotation)
 {
 	this->rotation = rotation * this->rotation;
 }
 
-void Engine::Transform3D::scaleBy(const glm::vec3 scale)
+void OpenGL::Transform3D::scaleBy(const glm::vec3 scale)
 {
 	this->scale += scale;
 }
 
-glm::vec3 Engine::Transform3D::getWorldPosition() const
+glm::vec3 OpenGL::Transform3D::getWorldPosition() const
 {
 	if (this->parent != nullptr)
 		return this->parent->getWorldPosition() + this->position;
@@ -52,7 +52,7 @@ glm::vec3 Engine::Transform3D::getWorldPosition() const
 		return this->position;
 }
 
-glm::quat Engine::Transform3D::getWorldRotation() const
+glm::quat OpenGL::Transform3D::getWorldRotation() const
 {
 	if (this->parent != nullptr)
 		return this->parent->getWorldRotation() * this->rotation;
@@ -60,7 +60,7 @@ glm::quat Engine::Transform3D::getWorldRotation() const
 		return this->rotation;
 }
 
-glm::vec3 Engine::Transform3D::getWorldScale() const
+glm::vec3 OpenGL::Transform3D::getWorldScale() const
 {
 	if (this->parent != nullptr)
 		return this->parent->getWorldScale() * this->scale;
@@ -68,37 +68,37 @@ glm::vec3 Engine::Transform3D::getWorldScale() const
 		return this->scale;
 }
 
-void Engine::Transform3D::setLocalPosition(glm::vec3 position)
+void OpenGL::Transform3D::setLocalPosition(glm::vec3 position)
 {
 	this->position = position;
 }
 
-void Engine::Transform3D::setLocalRotation(float angle, glm::vec3 axis)
+void OpenGL::Transform3D::setLocalRotation(float angle, glm::vec3 axis)
 {
 	this->rotation = glm::normalize(glm::angleAxis(angle, axis));
 }
 
-void Engine::Transform3D::setLocalRotation(glm::quat rotation)
+void OpenGL::Transform3D::setLocalRotation(glm::quat rotation)
 {
 	this->rotation = glm::normalize(rotation);
 }
 
-void Engine::Transform3D::setLocalScale(glm::vec3 scale)
+void OpenGL::Transform3D::setLocalScale(glm::vec3 scale)
 {
 	this->scale = scale;
 }
 
-void Engine::Transform3D::setLocalScale(float scale)
+void OpenGL::Transform3D::setLocalScale(float scale)
 {
 	this->scale = glm::vec3(scale);
 }
 
-void Engine::Transform3D::setParent(std::shared_ptr<Transform3D> transform)
+void OpenGL::Transform3D::setParent(std::shared_ptr<Transform3D> transform)
 {
 	this->parent = transform;
 }
 
-glm::mat4 Engine::Transform3D::getLocalTransform() const
+glm::mat4 OpenGL::Transform3D::getLocalTransform() const
 {
 	glm::mat4 traMatrix = getTranslationMatrix();
 	glm::mat4 scaleMatrix = getScaleMatrix();
@@ -107,7 +107,7 @@ glm::mat4 Engine::Transform3D::getLocalTransform() const
 	return (traMatrix * rotMatrix * scaleMatrix);
 }
 
-glm::mat4 Engine::Transform3D::getWorldTransform() const
+glm::mat4 OpenGL::Transform3D::getWorldTransform() const
 {
 	glm::mat4 traMatrix = getTranslationMatrix();
 	glm::mat4 scaleMatrix = getScaleMatrix();
@@ -124,52 +124,52 @@ glm::mat4 Engine::Transform3D::getWorldTransform() const
 		return transformationL;
 }
 
-glm::mat4 Engine::Transform3D::getTranslationMatrix() const
+glm::mat4 OpenGL::Transform3D::getTranslationMatrix() const
 {
 	return glm::translate(this->position);
 }
 
-glm::mat4 Engine::Transform3D::getRotationMatrix() const
+glm::mat4 OpenGL::Transform3D::getRotationMatrix() const
 {
 	return glm::toMat4(this->rotation);
 }
 
-glm::mat4 Engine::Transform3D::getScaleMatrix() const
+glm::mat4 OpenGL::Transform3D::getScaleMatrix() const
 {
 	return glm::scale(this->scale);
 }
 
-glm::vec3 Engine::Transform3D::getFront() const
+glm::vec3 OpenGL::Transform3D::getFront() const
 {
 	return glm::normalize(this->rotation * glm::vec3(0.0f, 0.0f, -1.0f));
 }
 
-glm::vec3 Engine::Transform3D::getUp() const
+glm::vec3 OpenGL::Transform3D::getUp() const
 {
 	return glm::normalize(glm::cross(getRight(), getFront()));
 }
 
-glm::vec3 Engine::Transform3D::getRight() const
+glm::vec3 OpenGL::Transform3D::getRight() const
 {
 	return glm::normalize(glm::cross(getFront(), glm::vec3(0.0f, 1.0f, 0.0f)));
 }
 
-glm::vec3 Engine::Transform3D::getBack() const
+glm::vec3 OpenGL::Transform3D::getBack() const
 {
 	return -getFront();
 }
 
-glm::vec3 Engine::Transform3D::getDown() const
+glm::vec3 OpenGL::Transform3D::getDown() const
 {
 	return -getUp();
 }
 
-glm::vec3 Engine::Transform3D::getLeft() const
+glm::vec3 OpenGL::Transform3D::getLeft() const
 {
 	return -getRight();
 }
 
-void Engine::Transform3D::operator=(glm::mat4 const& matrix)
+void OpenGL::Transform3D::operator=(glm::mat4 const& matrix)
 {
 	this->position = matrix[3];
 	this->rotation = glm::toQuat(matrix);
