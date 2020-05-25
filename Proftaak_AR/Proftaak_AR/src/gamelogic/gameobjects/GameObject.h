@@ -18,10 +18,10 @@ protected:
 
 public:
 	//TODO add mesh, shader and texture in the future
-	GameObject();
+	//GameObject();
 
 	/* Updates this gameobject */
-	void update();
+	virtual void update() = 0;
 
 	/* Draws this gameobject */
 	void draw();

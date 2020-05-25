@@ -10,7 +10,7 @@
 class GameWorld
 {
 private:
-	std::vector<GameObject> gameObjects; //vector?
+	std::vector<GameObject*> gameObjects; //vector?
 
 public:
 	GameWorld();
@@ -22,10 +22,10 @@ public:
 	void draw();
 
 	/* Adds a gameobject */
-	void addGameObject(GameObject gameObject);
+	void addGameObject(GameObject* gameObject);
 
 	/* Removes a gameobject */
-	void removeGameObject(GameObject gameObject);
+	void removeGameObject(GameObject* gameObject);
 
 private:
 	/* Private method to check collision during an update */

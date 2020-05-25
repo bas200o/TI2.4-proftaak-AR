@@ -8,7 +8,14 @@
 class Kart : GameObject
 {
 private:
-	double direction;
+	double speed;
+	
+public:
+	Kart(CollisionBox2D collisionBox);
+
+	/*Inherited via GameObject*/
+	virtual void update() override;
+
 };
 
 #endif
