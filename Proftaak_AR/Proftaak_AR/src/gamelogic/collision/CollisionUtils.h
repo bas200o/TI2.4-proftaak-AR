@@ -1,4 +1,8 @@
 #pragma once
+
+#ifndef COLLISIONUTILS_H_
+#define COLLISIONUTILS_H_
+
 #include <corecrt_math_defines.h>
 
 namespace collutil {
@@ -28,3 +32,5 @@ namespace collutil {
 
 	//TODO create collision detection testing method
 }
+
+#endif

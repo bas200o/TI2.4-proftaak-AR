@@ -1,4 +1,9 @@
 #pragma once
+
+#ifndef GAMEWORLD_H_
+#define GAMEWORLD_H_
+
+
 #include <gamelogic\gameobjects\GameObject.h>
 #include <vector>
 
@@ -30,3 +35,4 @@ private:
 
 };
 
+#endif
