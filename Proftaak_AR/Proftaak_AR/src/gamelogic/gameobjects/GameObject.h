@@ -1,5 +1,11 @@
 #pragma once
 
+#ifndef GAMEOBJECT_H_
+#define GAMEOBJECT_H_
+
+#include <vector>
+#include <gamelogic\collision\CollisionBox2D.h>
+
 class GameObject
 {
 private:
@@ -8,7 +14,7 @@ private:
 	//TODO Texture
 
 protected:
-	//CollisionObject2D collisionObject;
+	std::vector<CollisionBox2D> collisionBoxes;
 
 public:
 	//TODO add mesh, shader and texture in the future
@@ -21,3 +27,4 @@ public:
 	void draw();
 };
 
+#endif

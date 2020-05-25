@@ -1,7 +1,14 @@
 #pragma once
+
+#ifndef COLLISIONBOX2D_H_
+#define COLLISIONBOX2D_H_
+
 #include <glm/vec2.hpp>
 #include <array>
+#include <vector>
+#include "CollisionUtils.h"
 
+/*A movable collision box*/
 class CollisionBox2D
 {
 private:
@@ -41,3 +48,5 @@ public:
 /*Notes:
 The angle used inside the class should always be in radians, but the angle defined in the method parameters should be in degrees
 */
+
+#endif

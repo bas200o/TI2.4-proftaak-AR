@@ -1,5 +1,4 @@
 #include "CollisionBox2D.h"
-#include "CollisionUtils.h"
 
 //public:
 CollisionBox2D::CollisionBox2D(glm::vec2 center, double angle, double width, double height)
