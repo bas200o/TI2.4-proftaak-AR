@@ -12,38 +12,9 @@ CollisionBox2D::CollisionBox2D(glm::vec2 center, double angle, double width, dou
 
 bool CollisionBox2D::collidesWith(CollisionBox2D collisionBox)
 {
-	return false;
-}
+	std::array<glm::vec2, 4> corners[] = { this->getCorners(), collisionBox.getCorners() };
 
-void CollisionBox2D::push(double distance, double angleOffset)
-{
-	//take input as degrees and turn them into radians
-}
-
-//protected:
-std::array<glm::vec2, 4> CollisionBox2D::calculateCorners()
-{
-	//todo to radians
-	glm::vec2 TL = glm::vec2(this->center.x - ((this->width / 2) * cos(this->angle)) - ((this->height / 2) * sin(this->angle)),
-							this->center.y - ((this->width / 2) * sin(this->angle)) + ((this->height / 2) * cos(this->angle)));//top left
-
-	glm::vec2 TR = glm::vec2(this->center.x + ((this->width / 2) * cos(this->angle)) - ((this->height / 2) * sin(this->angle)),
-							this->center.y + ((this->width / 2) * sin(this->angle)) + ((this->height / 2) * cos(this->angle)));//top right
-
-	glm::vec2 BL = glm::vec2(this->center.x - ((this->width / 2) * cos(this->angle)) + ((this->height / 2) * sin(this->angle)),
-							this->center.y - ((this->width / 2) * sin(this->angle)) - ((this->height / 2) * cos(this->angle)));//bottom left
-
-	glm::vec2 BR = glm::vec2(this->center.x + ((this->width / 2) * cos(this->angle)) + ((this->height / 2) * sin(this->angle)),
-							this->center.y + ((this->width / 2) * sin(this->angle)) - ((this->height / 2) * cos(this->angle)));//bottom right
-	return std::array<glm::vec2, 4> {TL, TR, BL, BR};
-}
-
-/*
-bool CollisionBox::collidesWith(CollisionBox collisionBox)
-{
-	std::vector<glm::vec2> rectangles[] = { this->getPoints(), collisionBox.getPoints() };
-
-	for (std::vector<glm::vec2> points : rectangles) //for each box
+	for (std::array<glm::vec2, 4> points : corners) //for each box (group of points)
 	{
 		for (int i1 = 0; i1 < points.size(); i1++) //for each corner
 		{
@@ -55,7 +26,7 @@ bool CollisionBox::collidesWith(CollisionBox collisionBox)
 
 			double minA = std::numeric_limits<double>::max();
 			double maxA = std::numeric_limits<double>::min();
-			for (glm::vec2 point : this->getPoints()) //this box
+			for (glm::vec2 point : this->getCorners()) //this box
 			{
 				double projected = normal.x * point.x + normal.y * point.y;
 				if (projected < minA) {
@@ -67,7 +38,7 @@ bool CollisionBox::collidesWith(CollisionBox collisionBox)
 
 			double minB = std::numeric_limits<double>::max();
 			double maxB = std::numeric_limits<double>::min();
-			for (glm::vec2 point : collisionBox.getPoints()) //other box
+			for (glm::vec2 point : collisionBox.getCorners()) //other box
 			{
 				double projected = normal.x * point.x + normal.y * point.y;
 				if (projected < minB) {
@@ -84,6 +55,36 @@ bool CollisionBox::collidesWith(CollisionBox collisionBox)
 	return true;
 }
 
+void CollisionBox2D::push(double distance, double angleOffset)
+{
+	//take input as degrees and turn them into radians
+}
+
+std::array<glm::vec2, 4> CollisionBox2D::getCorners()
+{
+	//TODO return stored corners
+	return this->calculateCorners();
+}
+
+//private:
+std::array<glm::vec2, 4> CollisionBox2D::calculateCorners()
+{
+	glm::vec2 TL = glm::vec2(this->center.x - ((this->width / 2) * cos(this->angle)) - ((this->height / 2) * sin(this->angle)),
+							this->center.y - ((this->width / 2) * sin(this->angle)) + ((this->height / 2) * cos(this->angle)));//top left
+
+	glm::vec2 TR = glm::vec2(this->center.x + ((this->width / 2) * cos(this->angle)) - ((this->height / 2) * sin(this->angle)),
+							this->center.y + ((this->width / 2) * sin(this->angle)) + ((this->height / 2) * cos(this->angle)));//top right
+
+	glm::vec2 BL = glm::vec2(this->center.x - ((this->width / 2) * cos(this->angle)) + ((this->height / 2) * sin(this->angle)),
+							this->center.y - ((this->width / 2) * sin(this->angle)) - ((this->height / 2) * cos(this->angle)));//bottom left
+
+	glm::vec2 BR = glm::vec2(this->center.x + ((this->width / 2) * cos(this->angle)) + ((this->height / 2) * sin(this->angle)),
+							this->center.y + ((this->width / 2) * sin(this->angle)) - ((this->height / 2) * cos(this->angle)));//bottom right
+	return std::array<glm::vec2, 4> {TL, TR, BL, BR};
+}
+
+
+/*
 void CollisionBox::push(double distance, double angleOffset)
 {
 	this->position = glm::vec2(	this->position.x + cos(this->angle) * distance,

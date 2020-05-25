@@ -32,4 +32,6 @@ namespace collutil {
 		return glm::vec2(cos(angle * point.x - origin.x) - sin(angle * (point.y - origin.y)),
 			sin(angle) * (point.x - origin.x) - cos(angle) * (point.y - origin.y));
 	}
+
+	//TODO create collision detection testing method
 }
