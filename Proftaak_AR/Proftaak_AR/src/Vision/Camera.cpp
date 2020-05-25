@@ -9,10 +9,16 @@
 
 RNG rng(12345);
 
+#ifdef _DEBUG
+const bool debugInfo = true;
+#else
+const bool debugInfo = false;
+#endif
+
 void Camera::ActivateCamera()
 {
-	VideoCapture cap(0);
 
+	VideoCapture cap(1);
 	if (!cap.isOpened())
 	{
 		std::cout << "Cannot open the video cam" << std::endl;
@@ -22,18 +28,18 @@ void Camera::ActivateCamera()
 	double dHeight = cap.get(CV_CAP_PROP_FRAME_HEIGHT);
 	std::cout << "Frame size : " << dWidth << " x " << dHeight << std::endl;
 
-	cv::namedWindow("MyVideo", CV_WINDOW_AUTOSIZE);
+	if ( debugInfo )
+	{
+		cv::namedWindow("Camera source", CV_WINDOW_AUTOSIZE);
+		cv::namedWindow("Red", CV_WINDOW_AUTOSIZE);
+	}
 
-	Mat frame;
-
-	Mat redDetection;
+	Mat frame, redDetection;
 	ColorDetection detection;
 
 	while (1)
 	{
 		bool bSuccess = cap.read(frame);
-
-		flip(frame, frame, 3);
 
 		if (!bSuccess)
 		{
@@ -41,18 +47,27 @@ void Camera::ActivateCamera()
 			break;
 		}
 
-		imshow("MyVideo", frame);
+		flip(frame, frame, 3);
 
 		redDetection = detection.redColorDetection(frame);
-		imshow("Red", redDetection);
 
-		detection.trackObject(frame, redDetection);
+		if (debugInfo)
+		{
+			imshow("Red", redDetection);
+			imshow("Camera source", frame);
+		}
+
+		float angle = calculateAngle(detection.trackObject(frame, redDetection));
 
 		drawRegionOfInterest(dWidth, dHeight, frame);
+
+		std::cout << "angle = " << angle << std::endl;
+
 
 		if (cv::waitKey(1) == 27)
 		{
 			std::cout << "esc key is pressed by user" << std::endl;
+			destroyAllWindows();
 			break;
 		}
 	}
@@ -60,36 +75,42 @@ void Camera::ActivateCamera()
 
 void Camera::drawRegionOfInterest(double width, double height, cv::Mat frame)
 {
-	int xCenter = (width - width / 2) / 2;
-	int yCenter = (height - height / 2) / 2;
-	int roiWidth = width / 2;
-	int roiHeight = height / 2;
-
-	//Draw a rectangle
-	//cv::Rect rec(xCenter, yCenter, roiWidth, roiHeight);
-	//rectangle(frame, rec, cv::Scalar(255), 1, 8, 0);
-
-	cv::Rect recUpperLeft(0, 0, roiWidth, roiHeight);
-	rectangle(frame, recUpperLeft, cv::Scalar(255), 1, 8, 0);
-
-	cv::Rect recUpperRight(320, 0, roiWidth, roiHeight);
-	rectangle(frame, recUpperRight, cv::Scalar(255), 1, 8, 0);
-
-	cv::Rect recLowerLeft(0, 240, roiWidth, roiHeight);
-	rectangle(frame, recLowerLeft, cv::Scalar(255), 1, 8, 0);
-
-	cv::Rect recLowerRight(320, 240, roiWidth, roiHeight);
-	rectangle(frame, recLowerRight, cv::Scalar(255), 1, 8, 0);
-
-	//cv::Rect recLowerRight(320, 0, roiWidth, roiHeight);
-	//rectangle(frame, recUpperRight, cv::Scalar(255), 1, 8, 0);
-
-	//cv::Rect rec4(160, 120, 20, 20);
-	//rectangle(frame, rec3, cv::Scalar(255), 1, 8, 0);
-
-	ColorDetection check;
-	check.checkIfInROI(recUpperLeft, recUpperRight, recLowerLeft, recLowerRight);
-
-	cv::namedWindow("Step 2 draw Rectangle", cv::WINDOW_AUTOSIZE);
-	cv::imshow("Step 2 draw Rectangle", frame);
+	if (debugInfo)
+	{
+		cv::namedWindow("center of gravity", cv::WINDOW_AUTOSIZE);
+		cv::imshow("center of gravity", frame);
+	}
 }
+
+float Camera::calculateAngle(std::vector<cv::Point2f> points)
+{
+	if (points.size() != 2)
+	{
+		if (debugInfo)
+		{
+			std::cout << "to many or to few points given. \nShould be 2 there are: " << points.size() << std::endl;
+		}
+		return 0.0f;
+	}
+	else 
+	{
+		if (debugInfo) 
+		{
+			std::cout << "point x1 , y1, x2, y2 " << points[0].x << " - " << points[0].y << " - " << points[1].x << " - " << points[1].y << std::endl;
+		}
+
+		float angle = 0.0f;
+		if (points[0].x > points[1].x)
+		{
+			angle = (points[0].y - points[1].y) / (points[0].x - points[1].x);
+		}
+		else
+		{
+			angle = (points[1].y - points[0].y) / (points[1].x - points[0].x);
+		}
+
+
+		return angle;
+	}
+}
+

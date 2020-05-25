@@ -8,6 +8,12 @@
 double x = 0.0;
 double y = 0.0;
 
+#ifdef _DEBUG
+const bool debugInfo = true;
+#else
+const bool debugInfo = false;
+#endif
+
 cv::Mat ColorDetection::redColorDetection(cv::Mat frame)
 {
 	cv::Mat hsvImage;
@@ -27,7 +33,7 @@ cv::Mat ColorDetection::redColorDetection(cv::Mat frame)
 	return mask;
 }
 
-void ColorDetection::trackObject(cv::Mat frame, cv::Mat threshold)
+std::vector<cv::Point2f> ColorDetection::trackObject(cv::Mat frame, cv::Mat threshold)
 {
 	cv::Mat temp;
 	threshold.copyTo(temp);
@@ -45,24 +51,21 @@ void ColorDetection::trackObject(cv::Mat frame, cv::Mat threshold)
 	for (int i = 0; i < contours.size(); i++) {
 		x = mu[i].m10 / mu[i].m00;
 		y = mu[i].m01 / mu[i].m00;
-		//mc[i] = cv::Point2f(x, y);
+		mc[i] = cv::Point2f(x, y);
 
 		//image, Center of circle, radius, color, thickness, line type, shift
 		circle(frame, cv::Point2f(x, y), 20, cv::Scalar(0, 255, 0), CV_FILLED, 8, 0);
-		//std::cout << "Coordinates: " << cv::Point(x, y) << std::endl;
+		if (debugInfo) 
+		{
+			std::cout << "Coordinates: " << cv::Point(x, y) << std::endl;
+		}
 	}
+
+	return mc;
 }
 
 void ColorDetection::checkIfInROI(cv::Rect rec, cv::Rect rec2, cv::Rect rec3, cv::Rect rec4)
 {
-	/*if (rec.contains(cv::Point2f(x, y)) && rec3.contains(cv::Point2f(x, y))) {
-		std::cout << "Go right" << std::endl;
-	}
-
-	if (rec2.contains(cv::Point2f(x, y)) && rec4.contains(cv::Point2f(x, y))) {
-		std::cout << "Go left" << std::endl;
-	}*/
-
 	if (rec.contains(cv::Point2f(x, y))) {
 		std::cout << "UpperLeft" << std::endl;
 	}

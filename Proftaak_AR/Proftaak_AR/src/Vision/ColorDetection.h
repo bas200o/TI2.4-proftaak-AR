@@ -8,6 +8,6 @@ class ColorDetection
 {
 public:
 	cv::Mat redColorDetection(cv::Mat frame);
-	void trackObject(cv::Mat frame, cv::Mat threshold);
+	std::vector<cv::Point2f> trackObject(cv::Mat frame, cv::Mat threshold);
 	void checkIfInROI(cv::Rect rec, cv::Rect rec2, cv::Rect rec3, cv::Rect rec4);
 };

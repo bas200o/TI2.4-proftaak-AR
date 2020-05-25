@@ -9,6 +9,8 @@ class Camera
 {
 private:
 	void drawRegionOfInterest(double width, double height, cv::Mat frame);
+	float calculateAngle(std::vector<cv::Point2f> points);
+
 
 public:
 	void ActivateCamera();
