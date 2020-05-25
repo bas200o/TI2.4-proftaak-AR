@@ -9,11 +9,11 @@ private:
 	//TODO Texture
 
 protected:
-	CollisionObject2D collisionObject;
+	//CollisionObject2D collisionObject;
 
 public:
 	//TODO add mesh, shader and texture in the future
-	GameObject(CollisionObject2D collisionObject);
+	GameObject();
 
 	/* Updates this gameobject */
 	void update();

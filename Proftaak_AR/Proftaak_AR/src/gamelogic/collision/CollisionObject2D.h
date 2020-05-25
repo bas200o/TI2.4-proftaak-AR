@@ -4,42 +4,21 @@
 #include "gamelogic/collision/CollisionBox.h"
 #include "gamelogic/collision/CollisionUtils.h"
 
-/* A single collision object can contain multiple "hitboxes" */
 class CollisionObject2D
 {
-private:
-	glm::vec2 position;
-	double angle;
-	std::vector<CollisionBox> collisionBoxes;
-	//TODO position of added collisionboxes should be relative to this object
-
-protected:
-	//bool collidesWith(CollisionObject2D collisionObject);
-
 public:
-	bool collidesWith(CollisionObject2D collisionObject); //make protected after testing
-
-	/* Creates a collision object 
-	The positions of the boxes should be absolute
-	Keep in mind that the angle starts at 0.0 degrees */
-	CollisionObject2D(glm::vec2 position, std::vector<CollisionBox> boxes);
+	virtual bool collidesWith(CollisionObject2D collisionObject); //make protected after testing
 
 	/*Checks collision between objects and moves them if necessary */
 	//void collisionCheck(CollisionObject2D collisionObject);//TODO
 
 	/* Rotates the collision object and all of its boxes around the position of the object*/
-	void rotate(double angleChange);
+	virtual void rotate(double angleChange);
 
 	/* Moves the collision object and all of its boxes*/
 	//void move();//TODO
 
 	/* Pushes this object in the direction it's facing, changed by the angle offset */
-	void push(double distance, double angleOffset);
-
-	glm::vec2 const& getPosition();
-
-	double const& getAngle();
-
-	std::vector<CollisionBox> const& getCollisionBoxes();
+	virtual void push(double distance, double angleOffset);
 };
 
