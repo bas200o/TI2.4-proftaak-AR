@@ -42,7 +42,7 @@ bool OpenGL::Window::show()
 	glfwSetMouseButtonCallback(this->glfwWindow, Window::mouseButtonCallback);
 	glfwSetKeyCallback(this->glfwWindow, Window::keyCallback);
 
-	setCursorMode(CursorMode::NORMAL);
+	setCursorMode(CursorMode::DISBALED);
 
 	return true;
 }

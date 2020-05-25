@@ -1,7 +1,6 @@
 #include "Application.h"
 
-Game::Application::Application()
-	: window(OpenGL::Window("Test", 1280, 720))
+Game::Application::Application() : window(OpenGL::Window("Test", 1280, 720))
 {
 	this->window.setEventHandler(this);
 }
@@ -13,11 +12,11 @@ bool Game::Application::run()
 	if (glewInit() != GLEW_OK)
 		return false;
 	window.setClearColor(glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
-
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
+	
 
 	std::vector<glm::vec3> positionsA = std::vector<glm::vec3>({
 		//Top
@@ -198,7 +197,10 @@ void Game::Application::handleEvent(OpenGL::Event& event)
 		case OpenGL::Event::EventType::WindowResizeEvent:
 		{
 			OpenGL::WindowResizeEvent& windowResizeEvent = static_cast<OpenGL::WindowResizeEvent&>(event);
-			this->text->onWindowResize(glm::vec2(windowResizeEvent.getWidth(), windowResizeEvent.getHeight()));
+			if (text != nullptr)
+			{
+				this->text->onWindowResize(glm::vec2(windowResizeEvent.getWidth(), windowResizeEvent.getHeight()));
+			}
 			break;
 		}
 		case OpenGL::Event::EventType::MouseMovedEvent:
