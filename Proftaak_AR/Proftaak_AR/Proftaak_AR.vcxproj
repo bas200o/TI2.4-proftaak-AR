@@ -113,25 +113,33 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp" />
+    <ClCompile Include="src\gamelogic\gameobjects\Kart.cpp" />
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\OpenGL\GameObject.cpp" />
     <ClCompile Include="src\OpenGL\Renderer\RawModel.cpp" />
     <ClCompile Include="src\OpenGL\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\OpenGL\Renderer\shading\Material.cpp" />
     <ClCompile Include="src\OpenGL\Renderer\shading\Shader.cpp" />
     <ClCompile Include="src\OpenGL\Renderer\shading\Texture2D.cpp" />
     <ClCompile Include="src\OpenGL\Renderer\Transform3D.cpp" />
     <ClCompile Include="src\OpenGL\Renderer\ui\text\Font.cpp" />
     <ClCompile Include="src\OpenGL\Renderer\ui\text\Text.cpp" />
+    <ClCompile Include="src\OpenGL\utility\modelloader\OBJModelLoader.cpp" />
     <ClCompile Include="src\OpenGL\windowhandling\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
+    <ClInclude Include="src\gamelogic\gameobjects\Kart.h" />
+    <ClInclude Include="src\OpenGL\GameObject.h" />
     <ClInclude Include="src\OpenGL\Renderer\RawModel.h" />
     <ClInclude Include="src\OpenGL\Renderer\Renderer.h" />
+    <ClInclude Include="src\OpenGL\Renderer\shading\Material.h" />
     <ClInclude Include="src\OpenGL\Renderer\shading\Shader.h" />
     <ClInclude Include="src\OpenGL\Renderer\shading\Texture2D.h" />
     <ClInclude Include="src\OpenGL\Renderer\Transform3D.h" />
     <ClInclude Include="src\OpenGL\Renderer\ui\text\Font.h" />
     <ClInclude Include="src\OpenGL\Renderer\ui\text\Text.h" />
+    <ClInclude Include="src\OpenGL\utility\modelloader\OBJModelLoader.h" />
     <ClInclude Include="src\OpenGL\windowhandling\EventHandler.h" />
     <ClInclude Include="src\OpenGL\windowhandling\Events.h" />
     <ClInclude Include="src\OpenGL\windowhandling\Window.h" />

@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <algorithm>
+#include <string>
 
 #include "../OpenGL/Renderer/shading/Shader.h"
 #include "Transform3D.h"
@@ -25,7 +26,10 @@ namespace OpenGL
 		std::vector<glm::vec3> normals; 
 		std::vector<glm::vec2> textureCoords;
 
+		std::string name;
+
 	public:
+		RawModel(std::string name, std::vector<glm::vec3> positions, std::vector<glm::vec3> normals, std::vector<glm::vec2> textureCoords, std::vector<unsigned int> indices);
 		RawModel(std::vector<glm::vec3> positions, std::vector<glm::vec3> normals, std::vector<glm::vec2> textureCoords, std::vector<unsigned int> indices);
 		
 		void unbind();
