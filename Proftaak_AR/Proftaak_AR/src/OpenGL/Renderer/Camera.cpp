@@ -5,7 +5,7 @@ OpenGL::Camera::Camera()
 	FOV = 45.0f;
 	nearClipPlaneDistance = 0.01f;
 	farClipPlaneDistance = 1000.0f;
-	mouseSensitivity = 1;
+	mouseSensitivity = 0.2;
 };
 
 void OpenGL::Camera::update(Window &window, float deltaTime) {

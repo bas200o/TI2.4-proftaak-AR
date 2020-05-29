@@ -57,6 +57,9 @@
     <ClCompile Include="src\gamelogic\gameobjects\Kart.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\OpenGL\Renderer\Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h">
@@ -107,11 +110,17 @@
     <ClInclude Include="src\gamelogic\gameobjects\Kart.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\OpenGL\Renderer\Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\vertex\V_Text.glsl" />
     <None Include="res\shaders\fragment\F_Text.glsl" />
     <None Include="..\..\..\..\..\Users\luket\Downloads\VertexShader.glsl" />
     <None Include="..\..\..\..\..\Users\luket\Downloads\FragmentShader.glsl" />
+    <None Include="res\shaders\fragment\F_Lighting.glsl" />
+    <None Include="res\shaders\vertex\V_Basic.glsl" />
+    <None Include="res\shaders\fragment\F_Kart.glsl" />
   </ItemGroup>
 </Project>

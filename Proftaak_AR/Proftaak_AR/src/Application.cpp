@@ -23,21 +23,40 @@ bool Game::Application::run()
 	OpenGL::RawModel model = modelLoader.getRawModel("Frame");
 	model.transform.translateBy(glm::vec3(0.0f, 0.0f, -4.0f));
 
-	OpenGL::Shader shader = OpenGL::Shader("res/shaders/vertex/VertexShader.glsl", "res/shaders/fragment/FragmentShader.glsl");
+	OpenGL::Shader shader = OpenGL::Shader("res/shaders/vertex/V_Basic.glsl", "res/shaders/fragment/F_Kart.glsl");
+
+	OpenGL::Texture2D diffuseTexture = OpenGL::Texture2D("res/textures/kart/Kart_Diffuse.png");
+	OpenGL::Texture2D specularTexture = OpenGL::Texture2D("res/textures/kart/Kart_Specular.png");
+	OpenGL::Texture2D diffuseTextureMask = OpenGL::Texture2D("res/textures/kart/Kart_Color_Mask.png");
+
+	shader.bind();
+	shader.setUniformVec3f("kartColor", glm::vec3(1.0f, 1.0f, 0.0f));
+	shader.setUniformBool("useDiffuseMap", true);
+	shader.setUniformBool("useSpecularMap", true);
+	shader.setUniformBool("useDiffuseMask", true);
+	shader.setUniform1i("diffuseMap", 0);
+	shader.setUniform1i("specularMap", 1);
+	shader.setUniform1i("diffuseMask", 2);
+	shader.unbind();
+
+	diffuseTexture.bind(0);
+	specularTexture.bind(1);
+	diffuseTextureMask.bind(2);
 
 	this->camera = OpenGL::Camera();
 	float counter = 0.0f;
+
 	while (!window.shouldClose())
 	{
 		window.updateDeltaTime();
 		float deltatime = window.getDeltaTime();
 		window.clear(OpenGL::Window::ClearType::COLOR_BUFFER | OpenGL::Window::ClearType::DEPTH_BUFFER);
 		//OpenGL::Renderer::draw(*this->text, this->window);
-		OpenGL::Renderer::draw3D(rawmodel, shader, this->window, camera);
+		//OpenGL::Renderer::draw3D(model, shader, this->window, camera);
 		this->camera.update(this->window, deltatime);
 
 		model.transform.rotateBy(glm::pi<float>() * deltatime, glm::vec3(0.0f, 1.0f, 0.0f));
-		OpenGL::Renderer::draw3D(model, shader, this->window);
+		OpenGL::Renderer::draw3D(model, shader, this->window, camera);
 
 		window.update();
 	}
