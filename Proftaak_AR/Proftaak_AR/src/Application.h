@@ -14,6 +14,8 @@
 #include "OpenGL/Renderer/RawModel.h"
 #include "OpenGL/Renderer/Camera.h"
 
+#include "OpenGL/utility/modelloader/OBJModelLoader.h"
+
 namespace Game
 {
 	class Application : public OpenGL::EventHandler

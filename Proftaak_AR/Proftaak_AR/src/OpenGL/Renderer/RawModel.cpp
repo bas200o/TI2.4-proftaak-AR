@@ -1,8 +1,14 @@
 #include"RawModel.h"
 
 
+OpenGL::RawModel::RawModel(std::string name, std::vector<glm::vec3> positions, std::vector<glm::vec3> normals, std::vector<glm::vec2> textureCoords, std::vector<unsigned int> indices)
+	: RawModel(positions, normals, textureCoords, indices)
+{
+	this->name = name;
+}
+
 OpenGL::RawModel::RawModel(std::vector<glm::vec3> positions, std::vector<glm::vec3> normals, std::vector<glm::vec2> textureCoords, std::vector<unsigned int> indices)
-	:positions(positions), normals(normals), textureCoords(textureCoords), indices(indices)
+	:positions(positions), normals(normals), textureCoords(textureCoords), indices(indices), name("")
 {
     genBuffers();
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);

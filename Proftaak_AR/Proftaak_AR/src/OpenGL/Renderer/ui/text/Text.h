@@ -38,8 +38,6 @@ namespace OpenGL
 		unsigned int vertexArrayId;
 		unsigned int indicesCount;
 
-		friend class Renderer;
-
 	public:
 		Text(const std::string value, std::shared_ptr<Font> font, glm::vec2 position, glm::vec3 color, const unsigned int textSize, const float maxLineSize, const unsigned int maxNumLines, glm::vec2 windowSize);
 		~Text();
@@ -54,6 +52,8 @@ namespace OpenGL
 
 		void bind();
 		void unbind();
+
+		inline unsigned int getIndicesCount() { return this->indicesCount; }
 
 	private:
 		void buildMesh();

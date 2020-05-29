@@ -6,7 +6,7 @@ void OpenGL::Renderer::draw(Text& text, Window& window)
 
 	text.bind();
 
-	glDrawElements(GL_TRIANGLES, text.indicesCount, GL_UNSIGNED_INT, nullptr);
+	glDrawElements(GL_TRIANGLES, text.getIndicesCount(), GL_UNSIGNED_INT, nullptr);
 
 	text.unbind();
 }
