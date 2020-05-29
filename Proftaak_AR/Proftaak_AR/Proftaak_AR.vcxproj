@@ -112,6 +112,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\OpenGL\Renderer\ui\ButtonGroup.cpp" />
+    <ClCompile Include="src\OpenGL\Renderer\ui\LinkedButton.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\OpenGL\Renderer\Camera.cpp" />
     <ClCompile Include="src\Main.cpp" />
@@ -125,6 +127,8 @@
     <ClCompile Include="src\OpenGL\windowhandling\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\OpenGL\Renderer\ui\ButtonGroup.h" />
+    <ClInclude Include="src\OpenGL\Renderer\ui\LinkedButton.h" />
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\OpenGL\Renderer\Camera.h" />
     <ClInclude Include="src\OpenGL\Renderer\RawModel.h" />
