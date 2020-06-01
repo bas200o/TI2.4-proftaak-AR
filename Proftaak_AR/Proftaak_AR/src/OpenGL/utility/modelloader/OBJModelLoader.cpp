@@ -33,7 +33,7 @@ void OpenGL::OBJModelLoader::loadModel(std::string filePath)
 		{
 			if (mesh != nullptr)
 			{
-				mesh->Vertices = vertices;
+				mesh->setVertices(vertices);
 				mesh->Indices = loadedIndices;
 
 				loadedIndices.clear();
@@ -65,7 +65,7 @@ void OpenGL::OBJModelLoader::loadModel(std::string filePath)
 
 	if (mesh != nullptr)
 	{
-		mesh->Vertices = vertices;
+		mesh->setVertices(vertices);
 		mesh->Indices = loadedIndices;
 
 		loadedPositions.clear();
@@ -83,6 +83,17 @@ void OpenGL::OBJModelLoader::clearLoadedMeshes()
 	this->loadedMeshes.clear();
 }
 
+OpenGL::OBJModelLoader::Mesh* OpenGL::OBJModelLoader::getLoadedMesh(const std::string name)
+{
+	for (int i = 0; i < this->loadedMeshes.size(); i++)
+	{
+		if (this->loadedMeshes[i].name == name)
+			return &this->loadedMeshes[i];
+	}
+
+	return nullptr;
+}
+
 void OpenGL::OBJModelLoader::processVertex(std::string vertexData, std::vector<Vertex>& vertices, std::vector<Vec3>& positions, std::vector<Vec3>& normals, std::vector<Vec2>& uvCoordinates)
 {
 	std::vector<std::string> indexData = StringUtil::split(vertexData, "/");
@@ -93,49 +104,4 @@ void OpenGL::OBJModelLoader::processVertex(std::string vertexData, std::vector<V
 	vertex.UVCoordinate = uvCoordinates[std::stoi(indexData[1]) - 1];
 
 	vertices.push_back(vertex);
-}
-
-std::vector<OpenGL::RawModel> OpenGL::OBJModelLoader::getRawModels()
-{
-	std::vector<OpenGL::RawModel> meshes = std::vector<OpenGL::RawModel>();
-
-	for (OpenGL::OBJModelLoader::Mesh loadedMesh : this->loadedMeshes)
-	{
-		std::vector<glm::vec3> positions = std::vector<glm::vec3>();
-		std::vector<glm::vec3> normals = std::vector<glm::vec3>();
-		std::vector<glm::vec2> uvCoordinates = std::vector<glm::vec2>();
-
-		for (OpenGL::OBJModelLoader::Vertex vertex : loadedMesh.Vertices)
-		{
-			positions.push_back(glm::vec3(vertex.Position.X, vertex.Position.Y, vertex.Position.Z));
-			normals.push_back(glm::vec3(vertex.Normal.X, vertex.Normal.Y, vertex.Normal.Z));
-			uvCoordinates.push_back(glm::vec2(vertex.UVCoordinate.X, vertex.UVCoordinate.Y));
-		}
-
-		meshes.push_back(OpenGL::RawModel(loadedMesh.name, positions, normals, uvCoordinates, loadedMesh.Indices));
-	}
-
-	return meshes;
-}
-
-OpenGL::RawModel OpenGL::OBJModelLoader::getRawModel(std::string name)
-{
-	for (OpenGL::OBJModelLoader::Mesh loadedMesh : this->loadedMeshes)
-	{
-		if (loadedMesh.name == name)
-		{
-			std::vector<glm::vec3> positions = std::vector<glm::vec3>();
-			std::vector<glm::vec3> normals = std::vector<glm::vec3>();
-			std::vector<glm::vec2> uvCoordinates = std::vector<glm::vec2>();
-
-			for (OpenGL::OBJModelLoader::Vertex vertex : loadedMesh.Vertices)
-			{
-				positions.push_back(glm::vec3(vertex.Position.X, vertex.Position.Y, vertex.Position.Z));
-				normals.push_back(glm::vec3(vertex.Normal.X, vertex.Normal.Y, vertex.Normal.Z));
-				uvCoordinates.push_back(glm::vec2(vertex.UVCoordinate.X, vertex.UVCoordinate.Y));
-			}
-
-			return OpenGL::RawModel(loadedMesh.name, positions, normals, uvCoordinates, loadedMesh.Indices);
-		}
-	}
 }

@@ -1,6 +1,8 @@
 #pragma once
 
 #include <memory>
+#include <vector>
+#include <algorithm>
 
 #include <glm/gtx/transform.hpp>
 
@@ -19,12 +21,14 @@ namespace OpenGL
 		glm::vec3 scale;
 
 		// Parent of the transform (can be a nullptr is no parent is required)
-		std::shared_ptr<Transform3D> parent;
+		Transform3D* parent;
+		std::vector<Transform3D*> children;
 
 	public:
 		Transform3D();
-		Transform3D(std::shared_ptr<Transform3D> parent);
+		Transform3D(Transform3D& parent);
 		Transform3D(const glm::vec3 position);
+		~Transform3D();
 
 		// Methods for translating, rotating and scaling the transform
 		void translateBy(const glm::vec3 translate);
@@ -50,7 +54,8 @@ namespace OpenGL
 		void setLocalScale(const float scale);
 
 		// Set the parent of the transform
-		void setParent(std::shared_ptr<Transform3D> transform);
+		void setParent(Transform3D& transform);
+		void clearParent();
 
 		// Getters for local and world transform
 		glm::mat4 getLocalTransform() const;
@@ -71,5 +76,9 @@ namespace OpenGL
 
 		// Operator overload for creating a transfrom from a transformation matrix
 		void operator=(glm::mat4 const& matrix);
+
+	private:
+		void addChild(Transform3D& transform);
+		void clearChild(Transform3D& transform);
 	};
 }

@@ -12,9 +12,6 @@ namespace OpenGL
 {
 	class RawModel
 	{	
-	public:
-		Transform3D transform;
-
 	private: 
 		unsigned int vaoID;
 		unsigned int vertexCount;

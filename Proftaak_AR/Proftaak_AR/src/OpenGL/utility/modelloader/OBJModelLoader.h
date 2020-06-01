@@ -13,7 +13,7 @@ namespace OpenGL
 {
 	class OBJModelLoader
 	{
-	private:
+	public:
 		struct Vec3
 		{
 			Vec3()
@@ -51,8 +51,20 @@ namespace OpenGL
 				: name(name) {};
 
 			std::string name;
-			std::vector<Vertex> Vertices;
+			std::vector<glm::vec3> Positions;
+			std::vector<glm::vec3> Normals;
+			std::vector<glm::vec2> UVCoordinates;
 			std::vector<unsigned int> Indices;
+
+			inline void setVertices(std::vector<Vertex> vertices)
+			{
+				for (Vertex vertex : vertices)
+				{
+					this->Positions.push_back(glm::vec3(vertex.Position.X, vertex.Position.Y, vertex.Position.Z));
+					this->Normals.push_back(glm::vec3(vertex.Normal.X, vertex.Normal.Y, vertex.Normal.Z));
+					this->UVCoordinates.push_back(glm::vec2(vertex.UVCoordinate.X, vertex.UVCoordinate.Y));
+				}
+			}
 		};
 
 	private:
@@ -65,8 +77,8 @@ namespace OpenGL
 		void loadModel(std::string filePath);
 		void clearLoadedMeshes();
 
-		std::vector<RawModel> getRawModels();
-		RawModel getRawModel(std::string name);
+		inline std::vector<Mesh> getLoadedMeshes() { return this->loadedMeshes; }
+		Mesh* getLoadedMesh(const std::string name);
 
 	private:
 		void processVertex(std::string vertexData, std::vector<Vertex>& vertices, std::vector<Vec3>& positions, std::vector<Vec3>& normals, std::vector<Vec2>& uvCoordinates);

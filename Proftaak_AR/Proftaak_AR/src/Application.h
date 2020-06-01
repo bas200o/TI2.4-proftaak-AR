@@ -16,13 +16,15 @@
 
 #include "OpenGL/utility/modelloader/OBJModelLoader.h"
 
+#include "gamelogic/gameobjects/Kart.h"
+
 namespace Game
 {
 	class Application : public OpenGL::EventHandler
 	{
 	private:
 		OpenGL::Window window;
-		OpenGL::Text* text;
+		//OpenGL::Text* text;
 		OpenGL::Camera camera;
 
 	public:
