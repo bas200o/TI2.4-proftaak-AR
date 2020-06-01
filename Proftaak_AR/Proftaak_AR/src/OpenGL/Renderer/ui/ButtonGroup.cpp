@@ -9,7 +9,9 @@ ButtonGroup::ButtonGroup(std::vector<LinkedButton> buttons)
 
 void ButtonGroup::update(OpenGL::Window& window, float deltaTime)
 {
-	this->keypressCooldown -= deltaTime;
+	if (this->keypressCooldown > -50.0f) {
+		this->keypressCooldown -= deltaTime;
+	}
 
 	if (keypressCooldown <= 0.0f) {
 		if (window.isKeyDown(GLFW_KEY_W) || window.isKeyDown(GLFW_KEY_UP)) {
@@ -38,7 +40,7 @@ void ButtonGroup::update(OpenGL::Window& window, float deltaTime)
 
 void ButtonGroup::draw()
 {
-	for (LinkedButton button : this->buttons) 
+	for (LinkedButton button : this->buttons)
 	{
 		button.draw();
 	}
