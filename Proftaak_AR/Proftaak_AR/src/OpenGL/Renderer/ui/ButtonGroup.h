@@ -3,6 +3,7 @@
 #include <vector>
 #include <OpenGL\windowhandling\Window.h>
 
+/*This class represents a group of LinkedButtons*/
 class ButtonGroup
 {
 private:
@@ -21,14 +22,19 @@ private:
 
 	void confirm();
 
+	/*Checks if any LinkedButtons do not have a links and gives a warning if one does*/
+	void unlinkedWarning();
+
 public:
 	/*Creates a ButtonGroup
 	The first element in the vector will be selected at first*/
 	ButtonGroup(std::vector<LinkedButton> buttons);
 
+	/*Checks if any keys are pressed and changes the current button if necessary*/
 	void update(OpenGL::Window& window, float deltaTime);
 
+	/*Calls the draw function of all LinkedButtons managed by this object
+	The ButtonGroup itself does not have a graphical representation to draw*/
 	void draw();
-
 };
 

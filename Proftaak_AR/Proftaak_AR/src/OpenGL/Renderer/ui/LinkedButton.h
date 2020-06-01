@@ -2,7 +2,10 @@
 #include <glm/vec2.hpp>
 #include <OpenGL\windowhandling\Window.h>
 
-
+/*This class represents a button that is linked to other buttons
+The links should be set before the button is used
+Not all links have to be set
+The button must be in a ButtonGroup for the links to be functional*/
 class LinkedButton
 {
 public:
@@ -22,6 +25,7 @@ public:
 
 	void pressButton();
 
+	//links
 	LinkedButton* upButton;
 	LinkedButton* downButton;
 	LinkedButton* leftButton;
