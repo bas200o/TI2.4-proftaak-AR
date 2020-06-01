@@ -2,14 +2,13 @@
 
 LinkedButton::LinkedButton(const char* text, glm::vec2 position, int width, int height)
 {
+	this->text = text;
+	this->position = position;
+	this->width = width;
+	this->height = height;
 }
 
-bool LinkedButton::setUpButton(LinkedButton* upButton)
+void LinkedButton::draw()
 {
-	if (upButton == this) 
-	{
-		return false;
-	}
-	this->upButton = upButton;
-	return true;
+	//TODO implement
 }
