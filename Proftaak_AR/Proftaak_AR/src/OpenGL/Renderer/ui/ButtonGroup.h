@@ -19,6 +19,8 @@ private:
 
 	bool right();
 
+	void confirm();
+
 public:
 	/*Creates a ButtonGroup
 	The first element in the vector will be selected at first*/
@@ -28,6 +30,5 @@ public:
 
 	void draw();
 
-	//LinkedButton* confirm();
 };
 

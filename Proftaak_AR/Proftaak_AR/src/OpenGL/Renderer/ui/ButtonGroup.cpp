@@ -86,3 +86,7 @@ bool ButtonGroup::right()
 	this->currentButton = this->currentButton->rightButton;
 	return true;
 }
+
+void ButtonGroup::confirm() {
+	this->currentButton->pressButton();
+}
