@@ -2,9 +2,10 @@
 #include <OpenGL\Renderer\ui\LinkedButton.h>
 #include <vector>
 #include <OpenGL\windowhandling\Window.h>
+#include "OpenGL\Renderer\ui\ActiveUI.h"
 
 /*This class represents a group of LinkedButtons*/
-class ButtonGroup
+class ButtonGroup : public ActiveUI
 {
 private:
 	LinkedButton* currentButton;
@@ -31,10 +32,10 @@ public:
 	ButtonGroup(std::vector<LinkedButton> buttons);
 
 	/*Checks if any keys are pressed and changes the current button if necessary*/
-	void update(OpenGL::Window& window, float deltaTime);
+	virtual void update(OpenGL::Window& window, float deltaTime) override;
 
 	/*Calls the draw function of all LinkedButtons managed by this object
 	The ButtonGroup itself does not have a graphical representation to draw*/
-	void draw();
+	virtual void draw() override;
 };
 

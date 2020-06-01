@@ -164,6 +164,7 @@ bool Game::Application::run()
 
 	this->camera = OpenGL::Camera();
 	float counter = 0.0f;
+	this->currentUI = &NoUI();//
 	while (!window.shouldClose())
 	{
 		window.updateDeltaTime();

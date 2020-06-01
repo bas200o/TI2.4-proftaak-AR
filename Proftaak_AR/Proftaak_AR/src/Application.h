@@ -14,6 +14,9 @@
 #include "OpenGL/Renderer/RawModel.h"
 #include "OpenGL/Renderer/Camera.h"
 
+#include <OpenGL/Renderer/ui/ActiveUI.h>
+#include <OpenGL/Renderer/ui/NoUI.h>
+
 namespace Game
 {
 	class Application : public OpenGL::EventHandler
@@ -22,6 +25,7 @@ namespace Game
 		OpenGL::Window window;
 		OpenGL::Text* text;
 		OpenGL::Camera camera;
+		ActiveUI* currentUI;//
 
 	public:
 		Application();
