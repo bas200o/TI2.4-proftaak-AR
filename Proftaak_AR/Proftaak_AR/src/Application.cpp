@@ -29,31 +29,28 @@ bool Game::Application::run()
 
 	//OpenGL::Shader shader = OpenGL::Shader("res/shaders/vertex/V_Basic.glsl", "res/shaders/fragment/F_Kart.glsl");
 
-	unsigned int shaderId = renderer.registerShader("res/shaders/vertex/V_Basic.glsl", "res/shaders/fragment/F_Kart.glsl");
-	std::weak_ptr<OpenGL::Shader> shader = renderer.getRegisteredShader(shaderId);
+	//unsigned int shaderId = renderer.registerShader("res/shaders/vertex/V_Basic.glsl", "res/shaders/fragment/F_Kart.glsl");
+	//std::weak_ptr<OpenGL::Shader> shader = renderer.getRegisteredShader(shaderId);
 
-	//OpenGL::Texture2D diffuseTexture = OpenGL::Texture2D("res/textures/kart/Kart_Diffuse.png");
-	//OpenGL::Texture2D specularTexture = OpenGL::Texture2D("res/textures/kart/Kart_Specular.png");
-	//OpenGL::Texture2D diffuseTextureMask = OpenGL::Texture2D("res/textures/kart/Kart_Color_Mask.png");
-	std::weak_ptr<OpenGL::Texture2D> diffuseTexture = renderer.getRegisteredTexture(renderer.registerTexture("res/textures/kart/Kart_Diffuse.png"));
-	std::weak_ptr<OpenGL::Texture2D> specularTexture = renderer.getRegisteredTexture(renderer.registerTexture("res/textures/kart/Kart_Specular.png"));
-	std::weak_ptr<OpenGL::Texture2D> diffuseTextureMask = renderer.getRegisteredTexture(renderer.registerTexture("res/textures/kart/Kart_Color_Mask.png"));
+	//std::weak_ptr<OpenGL::Texture2D> diffuseTexture = renderer.getRegisteredTexture(renderer.registerTexture("res/textures/kart/Kart_Diffuse.png"));
+	//std::weak_ptr<OpenGL::Texture2D> specularTexture = renderer.getRegisteredTexture(renderer.registerTexture("res/textures/kart/Kart_Specular.png"));
+	//std::weak_ptr<OpenGL::Texture2D> diffuseTextureMask = renderer.getRegisteredTexture(renderer.registerTexture("res/textures/kart/Kart_Color_Mask.png"));
 
-	shader.lock()->bind();
-	shader.lock()->setUniformVec3f("kartColor", glm::vec3(1.0f, 1.0f, 0.0f));
-	shader.lock()->setUniformBool("useDiffuseMap", true);
-	shader.lock()->setUniformBool("useSpecularMap", true);
-	shader.lock()->setUniformBool("useDiffuseMask", true);
-	shader.lock()->setUniform1i("diffuseMap", 0);
-	shader.lock()->setUniform1i("specularMap", 1);
-	shader.lock()->setUniform1i("diffuseMask", 2);
-	shader.lock()->unbind();
+	//shader.lock()->bind();
+	//shader.lock()->setUniformVec3f("kartColor", glm::vec3(1.0f, 1.0f, 0.0f));
+	//shader.lock()->setUniformBool("useDiffuseMap", true);
+	//shader.lock()->setUniformBool("useSpecularMap", true);
+	//shader.lock()->setUniformBool("useDiffuseMask", true);
+	//shader.lock()->setUniform1i("diffuseMap", 0);
+	//shader.lock()->setUniform1i("specularMap", 1);
+	//shader.lock()->setUniform1i("diffuseMask", 2);
+	//shader.lock()->unbind();
 
-	diffuseTexture.lock()->bind(0);
-	specularTexture.lock()->bind(1);
-	diffuseTextureMask.lock()->bind(2);
+	//diffuseTexture.lock()->bind(0);
+	//specularTexture.lock()->bind(1);
+	//diffuseTextureMask.lock()->bind(2);
 
-	GameLogic::Kart kart(glm::vec3(0.0f, 1.0f, 0.0f));
+	kart = new GameLogic::Kart(glm::vec3(0.0f, 0.0f, 1.0f), 1.0f, 5.0f, 2.0f, 4.0f);
 
 	this->camera = OpenGL::Camera();
 	float counter = 0.0f;
@@ -67,9 +64,10 @@ bool Game::Application::run()
 		//OpenGL::Renderer::draw3D(model, shader, this->window, camera);
 		this->camera.update(this->window, deltatime);
 
-		kart.draw(this->window, this->camera);
+		kart->update(deltatime);
+		kart->draw(this->window, this->camera);
 
-		kart.transform.rotateBy(glm::pi<float>() * deltatime, glm::vec3(0.0f, 1.0f, 0.0f));
+		//kart->transform.rotateBy(glm::pi<float>() * deltatime, glm::vec3(0.0f, 1.0f, 0.0f));
 		//OpenGL::Renderer::draw3D(transform, model, *shader.lock(), this->window, camera);
 
 		window.update();
@@ -82,11 +80,33 @@ void Game::Application::handleEvent(OpenGL::Event& event)
 {
 	switch (event.getEventType())
 	{
+		case OpenGL::Event::EventType::KeyPressedEvent:
+		{
+			OpenGL::KeyPressedEvent& keyPressedEvent = static_cast<OpenGL::KeyPressedEvent&>(event);
+			if (keyPressedEvent.getKey() == GLFW_KEY_UP)
+				this->kart->setIsAccelarating(true);
+			if (keyPressedEvent.getKey() == GLFW_KEY_DOWN)
+				this->kart->setIsBraking(true);
+			if (keyPressedEvent.getKey() == GLFW_KEY_LEFT)
+				this->kart->steer(20.0f);
+			if (keyPressedEvent.getKey() == GLFW_KEY_RIGHT)
+				this->kart->steer(-20.0f);
+			break;
+		}
 		case OpenGL::Event::EventType::KeyReleasedEvent:
 		{
 			OpenGL::KeyReleasedEvent& keyReleasedEvent = static_cast<OpenGL::KeyReleasedEvent&>(event);
 			if (keyReleasedEvent.getKey() == GLFW_KEY_ESCAPE)
 				this->window.close();
+
+			if (keyReleasedEvent.getKey() == GLFW_KEY_UP)
+				this->kart->setIsAccelarating(false);
+			if (keyReleasedEvent.getKey() == GLFW_KEY_DOWN)
+				this->kart->setIsBraking(false);
+			if (keyReleasedEvent.getKey() == GLFW_KEY_LEFT)
+				this->kart->steer(0.0f);
+			if (keyReleasedEvent.getKey() == GLFW_KEY_RIGHT)
+				this->kart->steer(0.0f);
 			break;
 		}
 		case OpenGL::Event::EventType::WindowResizeEvent:

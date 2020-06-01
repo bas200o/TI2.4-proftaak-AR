@@ -12,8 +12,20 @@ void OpenGL::GameObject::draw(Window& window, Camera& camera)
 {
 	if (!this->shader.expired())
 	{
+		setRequiredUniforms();
+
+		// Bind textures
+		for (int i = 0; i < this->textures.size(); i++)
+			if (!this->textures[i].expired())
+				this->textures[i].lock()->bind(i);
+
 		for (TMPair tmPair : this->models)
 			if(!tmPair.model.expired())
 				Renderer::draw3D(*tmPair.transform, *tmPair.model.lock(), *this->shader.lock(), window, camera);
+
+		// Unbind textures
+		for (int i = 0; i < this->textures.size(); i++)
+			if (!this->textures[i].expired())
+				this->textures[i].lock()->unbind();
 	}
 }

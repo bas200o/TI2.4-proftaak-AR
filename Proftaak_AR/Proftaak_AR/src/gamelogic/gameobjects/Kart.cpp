@@ -1,10 +1,18 @@
 #include "Kart.h"
 
-GameLogic::Kart::Kart(const glm::vec3 color)
-	: color(color)
+GameLogic::Kart::Kart(const glm::vec3 color, const float wheelRadius, const float maxSpeed, const float accelaration, const float brakeForce)
+	: color(color), maxSpeed(maxSpeed), accelaration(accelaration), brakeForce(brakeForce), steeringAngle(0.0f), maxSteeringAngle(glm::radians(25.0f)), currentSpeed(0.0f), drag(2.0f),
+	isAccelarating(false), isBraking(false)
 {
+	this->wheelCircumference = (wheelRadius * 2) * glm::pi<float>();
+
+	// Setup meshes and transforms
 	OpenGL::Renderer& renderer = OpenGL::Renderer::getInstance();
 	this->shader = renderer.getRegisteredShader(renderer.registerShader("res/shaders/vertex/V_Basic.glsl", "res/shaders/fragment/F_Kart.glsl"));
+
+	this->textures.push_back(renderer.getRegisteredTexture(renderer.registerTexture("res/textures/kart/Kart_Diffuse.png")));
+	this->textures.push_back(renderer.getRegisteredTexture(renderer.registerTexture("res/textures/kart/Kart_Specular.png")));
+	this->textures.push_back(renderer.getRegisteredTexture(renderer.registerTexture("res/textures/kart/Kart_Color_Mask.png")));
 
 	OpenGL::OBJModelLoader modelLoader = OpenGL::OBJModelLoader();
 	if (renderer.getRegisteredModel("Frame").expired())
@@ -51,7 +59,77 @@ GameLogic::Kart::Kart(const glm::vec3 color)
 	this->models.push_back({ &brakePedalTransform, renderer.getRegisteredModel("Brake_Pedal") });
 }
 
+void GameLogic::Kart::steer(const float angle)
+{
+	float newAngle = glm::radians(angle);
+	if (glm::abs(newAngle) > this->maxSteeringAngle)
+	{
+		if (newAngle < 0.0f)
+			this->steeringAngle = -this->maxSteeringAngle;
+		else
+			this->steeringAngle = this->maxSteeringAngle;
+	}
+	else
+		this->steeringAngle = newAngle;
+}
+
 void GameLogic::Kart::update(float deltatime)
 {
+	if (this->isBraking)
+		this->currentSpeed -= this->brakeForce * deltatime;
 
+	if (this->isAccelarating)
+		this->currentSpeed += (this->accelaration * deltatime);
+	else
+		this->currentSpeed -= this->drag * deltatime;
+
+	if (this->currentSpeed > this->maxSpeed)
+		this->currentSpeed = this->maxSpeed;
+	if (this->currentSpeed < 0.0f)
+		this->currentSpeed = 0.0f;
+
+	float wheelRotationSpeed = ((this->currentSpeed / this->wheelCircumference) * (glm::pi<float>() * 2)) * deltatime;
+	rotateWheels(wheelRotationSpeed);
+	float steerSpeed = (this->steeringAngle * this->currentSpeed) * deltatime;
+
+	this->transform.rotateBy(steerSpeed, glm::vec3(0.0f, 1.0f, 0.0f));
+	this->transform.translateBy(this->transform.getFront() * (this->currentSpeed * deltatime));
+}
+
+void GameLogic::Kart::rotateWheels(float wheelRotationSpeed)
+{
+	this->currentWheelAngle += wheelRotationSpeed;
+	if (this->currentWheelAngle > (glm::pi<float>() * 2))
+		this->currentWheelAngle -= (glm::pi<float>() * 2);
+
+	// Steering wheel
+	this->steeringWheelTransform.setLocalRotation(this->steeringAngle, glm::vec3(0.0f, 1.0f, 0.0f));
+	this->steeringWheelTransform.rotateBy(glm::radians(45.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+
+	// Front wheels
+	this->leftFrontWheelTransform.setLocalRotation(this->currentWheelAngle, glm::vec3(-1.0f, 0.0f, 0.0f));
+	this->rightFrontWheelTransform.setLocalRotation(this->currentWheelAngle, glm::vec3(-1.0f, 0.0f, 0.0f));
+	this->leftFrontWheelTransform.rotateBy(this->steeringAngle, glm::vec3(0.0f, 1.0f, 0.0f));
+	this->rightFrontWheelTransform.rotateBy(this->steeringAngle, glm::vec3(0.0f, 1.0f, 0.0f));
+
+	//this->leftFrontWheelTransform.setLocalRotation(this->steeringAngle, glm::vec3(0.0f, 1.0f, 0.0f));
+	//this->rightFrontWheelTransform.setLocalRotation(this->steeringAngle, glm::vec3(0.0f, 1.0f, 0.0f));
+	//this->leftFrontWheelTransform.rotateBy(wheelRotationSpeed, glm::vec3(-1.0f, 0.0f, 0.0f));
+	//this->rightFrontWheelTransform.rotateBy(wheelRotationSpeed, glm::vec3(-1.0f, 0.0f, 0.0f));
+
+	// Back wheels
+	this->backWheelsTransform.rotateBy(wheelRotationSpeed, glm::vec3(-1.0f, 0.0f, 0.0f));
+}
+
+void GameLogic::Kart::setRequiredUniforms()
+{
+	this->shader.lock()->bind();
+	this->shader.lock()->setUniformVec3f("kartColor", this->color);
+	this->shader.lock()->setUniformBool("useDiffuseMap", true);
+	this->shader.lock()->setUniformBool("useSpecularMap", true);
+	this->shader.lock()->setUniformBool("useDiffuseMask", true);
+	this->shader.lock()->setUniform1i("diffuseMap", 0);
+	this->shader.lock()->setUniform1i("specularMap", 1);
+	this->shader.lock()->setUniform1i("diffuseMask", 2);
+	this->shader.lock()->unbind();
 }
