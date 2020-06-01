@@ -173,6 +173,8 @@ bool Game::Application::run()
 		//OpenGL::Renderer::draw(*this->text, this->window);
 		OpenGL::Renderer::draw3D(rawmodel, shader, this->window, camera);
 		this->camera.update(this->window, deltatime);
+		
+		this->currentUI->update(this->window, deltatime);//
 
 		//rawmodel.transform.rotateBy(glm::pi<float>() * deltatime, glm::vec3(0.0f, 0.0f, 1.0f));
 		//rawmodel.transform.translateBy(glm::vec3(0.0f, 0.0f, -1.0f) * deltatime);
