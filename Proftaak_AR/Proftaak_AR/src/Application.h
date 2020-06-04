@@ -24,7 +24,6 @@ namespace Game
 	{
 	private:
 		OpenGL::Window window;
-		//OpenGL::Text* text;
 		OpenGL::Camera camera;
 		GameLogic::Kart* kart;
 
