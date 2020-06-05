@@ -66,6 +66,9 @@
     <ClCompile Include="src\Vision\VisionCamera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\gamelogic\gameobjects\Track.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h">
@@ -123,6 +126,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Vision\VisionCamera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gamelogic\gameobjects\Track.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

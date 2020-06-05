@@ -16,20 +16,21 @@ namespace OpenGL
 	class GameObject
 	{
 	protected:
-		struct TMPair
+		struct TMTPair
 		{
 			OpenGL::Transform3D* transform;
 			std::weak_ptr<RawModel> model;
+			std::vector<std::weak_ptr<Texture2D>> textures;
 		};
 
 	public:
 		Transform3D transform;
 
 	protected:
-		std::vector<TMPair> models;
+		std::vector<TMTPair> models;
 		std::weak_ptr<Shader> shader;
 
-		std::vector<std::weak_ptr<Texture2D>> textures;
+		//std::vector<std::weak_ptr<Texture2D>> textures;
 
 	public:
 		GameObject();
@@ -38,6 +39,6 @@ namespace OpenGL
 		virtual void update(float deltatime) = 0;
 
 	private:
-		virtual void setRequiredUniforms() = 0;
+		virtual void setRequiredUniforms(TMTPair& tmPair) = 0;
 	};
 }

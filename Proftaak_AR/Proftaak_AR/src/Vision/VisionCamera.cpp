@@ -119,4 +119,3 @@ float Vision::VisionCamera::calculateAngle(std::vector<cv::Point2f> points)
 		return angle;
 	}
 }
-

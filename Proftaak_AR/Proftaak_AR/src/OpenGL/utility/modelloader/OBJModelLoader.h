@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include <memory>
+#include <unordered_map>
 
 #include "utilities/StringUtil.h"
 #include "../../Renderer/RawModel.h"
@@ -51,6 +52,7 @@ namespace OpenGL
 				: name(name) {};
 
 			std::string name;
+			std::string textureFilePath;
 			std::vector<glm::vec3> Positions;
 			std::vector<glm::vec3> Normals;
 			std::vector<glm::vec2> UVCoordinates;
@@ -69,18 +71,20 @@ namespace OpenGL
 
 	private:
 		std::vector<Mesh> loadedMeshes;
+		std::unordered_map<std::string, std::string> loadedTexturePaths;
 
 	public:
 		OBJModelLoader();
 		~OBJModelLoader();
 
-		void loadModel(std::string filePath);
-		void clearLoadedMeshes();
+		void loadModel(std::string directoryPath, std::string filename);
+		void clearLoadedResources();
 
 		inline std::vector<Mesh> getLoadedMeshes() { return this->loadedMeshes; }
 		Mesh* getLoadedMesh(const std::string name);
 
 	private:
 		void processVertex(std::string vertexData, std::vector<Vertex>& vertices, std::vector<Vec3>& positions, std::vector<Vec3>& normals, std::vector<Vec2>& uvCoordinates);
+		void loadMTLFile(std::string filepath, Mesh* mesh);
 	};
 }

@@ -16,6 +16,7 @@
 #include "OpenGL/utility/modelloader/OBJModelLoader.h"
 
 #include "gamelogic/gameobjects/Kart.h"
+#include "gamelogic/gameobjects/Track.h"
 
 #include "Vision/VisionCamera.h"
 
@@ -28,6 +29,7 @@ namespace Game
 		OpenGL::Camera camera;
 
 		std::unique_ptr<GameLogic::Kart> kart;
+		std::unique_ptr<OpenGL::Text> text;
 		Vision::VisionCamera visionCamera;
 
 	public:

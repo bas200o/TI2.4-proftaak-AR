@@ -20,7 +20,12 @@ bool Game::Application::run()
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 
-	this->kart = std::make_unique<GameLogic::Kart>(glm::vec3(0.0f, 0.0f, 1.0f), 1.0f, 5.0f, 2.0f, 4.0f);
+	std::shared_ptr<OpenGL::Font> font = std::make_shared<OpenGL::Font>("Arial", "res/fonts");
+	this->text = std::make_unique<OpenGL::Text>("Speed:", font, glm::vec2(5.0f, 5.0f), glm::vec3(1.0f), 20.0f, 500.0f, 1, glm::vec2(this->window.getWidth(), this->window.getHeight()));
+
+	GameLogic::Track track(glm::vec3(0.0f, 0.0f, 0.0f), "Track_1");
+
+	this->kart = std::make_unique<GameLogic::Kart>(glm::vec3(0.0f, 0.0f, 1.0f), 1.0f, 50.0f, 10.0f, 20.0f);
 	this->camera.transform.setParent(this->kart->transform);
 
 	std::thread listenerThread = std::thread(&Vision::VisionCamera::activateCamera, this->visionCamera);	// Start thread
@@ -34,8 +39,13 @@ bool Game::Application::run()
 
 		this->camera.update(this->window, deltatime);
 
+		track.draw(this->window, this->camera);
+
 		kart->update(deltatime);
 		kart->draw(this->window, this->camera);
+
+		this->text->setValue(std::string("Speed: ").append(std::to_string(this->kart->getSpeed())).append(" m/s"));
+		OpenGL::Renderer::draw(*this->text, this->window);
 
 		window.update();
 	}
@@ -66,10 +76,10 @@ void Game::Application::handleEvent(OpenGL::Event& event)
 			if (keyReleasedEvent.getKey() == GLFW_KEY_ESCAPE)
 				this->window.close();
 
-			//if (keyReleasedEvent.getKey() == GLFW_KEY_UP)
-			//	this->kart->setIsAccelarating(false);
-			//if (keyReleasedEvent.getKey() == GLFW_KEY_DOWN)
-			//	this->kart->setIsBraking(false);
+			if (keyReleasedEvent.getKey() == GLFW_KEY_UP)
+				this->kart->setIsAccelarating(false);
+			if (keyReleasedEvent.getKey() == GLFW_KEY_DOWN)
+				this->kart->setIsBraking(false);
 			if (keyReleasedEvent.getKey() == GLFW_KEY_LEFT)
 				this->kart->steer(0.0f);
 			if (keyReleasedEvent.getKey() == GLFW_KEY_RIGHT)

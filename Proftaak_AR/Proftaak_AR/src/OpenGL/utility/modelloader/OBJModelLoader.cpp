@@ -10,11 +10,11 @@ OpenGL::OBJModelLoader::~OBJModelLoader()
 
 }
 
-void OpenGL::OBJModelLoader::loadModel(std::string filePath)
+void OpenGL::OBJModelLoader::loadModel(std::string directoryPath, std::string filename)
 {
-	this->loadedMeshes.clear();
+	clearLoadedResources();
 
-	std::ifstream stream(filePath);
+	std::ifstream stream(std::string(directoryPath).append("/").append(filename).append(".obj"));
 	std::string line;
 
 	std::vector<Vec3> loadedPositions = std::vector<Vec3>();
@@ -61,6 +61,10 @@ void OpenGL::OBJModelLoader::loadModel(std::string filePath)
 			processVertex(lineSplit[2], vertices, loadedPositions, loadedNormals, loadedUVCoordinates);
 			processVertex(lineSplit[3], vertices, loadedPositions, loadedNormals, loadedUVCoordinates);
 		}
+		else if (line.find("mtllib ") != std::string::npos)
+			loadMTLFile(std::string(directoryPath).append("/").append(lineSplit[1]), mesh);
+		else if (line.find("usemtl ") != std::string::npos)
+			mesh->textureFilePath = this->loadedTexturePaths[lineSplit[1]];
 	}
 
 	if (mesh != nullptr)
@@ -76,22 +80,8 @@ void OpenGL::OBJModelLoader::loadModel(std::string filePath)
 
 		this->loadedMeshes.push_back(*mesh);
 	}
-}
 
-void OpenGL::OBJModelLoader::clearLoadedMeshes()
-{
-	this->loadedMeshes.clear();
-}
-
-OpenGL::OBJModelLoader::Mesh* OpenGL::OBJModelLoader::getLoadedMesh(const std::string name)
-{
-	for (int i = 0; i < this->loadedMeshes.size(); i++)
-	{
-		if (this->loadedMeshes[i].name == name)
-			return &this->loadedMeshes[i];
-	}
-
-	return nullptr;
+	stream.close();
 }
 
 void OpenGL::OBJModelLoader::processVertex(std::string vertexData, std::vector<Vertex>& vertices, std::vector<Vec3>& positions, std::vector<Vec3>& normals, std::vector<Vec2>& uvCoordinates)
@@ -104,4 +94,53 @@ void OpenGL::OBJModelLoader::processVertex(std::string vertexData, std::vector<V
 	vertex.UVCoordinate = uvCoordinates[std::stoi(indexData[1]) - 1];
 
 	vertices.push_back(vertex);
+}
+
+void OpenGL::OBJModelLoader::loadMTLFile(std::string filepath, Mesh* mesh)
+{
+	std::ifstream stream(filepath);
+	std::string line;
+
+	std::stringstream test;
+
+	bool hasFilepath = true;
+	std::string currentTextureName = "";
+	while (getline(stream, line))
+	{
+		std::vector<std::string> lineSplit = StringUtil::split(line, " ");
+
+		if (line.find("newmtl ") != std::string::npos)
+		{
+			hasFilepath = false;
+			currentTextureName = lineSplit[1];
+		}
+		else if (line.find("map_Kd ") != std::string::npos)
+		{
+			hasFilepath = true;
+			this->loadedTexturePaths[currentTextureName] = lineSplit[1];
+		}
+
+		test << line;
+	}
+
+	std::string testString = test.str();
+
+	stream.close();
+}
+
+void OpenGL::OBJModelLoader::clearLoadedResources()
+{
+	this->loadedMeshes.clear();
+	this->loadedTexturePaths.clear();
+}
+
+OpenGL::OBJModelLoader::Mesh* OpenGL::OBJModelLoader::getLoadedMesh(const std::string name)
+{
+	for (int i = 0; i < this->loadedMeshes.size(); i++)
+	{
+		if (this->loadedMeshes[i].name == name)
+			return &this->loadedMeshes[i];
+	}
+
+	return nullptr;
 }

@@ -10,14 +10,14 @@ GameLogic::Kart::Kart(const glm::vec3 color, const float wheelRadius, const floa
 	OpenGL::Renderer& renderer = OpenGL::Renderer::getInstance();
 	this->shader = renderer.getRegisteredShader(renderer.registerShader("res/shaders/vertex/V_Basic.glsl", "res/shaders/fragment/F_Kart.glsl"));
 
-	this->textures.push_back(renderer.getRegisteredTexture(renderer.registerTexture("res/textures/kart/Kart_Diffuse.png")));
-	this->textures.push_back(renderer.getRegisteredTexture(renderer.registerTexture("res/textures/kart/Kart_Specular.png")));
-	this->textures.push_back(renderer.getRegisteredTexture(renderer.registerTexture("res/textures/kart/Kart_Color_Mask.png")));
+	//this->textures.push_back(renderer.getRegisteredTexture(renderer.registerTexture("res/textures/kart/Kart_Diffuse.png")));
+	//this->textures.push_back(renderer.getRegisteredTexture(renderer.registerTexture("res/textures/kart/Kart_Specular.png")));
+	//this->textures.push_back(renderer.getRegisteredTexture(renderer.registerTexture("res/textures/kart/Kart_Color_Mask.png")));
 
 	OpenGL::OBJModelLoader modelLoader = OpenGL::OBJModelLoader();
 	if (renderer.getRegisteredModel("Frame").expired())
 	{
-		modelLoader.loadModel("res/models/kart/Kart_V2.obj");
+		modelLoader.loadModel("res/models/kart", "Kart_V2");
 		OpenGL::OBJModelLoader::Mesh frame = *modelLoader.getLoadedMesh("Frame");
 		OpenGL::OBJModelLoader::Mesh leftFrontWheel = *modelLoader.getLoadedMesh("Front_Left_Wheel");
 		OpenGL::OBJModelLoader::Mesh rightFrontWheel = *modelLoader.getLoadedMesh("Front_Right_Wheel");
@@ -50,13 +50,19 @@ GameLogic::Kart::Kart(const glm::vec3 color, const float wheelRadius, const floa
 	gasPedalTransform.translateBy(glm::vec3(0.23f, 0.88f, -1.75f));
 	brakePedalTransform.translateBy(glm::vec3(-0.23f, 0.88f, -1.75f));
 
-	this->models.push_back({ &this->transform, renderer.getRegisteredModel("Frame") });
-	this->models.push_back({ &leftFrontWheelTransform, renderer.getRegisteredModel("Front_Left_Wheel") });
-	this->models.push_back({ &rightFrontWheelTransform, renderer.getRegisteredModel("Front_Right_Wheel") });
-	this->models.push_back({ &backWheelsTransform, renderer.getRegisteredModel("Back_Wheels") });
-	this->models.push_back({ &steeringWheelTransform, renderer.getRegisteredModel("Steering_Wheel") });
-	this->models.push_back({ &gasPedalTransform, renderer.getRegisteredModel("Gas_Pedal") });
-	this->models.push_back({ &brakePedalTransform, renderer.getRegisteredModel("Brake_Pedal") });
+	std::vector<std::weak_ptr<OpenGL::Texture2D>> textures = std::vector<std::weak_ptr<OpenGL::Texture2D>>({
+			renderer.getRegisteredTexture(renderer.registerTexture("res/textures/kart/Kart_Diffuse.png")),
+			renderer.getRegisteredTexture(renderer.registerTexture("res/textures/kart/Kart_Specular.png")),
+			renderer.getRegisteredTexture(renderer.registerTexture("res/textures/kart/Kart_Color_Mask.png"))
+	});
+
+	this->models.push_back({ &this->transform, renderer.getRegisteredModel("Frame"), textures });
+	this->models.push_back({ &leftFrontWheelTransform, renderer.getRegisteredModel("Front_Left_Wheel"), textures });
+	this->models.push_back({ &rightFrontWheelTransform, renderer.getRegisteredModel("Front_Right_Wheel"), textures });
+	this->models.push_back({ &backWheelsTransform, renderer.getRegisteredModel("Back_Wheels"), textures });
+	this->models.push_back({ &steeringWheelTransform, renderer.getRegisteredModel("Steering_Wheel"), textures });
+	this->models.push_back({ &gasPedalTransform, renderer.getRegisteredModel("Gas_Pedal"), textures });
+	this->models.push_back({ &brakePedalTransform, renderer.getRegisteredModel("Brake_Pedal"), textures });
 }
 
 void GameLogic::Kart::steer(const float angle)
@@ -90,7 +96,9 @@ void GameLogic::Kart::update(float deltatime)
 
 	float wheelRotationSpeed = ((this->currentSpeed / this->wheelCircumference) * (glm::pi<float>() * 2)) * deltatime;
 	rotateWheels(wheelRotationSpeed);
-	float steerSpeed = (this->steeringAngle * this->currentSpeed) * deltatime;
+	//float steerSpeed = (this->steeringAngle * this->currentSpeed) * deltatime;
+	//float steerSpeed = (this->steeringAngle * ((this->currentSpeed > 5.0f) ? (50.0f * (1.0f / this->currentSpeed)) : (this->currentSpeed / 4))) * deltatime;
+	float steerSpeed = (this->steeringAngle * ((this->currentSpeed > 0.0f) ? (50.0f * (1.0f / this->currentSpeed)) : 0.0f)) * deltatime;
 
 	this->transform.rotateBy(steerSpeed, glm::vec3(0.0f, 1.0f, 0.0f));
 	this->transform.translateBy(this->transform.getFront() * (this->currentSpeed * deltatime));
@@ -121,7 +129,7 @@ void GameLogic::Kart::rotateWheels(float wheelRotationSpeed)
 	this->backWheelsTransform.rotateBy(wheelRotationSpeed, glm::vec3(-1.0f, 0.0f, 0.0f));
 }
 
-void GameLogic::Kart::setRequiredUniforms()
+void GameLogic::Kart::setRequiredUniforms(TMTPair& tmPair)
 {
 	this->shader.lock()->bind();
 	this->shader.lock()->setUniformVec3f("kartColor", this->color);

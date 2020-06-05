@@ -39,6 +39,8 @@ namespace GameLogic
 
 		void steer(const float angle);
 
+		inline float getSpeed() { return this->currentSpeed; }
+
 		inline void setIsAccelarating(bool isAccelarating) { this->isAccelarating = isAccelarating; }
 		inline void setIsBraking(bool isBraking) { this->isBraking = isBraking; }
 
@@ -47,6 +49,6 @@ namespace GameLogic
 	private:
 		void rotateWheels(float wheelRotationSpeed);
 
-		virtual void setRequiredUniforms() override;
+		virtual void setRequiredUniforms(TMTPair& tmPair) override;
 	};
 }
