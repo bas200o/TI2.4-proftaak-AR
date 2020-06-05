@@ -7,7 +7,7 @@ in vec3 Normal;
 in vec3 ViewPos;
 in vec2 TexCoord;
 
-uniform vec3 lightPos;
+uniform vec3 lightDir;
 uniform vec3 lightColor;
 
 uniform vec3 kartColor;
@@ -34,8 +34,6 @@ void main()
 	}
 	else if(useDiffuseMap)
 		objectColor = vec3(texture(diffuseMap, TexCoord));
-	
-	float dist = distance(FragPos, lightPos);
 
 	//Ambient Light
 	float ambientStrength = 0.2;
@@ -43,14 +41,13 @@ void main()
 
 	//Diffused Light
 	vec3 norm = normalize(Normal);
-	vec3 lightdir = normalize(lightPos-FragPos);
-	float diff = max(dot(norm, lightdir), 0.0);
-	vec3 diffuse = diff * lightColor / (dist*0.2);
-
+	float diff = max(dot(norm, lightDir), 0.0);
+	vec3 diffuse = diff * lightColor;
+	
 	//Specular Light
 	float specularStrength = 0.5;
     vec3 viewDir = normalize(ViewPos - FragPos);
-    vec3 reflectDir = reflect(-lightdir, norm);  
+    vec3 reflectDir = reflect(-lightDir, norm);  
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
 
     vec3 specular = specularStrength * spec * lightColor;  
