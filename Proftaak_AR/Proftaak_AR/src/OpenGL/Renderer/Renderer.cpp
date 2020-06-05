@@ -21,8 +21,10 @@ void OpenGL::Renderer::draw3D(Transform3D& modelTranform, RawModel& model, Shade
 {
 	glEnable(GL_DEPTH_TEST);
 	
-	glm::vec3 lightpos(2.2f, 2.0f, -2.0f);
+	glm::vec3 lightDir(1.0f, 1.0f, 1.0f);
+	glm::normalize(lightDir);
 	glm::vec3 lightcolor(1.0f, 1.0f, 1.0f);
+	
 	
 	shader.bind();
 	model.bind();
@@ -30,7 +32,7 @@ void OpenGL::Renderer::draw3D(Transform3D& modelTranform, RawModel& model, Shade
 	setMVPUniforms(modelTranform, window, shader, camera);
 
 	
-	shader.setUniformVec3f("lightPos", lightpos);
+	shader.setUniformVec3f("lightDir", lightDir);
 	shader.setUniformVec3f("lightColor", lightcolor);
 
 	shader.setUniformVec3f("camPos", camera.transform.getWorldPosition());
@@ -45,7 +47,8 @@ void OpenGL::Renderer::draw3D(Transform3D& modelTranform, RawModel& model, unsig
 {
 	glEnable(GL_DEPTH_TEST);
 
-	glm::vec3 lightpos(2.2f, 2.0f, -2.0f);
+	glm::vec3 lightDir(1.0f, 1.0f, 1.0f);
+	glm::normalize(lightDir);
 	glm::vec3 lightcolor(1.0f, 1.0f, 1.0f);
 
 	std::weak_ptr<OpenGL::Shader> shader = getInstance().getRegisteredShader(shaderId);
@@ -55,7 +58,7 @@ void OpenGL::Renderer::draw3D(Transform3D& modelTranform, RawModel& model, unsig
 	setMVPUniforms(modelTranform, window, *shader.lock().get(), camera);
 
 
-	shader.lock()->setUniformVec3f("lightPos", lightpos);
+	shader.lock()->setUniformVec3f("lightDir", lightDir);
 	shader.lock()->setUniformVec3f("lightColor", lightcolor);
 
 	shader.lock()->setUniformVec3f("camPos", camera.transform.getWorldPosition());
