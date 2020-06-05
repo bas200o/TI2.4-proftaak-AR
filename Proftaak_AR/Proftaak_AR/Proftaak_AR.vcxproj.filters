@@ -51,13 +51,19 @@
     <ClCompile Include="src\OpenGL\utility\modelloader\OBJModelLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\OpenGL\Renderer\shading\Material.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\gamelogic\gameobjects\Kart.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\OpenGL\Renderer\Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Vision\blobdetectionavans.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Vision\ColorDetection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Vision\VisionCamera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -104,13 +110,19 @@
     <ClInclude Include="src\OpenGL\utility\modelloader\OBJModelLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\OpenGL\Renderer\shading\Material.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\gamelogic\gameobjects\Kart.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\OpenGL\Renderer\Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Vision\blobdetectionavans.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Vision\ColorDetection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Vision\VisionCamera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

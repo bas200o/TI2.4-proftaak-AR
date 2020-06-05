@@ -119,7 +119,6 @@
     <ClCompile Include="src\OpenGL\Renderer\Camera.cpp" />
     <ClCompile Include="src\OpenGL\Renderer\RawModel.cpp" />
     <ClCompile Include="src\OpenGL\Renderer\Renderer.cpp" />
-    <ClCompile Include="src\OpenGL\Renderer\shading\Material.cpp" />
     <ClCompile Include="src\OpenGL\Renderer\shading\Shader.cpp" />
     <ClCompile Include="src\OpenGL\Renderer\shading\Texture2D.cpp" />
     <ClCompile Include="src\OpenGL\Renderer\Transform3D.cpp" />
@@ -127,6 +126,9 @@
     <ClCompile Include="src\OpenGL\Renderer\ui\text\Text.cpp" />
     <ClCompile Include="src\OpenGL\utility\modelloader\OBJModelLoader.cpp" />
     <ClCompile Include="src\OpenGL\windowhandling\Window.cpp" />
+    <ClCompile Include="src\Vision\blobdetectionavans.cpp" />
+    <ClCompile Include="src\Vision\ColorDetection.cpp" />
+    <ClCompile Include="src\Vision\VisionCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
@@ -135,7 +137,6 @@
     <ClInclude Include="src\OpenGL\Renderer\Camera.h" />
     <ClInclude Include="src\OpenGL\Renderer\RawModel.h" />
     <ClInclude Include="src\OpenGL\Renderer\Renderer.h" />
-    <ClInclude Include="src\OpenGL\Renderer\shading\Material.h" />
     <ClInclude Include="src\OpenGL\Renderer\shading\Shader.h" />
     <ClInclude Include="src\OpenGL\Renderer\shading\Texture2D.h" />
     <ClInclude Include="src\OpenGL\Renderer\Transform3D.h" />
@@ -146,6 +147,9 @@
     <ClInclude Include="src\OpenGL\windowhandling\Events.h" />
     <ClInclude Include="src\OpenGL\windowhandling\Window.h" />
     <ClInclude Include="src\utilities\StringUtil.h" />
+    <ClInclude Include="src\Vision\blobdetectionavans.h" />
+    <ClInclude Include="src\Vision\ColorDetection.h" />
+    <ClInclude Include="src\Vision\VisionCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\..\Users\luket\Downloads\FragmentShader.glsl" />

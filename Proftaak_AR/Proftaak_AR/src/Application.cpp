@@ -4,6 +4,8 @@ Game::Application::Application()
 	: window(OpenGL::Window("Test", 1280, 720))
 {
 	this->window.setEventHandler(this);
+
+	this->visionCamera.setCallbackHandler(this);
 }
 
 bool Game::Application::run()
@@ -18,7 +20,11 @@ bool Game::Application::run()
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 
-	kart = new GameLogic::Kart(glm::vec3(0.0f, 0.0f, 1.0f), 1.0f, 5.0f, 2.0f, 4.0f);
+	this->kart = std::make_unique<GameLogic::Kart>(glm::vec3(0.0f, 0.0f, 1.0f), 1.0f, 5.0f, 2.0f, 4.0f);
+	this->camera.transform.setParent(this->kart->transform);
+
+	std::thread listenerThread = std::thread(&Vision::VisionCamera::activateCamera, this->visionCamera);	// Start thread
+	listenerThread.detach();	// Detach thread from main thread
 
 	while (!window.shouldClose())
 	{
@@ -33,8 +39,6 @@ bool Game::Application::run()
 
 		window.update();
 	}
-
-	delete this->kart;
 
 	return true;
 }
@@ -62,10 +66,10 @@ void Game::Application::handleEvent(OpenGL::Event& event)
 			if (keyReleasedEvent.getKey() == GLFW_KEY_ESCAPE)
 				this->window.close();
 
-			if (keyReleasedEvent.getKey() == GLFW_KEY_UP)
-				this->kart->setIsAccelarating(false);
-			if (keyReleasedEvent.getKey() == GLFW_KEY_DOWN)
-				this->kart->setIsBraking(false);
+			//if (keyReleasedEvent.getKey() == GLFW_KEY_UP)
+			//	this->kart->setIsAccelarating(false);
+			//if (keyReleasedEvent.getKey() == GLFW_KEY_DOWN)
+			//	this->kart->setIsBraking(false);
 			if (keyReleasedEvent.getKey() == GLFW_KEY_LEFT)
 				this->kart->steer(0.0f);
 			if (keyReleasedEvent.getKey() == GLFW_KEY_RIGHT)
@@ -86,4 +90,11 @@ void Game::Application::handleEvent(OpenGL::Event& event)
 			break;
 		}
 	}
+}
+
+void Game::Application::setAngle(float angle)
+{
+	float clampedAngle = glm::clamp(angle, -1.0f, 1.0f);
+
+	this->kart->steer(clampedAngle * 25);
 }
