@@ -20,6 +20,8 @@ uniform bool useDiffuseMap;
 uniform bool useSpecularMap;
 uniform bool useDiffuseMask;
 
+uniform bool useLighting;
+
 void main()
 {
 	vec3 objectColor = vec3(0.5f, 0.5f, 0.5f);
@@ -35,26 +37,31 @@ void main()
 	else if(useDiffuseMap)
 		objectColor = vec3(texture(diffuseMap, TexCoord));
 
-	//Ambient Light
-	float ambientStrength = 0.2;
-	vec3 ambient = ambientStrength * lightColor;
+	if(useLighting)
+	{
+		//Ambient Light
+		float ambientStrength = 0.2;
+		vec3 ambient = ambientStrength * lightColor;
 
-	//Diffused Light
-	vec3 norm = normalize(Normal);
-	float diff = max(dot(norm, lightDir), 0.0);
-	vec3 diffuse = diff * lightColor;
+		//Diffused Light
+		vec3 norm = normalize(Normal);
+		float diff = max(dot(norm, lightDir), 0.0);
+		vec3 diffuse = diff * lightColor;
 	
-	//Specular Light
-	float specularStrength = 0.5;
-    vec3 viewDir = normalize(ViewPos - FragPos);
-    vec3 reflectDir = reflect(-lightDir, norm);  
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
+		//Specular Light
+		float specularStrength = 0.5;
+		vec3 viewDir = normalize(ViewPos - FragPos);
+		vec3 reflectDir = reflect(-lightDir, norm);  
+		float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
 
-    vec3 specular = specularStrength * spec * lightColor;  
-	if(useSpecularMap)
-		specular *= vec3(texture(specularMap, TexCoord));
+		vec3 specular = specularStrength * spec * lightColor;  
+		if(useSpecularMap)
+			specular *= vec3(texture(specularMap, TexCoord));
 
-	vec3 result = (ambient + diffuse + specular) * objectColor;
+		vec3 result = (ambient + diffuse + specular) * objectColor;
 
-	color = vec4(result, 1.0f);
+		color = vec4(result, 1.0f);
+	}
+	else
+		color = vec4(objectColor, 1.0f);
 };

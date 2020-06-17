@@ -56,13 +56,13 @@ GameLogic::Kart::Kart(const glm::vec3 color, const float wheelRadius, const floa
 			renderer.getRegisteredTexture(renderer.registerTexture("res/textures/kart/Kart_Color_Mask.png"))
 	});
 
-	this->models.push_back({ &this->transform, renderer.getRegisteredModel("Frame"), textures });
-	this->models.push_back({ &leftFrontWheelTransform, renderer.getRegisteredModel("Front_Left_Wheel"), textures });
-	this->models.push_back({ &rightFrontWheelTransform, renderer.getRegisteredModel("Front_Right_Wheel"), textures });
-	this->models.push_back({ &backWheelsTransform, renderer.getRegisteredModel("Back_Wheels"), textures });
-	this->models.push_back({ &steeringWheelTransform, renderer.getRegisteredModel("Steering_Wheel"), textures });
-	this->models.push_back({ &gasPedalTransform, renderer.getRegisteredModel("Gas_Pedal"), textures });
-	this->models.push_back({ &brakePedalTransform, renderer.getRegisteredModel("Brake_Pedal"), textures });
+	this->models.push_back({ &this->transform, renderer.getRegisteredModel("Frame"), textures, true });
+	this->models.push_back({ &leftFrontWheelTransform, renderer.getRegisteredModel("Front_Left_Wheel"), textures, true });
+	this->models.push_back({ &rightFrontWheelTransform, renderer.getRegisteredModel("Front_Right_Wheel"), textures, true });
+	this->models.push_back({ &backWheelsTransform, renderer.getRegisteredModel("Back_Wheels"), textures, true });
+	this->models.push_back({ &steeringWheelTransform, renderer.getRegisteredModel("Steering_Wheel"), textures, true });
+	this->models.push_back({ &gasPedalTransform, renderer.getRegisteredModel("Gas_Pedal"), textures, true });
+	this->models.push_back({ &brakePedalTransform, renderer.getRegisteredModel("Brake_Pedal"), textures, true });
 }
 
 void GameLogic::Kart::steer(const float angle)
@@ -98,7 +98,8 @@ void GameLogic::Kart::update(float deltatime)
 	rotateWheels(wheelRotationSpeed);
 	//float steerSpeed = (this->steeringAngle * this->currentSpeed) * deltatime;
 	//float steerSpeed = (this->steeringAngle * ((this->currentSpeed > 5.0f) ? (50.0f * (1.0f / this->currentSpeed)) : (this->currentSpeed / 4))) * deltatime;
-	float steerSpeed = (this->steeringAngle * ((this->currentSpeed > 0.0f) ? (50.0f * (1.0f / this->currentSpeed)) : 0.0f)) * deltatime;
+	//float steerSpeed = (this->steeringAngle * ((this->currentSpeed > 0.0f) ? (50.0f * (1.0f / this->currentSpeed)) : 0.0f)) * deltatime;
+	float steerSpeed = (this->steeringAngle * ((this->currentSpeed > 0.0f) ? glm::clamp((50.0f * (1.0f / this->currentSpeed)), -2.0f, 2.0f) : 0.0f)) * deltatime;
 
 	this->transform.rotateBy(steerSpeed, glm::vec3(0.0f, 1.0f, 0.0f));
 	this->transform.translateBy(this->transform.getFront() * (this->currentSpeed * deltatime));
@@ -139,5 +140,6 @@ void GameLogic::Kart::setRequiredUniforms(TMTPair& tmPair)
 	this->shader.lock()->setUniform1i("diffuseMap", 0);
 	this->shader.lock()->setUniform1i("specularMap", 1);
 	this->shader.lock()->setUniform1i("diffuseMask", 2);
+	this->shader.lock()->setUniformBool("useLighting", tmPair.useLighting);
 	this->shader.lock()->unbind();
 }

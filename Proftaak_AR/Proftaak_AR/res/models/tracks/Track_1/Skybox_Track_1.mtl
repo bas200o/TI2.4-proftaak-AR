@@ -10,7 +10,7 @@ Ke 0.0 0.0 0.0
 Ni 1.450000
 d 1.000000
 illum 2
-map_Kd C:\\Users\\Kenley Strik\\Downloads\\Wii - Mario Kart Wii - SNES Mario Circuit 3\\SNES Mario Circuit 3\\m_VR.png
+map_Kd res/textures/tracks/track_1/m_VR.png
 
 newmtl c_kumo
 Ns 225.000000
@@ -21,4 +21,4 @@ Ke 0.0 0.0 0.0
 Ni 1.450000
 d 1.000000
 illum 2
-map_Kd C:\\Users\\Kenley Strik\\Downloads\\Wii - Mario Kart Wii - SNES Mario Circuit 3\\SNES Mario Circuit 3\\osf_kumo3.png
+map_Kd res/textures/tracks/track_1/osf_kumo3.png

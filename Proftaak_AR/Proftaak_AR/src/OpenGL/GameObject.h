@@ -21,6 +21,7 @@ namespace OpenGL
 			OpenGL::Transform3D* transform;
 			std::weak_ptr<RawModel> model;
 			std::vector<std::weak_ptr<Texture2D>> textures;
+			bool useLighting;
 		};
 
 	public:
