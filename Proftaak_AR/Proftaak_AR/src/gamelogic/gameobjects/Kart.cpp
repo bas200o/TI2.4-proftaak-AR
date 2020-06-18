@@ -13,10 +13,6 @@ GameLogic::Kart::Kart(const glm::vec3 color, const float wheelRadius, const floa
 	OpenGL::Renderer& renderer = OpenGL::Renderer::getInstance();
 	this->shader = renderer.getRegisteredShader(renderer.registerShader("res/shaders/vertex/V_Basic.glsl", "res/shaders/fragment/F_Kart.glsl"));
 
-	//this->textures.push_back(renderer.getRegisteredTexture(renderer.registerTexture("res/textures/kart/Kart_Diffuse.png")));
-	//this->textures.push_back(renderer.getRegisteredTexture(renderer.registerTexture("res/textures/kart/Kart_Specular.png")));
-	//this->textures.push_back(renderer.getRegisteredTexture(renderer.registerTexture("res/textures/kart/Kart_Color_Mask.png")));
-
 	OpenGL::OBJModelLoader modelLoader = OpenGL::OBJModelLoader();
 	if (renderer.getRegisteredModel("Frame").expired())
 	{
@@ -143,7 +139,6 @@ void GameLogic::Kart::update(float deltatime)
 
 	float wheelRotationSpeed = ((this->currentSpeed / this->wheelCircumference) * (glm::pi<float>() * 2)) * deltatime;
 	rotateWheels(wheelRotationSpeed);
-	//float steerSpeed = (this->steeringAngle * this->currentSpeed) * deltatime;
 	float steerSpeed = (this->steeringAngle * ((this->currentSpeed > 0.0f || this->currentSpeed < 0.0f) ? glm::clamp((50.0f * (1.0f / this->currentSpeed)), -2.0f, 2.0f) : 0.0f)) * deltatime;
 
 	this->transform.rotateBy(steerSpeed, glm::vec3(0.0f, 1.0f, 0.0f));
@@ -165,11 +160,6 @@ void GameLogic::Kart::rotateWheels(float wheelRotationSpeed)
 	this->rightFrontWheelTransform.setLocalRotation(this->currentWheelAngle, glm::vec3(-1.0f, 0.0f, 0.0f));
 	this->leftFrontWheelTransform.rotateBy(this->steeringAngle, glm::vec3(0.0f, 1.0f, 0.0f));
 	this->rightFrontWheelTransform.rotateBy(this->steeringAngle, glm::vec3(0.0f, 1.0f, 0.0f));
-
-	//this->leftFrontWheelTransform.setLocalRotation(this->steeringAngle, glm::vec3(0.0f, 1.0f, 0.0f));
-	//this->rightFrontWheelTransform.setLocalRotation(this->steeringAngle, glm::vec3(0.0f, 1.0f, 0.0f));
-	//this->leftFrontWheelTransform.rotateBy(wheelRotationSpeed, glm::vec3(-1.0f, 0.0f, 0.0f));
-	//this->rightFrontWheelTransform.rotateBy(wheelRotationSpeed, glm::vec3(-1.0f, 0.0f, 0.0f));
 
 	// Back wheels
 	this->backWheelsTransform.rotateBy(wheelRotationSpeed, glm::vec3(-1.0f, 0.0f, 0.0f));
