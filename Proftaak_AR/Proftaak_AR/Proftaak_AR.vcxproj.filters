@@ -45,7 +45,28 @@
     <ClCompile Include="src\OpenGL\Renderer\Transform3D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\OpenGL\GameObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OpenGL\utility\modelloader\OBJModelLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gamelogic\gameobjects\Kart.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\OpenGL\Renderer\Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Vision\blobdetectionavans.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Vision\ColorDetection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Vision\VisionCamera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gamelogic\gameobjects\Track.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -86,14 +107,38 @@
     <ClInclude Include="src\OpenGL\Renderer\Transform3D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\OpenGL\GameObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OpenGL\utility\modelloader\OBJModelLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gamelogic\gameobjects\Kart.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="src\OpenGL\Renderer\Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Vision\blobdetectionavans.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Vision\ColorDetection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Vision\VisionCamera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gamelogic\gameobjects\Track.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\vertex\V_Text.glsl" />
     <None Include="res\shaders\fragment\F_Text.glsl" />
-    <None Include="res\shaders\fragment\FragmentShader.glsl" />
-    <None Include="res\shaders\vertex\VertexShader.glsl" />
+    <None Include="..\..\..\..\..\Users\luket\Downloads\VertexShader.glsl" />
+    <None Include="..\..\..\..\..\Users\luket\Downloads\FragmentShader.glsl" />
+    <None Include="res\shaders\fragment\F_Lighting.glsl" />
+    <None Include="res\shaders\vertex\V_Basic.glsl" />
+    <None Include="res\shaders\fragment\F_Kart.glsl" />
   </ItemGroup>
 </Project>

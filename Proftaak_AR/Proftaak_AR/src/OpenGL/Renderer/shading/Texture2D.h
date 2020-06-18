@@ -14,6 +14,7 @@ namespace OpenGL
 		int width, height, bpp;
 
 	public:
+		Texture2D();
 		Texture2D(const std::string& filepath);
 		~Texture2D();
 

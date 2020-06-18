@@ -113,8 +113,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp" />
-    <ClCompile Include="src\OpenGL\Renderer\Camera.cpp" />
+    <ClCompile Include="src\gamelogic\gameobjects\Kart.cpp" />
+    <ClCompile Include="src\gamelogic\gameobjects\Track.cpp" />
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\OpenGL\GameObject.cpp" />
+    <ClCompile Include="src\OpenGL\Renderer\Camera.cpp" />
     <ClCompile Include="src\OpenGL\Renderer\RawModel.cpp" />
     <ClCompile Include="src\OpenGL\Renderer\Renderer.cpp" />
     <ClCompile Include="src\OpenGL\Renderer\shading\Shader.cpp" />
@@ -122,10 +125,17 @@
     <ClCompile Include="src\OpenGL\Renderer\Transform3D.cpp" />
     <ClCompile Include="src\OpenGL\Renderer\ui\text\Font.cpp" />
     <ClCompile Include="src\OpenGL\Renderer\ui\text\Text.cpp" />
+    <ClCompile Include="src\OpenGL\utility\modelloader\OBJModelLoader.cpp" />
     <ClCompile Include="src\OpenGL\windowhandling\Window.cpp" />
+    <ClCompile Include="src\Vision\blobdetectionavans.cpp" />
+    <ClCompile Include="src\Vision\ColorDetection.cpp" />
+    <ClCompile Include="src\Vision\VisionCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
+    <ClInclude Include="src\gamelogic\gameobjects\Kart.h" />
+    <ClInclude Include="src\gamelogic\gameobjects\Track.h" />
+    <ClInclude Include="src\OpenGL\GameObject.h" />
     <ClInclude Include="src\OpenGL\Renderer\Camera.h" />
     <ClInclude Include="src\OpenGL\Renderer\RawModel.h" />
     <ClInclude Include="src\OpenGL\Renderer\Renderer.h" />
@@ -134,15 +144,22 @@
     <ClInclude Include="src\OpenGL\Renderer\Transform3D.h" />
     <ClInclude Include="src\OpenGL\Renderer\ui\text\Font.h" />
     <ClInclude Include="src\OpenGL\Renderer\ui\text\Text.h" />
+    <ClInclude Include="src\OpenGL\utility\modelloader\OBJModelLoader.h" />
     <ClInclude Include="src\OpenGL\windowhandling\EventHandler.h" />
     <ClInclude Include="src\OpenGL\windowhandling\Events.h" />
     <ClInclude Include="src\OpenGL\windowhandling\Window.h" />
     <ClInclude Include="src\utilities\StringUtil.h" />
+    <ClInclude Include="src\Vision\blobdetectionavans.h" />
+    <ClInclude Include="src\Vision\ColorDetection.h" />
+    <ClInclude Include="src\Vision\VisionCamera.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\shaders\fragment\FragmentShader.glsl" />
-    <None Include="res\shaders\vertex\VertexShader.glsl" />
+    <None Include="..\..\..\..\..\Users\luket\Downloads\FragmentShader.glsl" />
+    <None Include="..\..\..\..\..\Users\luket\Downloads\VertexShader.glsl" />
+    <None Include="res\shaders\fragment\F_Kart.glsl" />
+    <None Include="res\shaders\fragment\F_Lighting.glsl" />
     <None Include="res\shaders\fragment\F_Text.glsl" />
+    <None Include="res\shaders\vertex\V_Basic.glsl" />
     <None Include="res\shaders\vertex\V_Text.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

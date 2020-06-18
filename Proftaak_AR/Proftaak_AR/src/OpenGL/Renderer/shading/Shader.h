@@ -19,6 +19,7 @@ namespace OpenGL
 		std::string filepath;
 
 	public:
+		Shader();
 		Shader(const std::string vertexFilepath, const std::string fragmentFilePath);
 		~Shader();
 

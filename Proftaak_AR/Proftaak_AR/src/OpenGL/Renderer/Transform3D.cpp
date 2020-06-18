@@ -8,8 +8,8 @@ OpenGL::Transform3D::Transform3D()
 	this->scale = glm::vec3(1.0f);
 }
 
-OpenGL::Transform3D::Transform3D(std::shared_ptr<Transform3D> parent)
-	: parent(parent)
+OpenGL::Transform3D::Transform3D(Transform3D& parent)
+	: parent(&parent)
 {
 	this->position = glm::vec3(0.0f);
 	this->rotation = glm::vec3(0.0f);
@@ -22,6 +22,15 @@ OpenGL::Transform3D::Transform3D(const glm::vec3 position)
 	this->position = position;
 	this->rotation = glm::vec3(0.0f);
 	this->scale = glm::vec3(1.0f);
+}
+
+OpenGL::Transform3D::~Transform3D()
+{
+	if (this->parent != nullptr)
+		this->clearChild(*this);
+
+	for (Transform3D* transform : this->children)
+		transform->clearParent();
 }
 
 void OpenGL::Transform3D::translateBy(const glm::vec3 translate)
@@ -93,9 +102,30 @@ void OpenGL::Transform3D::setLocalScale(float scale)
 	this->scale = glm::vec3(scale);
 }
 
-void OpenGL::Transform3D::setParent(std::shared_ptr<Transform3D> transform)
+void OpenGL::Transform3D::setParent(Transform3D& transform)
 {
-	this->parent = transform;
+	if (this->parent != nullptr)
+		this->parent->clearChild(*this);
+
+	this->parent = &transform;
+	this->parent->addChild(*this);
+}
+
+void OpenGL::Transform3D::clearParent()
+{
+	if (this->parent != nullptr)
+		this->parent->clearChild(*this);
+	this->parent = nullptr;
+}
+
+void OpenGL::Transform3D::addChild(Transform3D& transform)
+{
+	this->children.push_back(&transform);
+}
+
+void OpenGL::Transform3D::clearChild(Transform3D& transform)
+{
+	this->children.erase(std::remove(this->children.begin(), this->children.end(), &transform), this->children.end());
 }
 
 glm::mat4 OpenGL::Transform3D::getLocalTransform() const

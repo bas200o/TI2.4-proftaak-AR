@@ -3,6 +3,11 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image/stb_image.h"
 
+OpenGL::Texture2D::Texture2D()
+{
+
+}
+
 OpenGL::Texture2D::Texture2D(const std::string& filepath)
 	: id(0), filepath(filepath), width(0), height(0), bpp(0)
 {

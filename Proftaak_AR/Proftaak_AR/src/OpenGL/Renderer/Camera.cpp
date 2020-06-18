@@ -5,7 +5,7 @@ OpenGL::Camera::Camera()
 	FOV = 45.0f;
 	nearClipPlaneDistance = 0.01f;
 	farClipPlaneDistance = 1000.0f;
-	mouseSensitivity = 1;
+	mouseSensitivity = 0.2;
 };
 
 void OpenGL::Camera::update(Window &window, float deltaTime) {
@@ -33,7 +33,8 @@ void OpenGL::Camera::update(Window &window, float deltaTime) {
 }
 
 glm::mat4 OpenGL::Camera::getViewMatrix() {
-	return glm::lookAt(this->transform.getWorldPosition(), this->transform.getWorldPosition() + this->transform.getFront(), this->transform.getUp());
+	//return glm::lookAt(this->transform.getWorldPosition(), this->transform.getWorldPosition() + this->transform.getFront(), this->transform.getUp());
+	return glm::inverse(this->transform.getWorldTransform());
 }
 
 glm::mat4 OpenGL::Camera::getProjectionMatrix(Window &window) {

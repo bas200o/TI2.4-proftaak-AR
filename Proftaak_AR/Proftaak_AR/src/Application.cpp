@@ -1,8 +1,11 @@
 #include "Application.h"
 
-Game::Application::Application() : window(OpenGL::Window("Test", 1280, 720))
+Game::Application::Application() 
+	: window(OpenGL::Window("Test", 1280, 720))
 {
 	this->window.setEventHandler(this);
+
+	this->visionCamera.setCallbackHandler(this);
 }
 
 bool Game::Application::run()
@@ -16,166 +19,33 @@ bool Game::Application::run()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
-	
 
-	std::vector<glm::vec3> positionsA = std::vector<glm::vec3>({
-		//Top
-		glm::vec3(-0.5f, 0.5f, 0.5f),
-		glm::vec3(-0.5f, 0.5f, -0.5f),
-		glm::vec3(0.5f, 0.5f, -0.5f),
-		glm::vec3(0.5f, 0.5f, 0.5f),
+	std::shared_ptr<OpenGL::Font> font = std::make_shared<OpenGL::Font>("Arial", "res/fonts");
+	this->text = std::make_unique<OpenGL::Text>("Speed:", font, glm::vec2(5.0f, 5.0f), glm::vec3(1.0f), 20.0f, 500.0f, 1, glm::vec2(this->window.getWidth(), this->window.getHeight()));
 
-		//Left
-		glm::vec3(-0.5f, -0.5f, -0.5f),
-		glm::vec3(-0.5f, 0.5f, -0.5f),
-		glm::vec3(-0.5f, 0.5f, 0.5f),
-		glm::vec3(-0.5f, -0.5f, 0.5f),
+	GameLogic::Track track(glm::vec3(0.0f, 0.0f, 0.0f), "Track_1");
 
-		//Front
-		glm::vec3(0.5f, -0.5f, -0.5f),
-		glm::vec3(0.5f, 0.5f, -0.5f),
-		glm::vec3(-0.5f, 0.5f, -0.5f),
-		glm::vec3(-0.5f, -0.5f, -0.5f),
+	this->kart = std::make_unique<GameLogic::Kart>(glm::vec3(0.0f, 0.0f, 1.0f), 1.0f, 50.0f, 10.0f, 20.0f);
+	this->camera.transform.setParent(this->kart->transform);
 
-		//Right
-		glm::vec3(0.5f, -0.5f, 0.5f),
-		glm::vec3(0.5f, 0.5f, 0.5f),
-		glm::vec3(0.5f, 0.5f, -0.5f),
-		glm::vec3(0.5f, -0.5f, -0.5f),
+	std::thread listenerThread = std::thread(&Vision::VisionCamera::activateCamera, this->visionCamera);	// Start thread
+	listenerThread.detach();	// Detach thread from main thread
 
-		//Back
-		glm::vec3(-0.5f, -0.5f, 0.5f),
-		glm::vec3(-0.5f, 0.5f, 0.5f),
-		glm::vec3(0.5f, 0.5f, 0.5f),
-		glm::vec3(0.5f, -0.5f, 0.5f),
-
-		//Bottom
-		glm::vec3(-0.5f, -0.5f, -0.5f),
-		glm::vec3(-0.5f, -0.5f, 0.5f),
-		glm::vec3(0.5f, -0.5f, 0.5f),
-		glm::vec3(0.5f, -0.5f, -0.5f)
-		});
-
-	std::vector<glm::vec3> normalsA = std::vector<glm::vec3>({
-		//Top
-		glm::vec3(0.0f, 1.0f, 0.0f),
-		glm::vec3(0.0f, 1.0f, 0.0f),
-		glm::vec3(0.0f, 1.0f, 0.0f),
-		glm::vec3(0.0f, 1.0f, 0.0f),
-
-		//Left
-		glm::vec3(-1.0f, 0.0f, 0.0f),
-		glm::vec3(-1.0f, 0.0f, 0.0f),
-		glm::vec3(-1.0f, 0.0f, 0.0f),
-		glm::vec3(-1.0f, 0.0f, 0.0f),
-
-		//Front
-		glm::vec3(0.0f, 0.0f, -1.0f),
-		glm::vec3(0.0f, 0.0f, -1.0f),
-		glm::vec3(0.0f, 0.0f, -1.0f),
-		glm::vec3(0.0f, 0.0f, -1.0f),
-
-		//Right
-		glm::vec3(1.0f, 0.0f, 0.0f),
-		glm::vec3(1.0f, 0.0f, 0.0f),
-		glm::vec3(1.0f, 0.0f, 0.0f),
-		glm::vec3(1.0f, 0.0f, 0.0f),
-
-		//Back
-		glm::vec3(0.0f, 0.0f, 1.0f),
-		glm::vec3(0.0f, 0.0f, 1.0f),
-		glm::vec3(0.0f, 0.0f, 1.0f),
-		glm::vec3(0.0f, 0.0f, 1.0f),
-
-		//Bottom
-		glm::vec3(0.0f, -1.0f, 0.0f),
-		glm::vec3(0.0f, -1.0f, 0.0f),
-		glm::vec3(0.0f, -1.0f, 0.0f),
-		glm::vec3(0.0f, -1.0f, 0.0f)
-		});
-
-	std::vector<glm::vec2> uvCoordinatesA = std::vector<glm::vec2>({
-		//Top
-		glm::vec2(0.0f, 0.0f),
-		glm::vec2(0.0f, 1.0f),
-		glm::vec2(1.0f, 1.0f),
-		glm::vec2(1.0f, 0.0f),
-
-		//Left
-		glm::vec2(0.0f, 0.0f),
-		glm::vec2(0.0f, 1.0f),
-		glm::vec2(1.0f, 1.0f),
-		glm::vec2(1.0f, 0.0f),
-
-		//Front
-		glm::vec2(0.0f, 0.0f),
-		glm::vec2(0.0f, 1.0f),
-		glm::vec2(1.0f, 1.0f),
-		glm::vec2(1.0f, 0.0f),
-
-		//Right
-		glm::vec2(0.0f, 0.0f),
-		glm::vec2(0.0f, 1.0f),
-		glm::vec2(1.0f, 1.0f),
-		glm::vec2(1.0f, 0.0f),
-
-		//Back
-		glm::vec2(0.0f, 0.0f),
-		glm::vec2(0.0f, 1.0f),
-		glm::vec2(1.0f, 1.0f),
-		glm::vec2(1.0f, 0.0f),
-
-		//Bottom
-		glm::vec2(0.0f, 0.0f),
-		glm::vec2(0.0f, 1.0f),
-		glm::vec2(1.0f, 1.0f),
-		glm::vec2(1.0f, 0.0f)
-		});
-
-	std::vector<unsigned int> indicesA = std::vector<unsigned int>({
-		//Top
-		0, 1, 2,
-		0, 2, 3,
-
-		//Left
-		4, 5, 6,
-		4, 6, 7,
-
-		//Front
-		8, 9, 10,
-		8, 10, 11,
-
-		//Right
-		12, 13, 14,
-		12, 14, 15,
-
-		//Back
-		16, 17, 18,
-		16, 18, 19,
-
-		//Bottom
-		20, 21, 22,
-		20, 22, 23,
-		});
-
-	OpenGL::RawModel rawmodel = OpenGL::RawModel(positionsA, normalsA, uvCoordinatesA, indicesA);
-	OpenGL::Shader shader = OpenGL::Shader("res/shaders/vertex/VertexShader.glsl", "res/shaders/fragment/FragmentShader.glsl");
-	rawmodel.transform.setLocalPosition(glm::vec3(0.0f, 0.0f, -4.0f));
-
-	this->camera = OpenGL::Camera();
-	float counter = 0.0f;
 	while (!window.shouldClose())
 	{
 		window.updateDeltaTime();
 		float deltatime = window.getDeltaTime();
 		window.clear(OpenGL::Window::ClearType::COLOR_BUFFER | OpenGL::Window::ClearType::DEPTH_BUFFER);
-		//OpenGL::Renderer::draw(*this->text, this->window);
-		OpenGL::Renderer::draw3D(rawmodel, shader, this->window, camera);
+
 		this->camera.update(this->window, deltatime);
 
-		//rawmodel.transform.rotateBy(glm::pi<float>() * deltatime, glm::vec3(0.0f, 0.0f, 1.0f));
-		//rawmodel.transform.translateBy(glm::vec3(0.0f, 0.0f, -1.0f) * deltatime);
-		//rawmodel.transform.scaleBy(glm::vec3(1.0f) * deltatime);
+		track.draw(this->window, this->camera);
+
+		kart->update(deltatime);
+		kart->draw(this->window, this->camera);
+
+		this->text->setValue(std::string("Speed: ").append(std::to_string(this->kart->getSpeed())).append(" m/s"));
+		OpenGL::Renderer::draw(*this->text, this->window);
 
 		window.update();
 	}
@@ -187,20 +57,40 @@ void Game::Application::handleEvent(OpenGL::Event& event)
 {
 	switch (event.getEventType())
 	{
+		case OpenGL::Event::EventType::KeyPressedEvent:
+		{
+			OpenGL::KeyPressedEvent& keyPressedEvent = static_cast<OpenGL::KeyPressedEvent&>(event);
+			if (keyPressedEvent.getKey() == GLFW_KEY_UP)
+				this->kart->setIsAccelarating(true);
+			if (keyPressedEvent.getKey() == GLFW_KEY_DOWN)
+				this->kart->setIsBraking(true);
+			if (keyPressedEvent.getKey() == GLFW_KEY_LEFT)
+				this->kart->steer(20.0f);
+			if (keyPressedEvent.getKey() == GLFW_KEY_RIGHT)
+				this->kart->steer(-20.0f);
+			break;
+		}
 		case OpenGL::Event::EventType::KeyReleasedEvent:
 		{
 			OpenGL::KeyReleasedEvent& keyReleasedEvent = static_cast<OpenGL::KeyReleasedEvent&>(event);
 			if (keyReleasedEvent.getKey() == GLFW_KEY_ESCAPE)
 				this->window.close();
+
+			if (keyReleasedEvent.getKey() == GLFW_KEY_UP)
+				this->kart->setIsAccelarating(false);
+			if (keyReleasedEvent.getKey() == GLFW_KEY_DOWN)
+				this->kart->setIsBraking(false);
+			if (keyReleasedEvent.getKey() == GLFW_KEY_LEFT)
+				this->kart->steer(0.0f);
+			if (keyReleasedEvent.getKey() == GLFW_KEY_RIGHT)
+				this->kart->steer(0.0f);
 			break;
 		}
 		case OpenGL::Event::EventType::WindowResizeEvent:
 		{
 			OpenGL::WindowResizeEvent& windowResizeEvent = static_cast<OpenGL::WindowResizeEvent&>(event);
-			if (text != nullptr)
-			{
-				this->text->onWindowResize(glm::vec2(windowResizeEvent.getWidth(), windowResizeEvent.getHeight()));
-			}
+			//if (text != nullptr)
+			//	this->text->onWindowResize(glm::vec2(windowResizeEvent.getWidth(), windowResizeEvent.getHeight()));
 			break;
 		}
 		case OpenGL::Event::EventType::MouseMovedEvent:
@@ -210,4 +100,11 @@ void Game::Application::handleEvent(OpenGL::Event& event)
 			break;
 		}
 	}
+}
+
+void Game::Application::setAngle(float angle)
+{
+	float clampedAngle = glm::clamp(angle, -1.0f, 1.0f);
+
+	this->kart->steer(clampedAngle * 25);
 }

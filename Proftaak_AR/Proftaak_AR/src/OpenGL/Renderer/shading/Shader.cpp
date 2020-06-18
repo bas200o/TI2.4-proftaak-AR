@@ -1,5 +1,10 @@
 #include "Shader.h"
 
+OpenGL::Shader::Shader()
+{
+
+}
+
 OpenGL::Shader::Shader(const std::string vertexFilepath, const std::string fragmentFilePath)
 {
 	std::string vertexSource = parseShader(vertexFilepath);
