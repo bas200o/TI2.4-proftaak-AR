@@ -6,6 +6,9 @@ GameLogic::Kart::Kart(const glm::vec3 color, const float wheelRadius, const floa
 {
 	this->wheelCircumference = (wheelRadius * 2) * glm::pi<float>();
 
+	this->lastSpeed = 0.0f;
+	this->interpolationTimer = 1.0f;
+
 	// Setup meshes and transforms
 	OpenGL::Renderer& renderer = OpenGL::Renderer::getInstance();
 	this->shader = renderer.getRegisteredShader(renderer.registerShader("res/shaders/vertex/V_Basic.glsl", "res/shaders/fragment/F_Kart.glsl"));
@@ -79,27 +82,69 @@ void GameLogic::Kart::steer(const float angle)
 		this->steeringAngle = newAngle;
 }
 
+void GameLogic::Kart::setIsAccelarating(bool isAccelarating)
+{
+	if (!isAccelarating && !this->isBraking && this->isAccelarating != isAccelarating)
+	{
+		this->interpolationTimer = 0.0f;
+		this->lastSpeed = this->currentSpeed;
+	}
+
+	this->isAccelarating = isAccelarating;
+}
+
+void GameLogic::Kart::setIsBraking(bool isBraking)
+{
+	if (!isBraking && !this->isAccelarating && this->isBraking != isBraking)
+	{
+		this->interpolationTimer = 0.0f;
+		this->lastSpeed = this->currentSpeed;
+	}
+
+	this->isBraking = isBraking;
+}
+
 void GameLogic::Kart::update(float deltatime)
 {
+	//if (this->isBraking)
+	//	this->currentSpeed -= this->brakeForce * deltatime;
+
+	//if (this->isAccelarating)
+	//	this->currentSpeed += (this->accelaration * deltatime);
+	//else
+	//	this->currentSpeed -= this->drag * deltatime;
+
+	//if (this->currentSpeed > this->maxSpeed)
+	//	this->currentSpeed = this->maxSpeed;
+	//if (this->currentSpeed < 0.0f)
+	//	this->currentSpeed = 0.0f;
+
 	if (this->isBraking)
-		this->currentSpeed -= this->brakeForce * deltatime;
+		this->currentSpeed -= ((this->currentSpeed > 0.0f) ? this->brakeForce : this->accelaration) * deltatime;
 
 	if (this->isAccelarating)
-		this->currentSpeed += (this->accelaration * deltatime);
-	else
-		this->currentSpeed -= this->drag * deltatime;
+		this->currentSpeed += ((this->currentSpeed < 0.0f) ? this->brakeForce : this->accelaration) * deltatime;
 
-	if (this->currentSpeed > this->maxSpeed)
-		this->currentSpeed = this->maxSpeed;
-	if (this->currentSpeed < 0.0f)
-		this->currentSpeed = 0.0f;
+	if (glm::abs(this->currentSpeed) > this->maxSpeed)
+	{
+		if(this->currentSpeed > 0.0f)
+			this->currentSpeed = this->maxSpeed;
+		else
+			this->currentSpeed = -this->maxSpeed;
+	}
+
+	if (!this->isAccelarating && !this->isBraking && this->interpolationTimer != 1.0f)
+	{
+		this->interpolationTimer += glm::abs((1.0f / (this->lastSpeed / this->drag)) * deltatime);
+		if (this->interpolationTimer > 1.0f)
+			this->interpolationTimer = 1.0f;
+		this->currentSpeed = this->lastSpeed * (1.0f - this->interpolationTimer);
+	}
 
 	float wheelRotationSpeed = ((this->currentSpeed / this->wheelCircumference) * (glm::pi<float>() * 2)) * deltatime;
 	rotateWheels(wheelRotationSpeed);
 	//float steerSpeed = (this->steeringAngle * this->currentSpeed) * deltatime;
-	//float steerSpeed = (this->steeringAngle * ((this->currentSpeed > 5.0f) ? (50.0f * (1.0f / this->currentSpeed)) : (this->currentSpeed / 4))) * deltatime;
-	//float steerSpeed = (this->steeringAngle * ((this->currentSpeed > 0.0f) ? (50.0f * (1.0f / this->currentSpeed)) : 0.0f)) * deltatime;
-	float steerSpeed = (this->steeringAngle * ((this->currentSpeed > 0.0f) ? glm::clamp((50.0f * (1.0f / this->currentSpeed)), -2.0f, 2.0f) : 0.0f)) * deltatime;
+	float steerSpeed = (this->steeringAngle * ((this->currentSpeed > 0.0f || this->currentSpeed < 0.0f) ? glm::clamp((50.0f * (1.0f / this->currentSpeed)), -2.0f, 2.0f) : 0.0f)) * deltatime;
 
 	this->transform.rotateBy(steerSpeed, glm::vec3(0.0f, 1.0f, 0.0f));
 	this->transform.translateBy(this->transform.getFront() * (this->currentSpeed * deltatime));

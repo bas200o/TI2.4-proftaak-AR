@@ -34,6 +34,9 @@ namespace GameLogic
 		bool isAccelarating;
 		bool isBraking;
 
+		float lastSpeed;
+		float interpolationTimer;
+
 	public:
 		Kart(const glm::vec3 color, const float wheelRadius, const float maxSpeed, const float accelaration, const float brakeForce);
 
@@ -41,8 +44,11 @@ namespace GameLogic
 
 		inline float getSpeed() { return this->currentSpeed; }
 
-		inline void setIsAccelarating(bool isAccelarating) { this->isAccelarating = isAccelarating; }
-		inline void setIsBraking(bool isBraking) { this->isBraking = isBraking; }
+		//inline void setIsAccelarating(bool isAccelarating) { this->isAccelarating = isAccelarating; }
+		//inline void setIsBraking(bool isBraking) { this->isBraking = isBraking; }
+
+		void setIsAccelarating(bool isAccelarating);
+		void setIsBraking(bool isBraking);
 
 		virtual void update(float deltatime) override;
 
