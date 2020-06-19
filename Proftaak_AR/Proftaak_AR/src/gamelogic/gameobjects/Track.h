@@ -20,5 +20,8 @@ namespace GameLogic
 
 		// Inherited via GameObject
 		virtual void onCollision() override;
+
+	private:
+		void setupColliders();
 	};
 }

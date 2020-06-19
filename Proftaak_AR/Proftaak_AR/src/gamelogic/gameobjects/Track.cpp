@@ -50,6 +50,8 @@ GameLogic::Track::Track(const glm::vec3 position, const std::string trackName)
 	}
 
 	this->transform.translateBy(position);
+
+	setupColliders();
 }
 
 GameLogic::Track::~Track()
@@ -84,4 +86,12 @@ void GameLogic::Track::setRequiredUniforms(TMTPair& tmPair)
 void GameLogic::Track::onCollision()
 {
 
+}
+
+void GameLogic::Track::setupColliders()
+{
+	this->colliders.push_back(std::make_shared<CubeCollider>(glm::vec3(48.05f, 0.0f, 24.95f), 84.5f, 5.0f, 17.2f));
+	this->colliders.push_back(std::make_shared<CubeCollider>(glm::vec3(50.73f, 0.0f, 10.8f), 64.8f, 5.0f, 12.77f));
+	this->colliders.push_back(std::make_shared<CubeCollider>(glm::vec3(158.68f, 0.0f, 8.55f), 155.776f, 5.0f, 33.224f));
+	this->colliders.push_back(std::make_shared<CubeCollider>(glm::vec3(158.68f, 0.0f, 8.55f), 155.776f, 5.0f, 33.224f));
 }

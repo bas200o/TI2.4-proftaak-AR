@@ -37,7 +37,7 @@ bool GameLogic::Application::run()
 	listenerThread.detach();	// Detach thread from main thread
 
 	//GameLogic::SphereCollider testCollider(glm::vec3(0.0, 0.0f, 0.0f), 5.0f);
-	GameLogic::CubeCollider testCollider(glm::vec3(0.0, 0.0f, 0.0f), 5.0f, 5.0f, 5.0f);
+	//GameLogic::CubeCollider testCollider(glm::vec3(0.0, 0.0f, 0.0f), 5.0f, 5.0f, 5.0f);
 
 	OpenGL::Renderer::window = &this->window;
 	OpenGL::Renderer::camera = &this->camera;
@@ -53,7 +53,9 @@ bool GameLogic::Application::run()
 		track.draw(this->window, this->camera);
 
 		kart->update(deltatime);
-		kart->checkCollision(testCollider);
+		//kart->checkCollision(testCollider);
+		for(std::shared_ptr<Collider> collider : track.getColliders())
+			kart->checkCollision(*collider.get());
 		kart->draw(this->window, this->camera);
 
 		//this->text->setValue(std::string("Speed: ").append(std::to_string(this->kart->getSpeed())).append(" m/s"));
@@ -62,7 +64,7 @@ bool GameLogic::Application::run()
 		OpenGL::Renderer::draw(*this->timeText, this->window);
 		OpenGL::Renderer::draw(*this->speedText, this->window);
 
-		OpenGL::Renderer::drawDebugCube(glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f), glm::vec3(5.0f, 5.0f, 5.0f), this->window, this->camera);
+		//OpenGL::Renderer::drawDebugCube(glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f), glm::vec3(5.0f, 5.0f, 5.0f), this->window, this->camera);
 		//OpenGL::Renderer::drawDebugSphere(glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f), 5.0f, this->window, this->camera);
 
 		window.update();

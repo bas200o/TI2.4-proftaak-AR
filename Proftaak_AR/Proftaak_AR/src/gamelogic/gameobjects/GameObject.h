@@ -43,6 +43,8 @@ namespace GameLogic
 		virtual void update(float deltatime) = 0;
 		void checkCollision(Collider& collider);
 
+		inline std::vector<std::shared_ptr<Collider>> getColliders() { return this->colliders; }
+
 	private:
 		virtual void setRequiredUniforms(TMTPair& tmPair) = 0;
 		virtual void onCollision() = 0;
