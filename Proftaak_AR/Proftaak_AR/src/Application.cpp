@@ -36,7 +36,6 @@ bool GameLogic::Application::run()
 
 	//GameLogic::SphereCollider testCollider(glm::vec3(0.0, 0.0f, 0.0f), 5.0f);
 	GameLogic::CubeCollider testCollider(glm::vec3(0.0, 0.0f, 0.0f), 5.0f, 5.0f, 5.0f);
-	//GameLogic::CollisionBox2D testCollider = GameLogic::CollisionBox2D(glm::vec2(6.83068f, 25.1054f), 0, 2.0, 16.0);
 
 	while (!window.shouldClose())
 	{
@@ -58,6 +57,9 @@ bool GameLogic::Application::run()
 		OpenGL::Renderer::draw(*this->timeText, this->window);
 		OpenGL::Renderer::draw(*this->speedText, this->window);
 
+		OpenGL::Renderer::drawDebugCube(glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f), glm::vec3(5.0f, 5.0f, 5.0f), this->window, this->camera);
+		//OpenGL::Renderer::drawDebugSphere(glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f), 5.0f, this->window, this->camera);
+
 		window.update();
 	}
 
@@ -75,10 +77,10 @@ void GameLogic::Application::handleEvent(OpenGL::Event& event)
 				this->kart->setIsAccelarating(true);
 			if (keyPressedEvent.getKey() == GLFW_KEY_DOWN)
 				this->kart->setIsBraking(true);
-			//if (keyPressedEvent.getKey() == GLFW_KEY_LEFT)
-			//	this->kart->steer(20.0f);
-			//if (keyPressedEvent.getKey() == GLFW_KEY_RIGHT)
-			//	this->kart->steer(-20.0f);
+			if (keyPressedEvent.getKey() == GLFW_KEY_LEFT)
+				this->kart->steer(20.0f);
+			if (keyPressedEvent.getKey() == GLFW_KEY_RIGHT)
+				this->kart->steer(-20.0f);
 			//if (keyPressedEvent.getKey() == GLFW_KEY_RIGHT_CONTROL)
 			//	this->kart->setIsAccelarating(true);
 			//if (keyPressedEvent.getKey() == GLFW_KEY_LEFT_CONTROL)
@@ -95,10 +97,10 @@ void GameLogic::Application::handleEvent(OpenGL::Event& event)
 				this->kart->setIsAccelarating(false);
 			if (keyReleasedEvent.getKey() == GLFW_KEY_DOWN)
 				this->kart->setIsBraking(false);
-			//if (keyReleasedEvent.getKey() == GLFW_KEY_LEFT)
-			//	this->kart->steer(0.0f);
-			//if (keyReleasedEvent.getKey() == GLFW_KEY_RIGHT)
-			//	this->kart->steer(0.0f);
+			if (keyReleasedEvent.getKey() == GLFW_KEY_LEFT)
+				this->kart->steer(0.0f);
+			if (keyReleasedEvent.getKey() == GLFW_KEY_RIGHT)
+				this->kart->steer(0.0f);
 			//if (keyReleasedEvent.getKey() == GLFW_KEY_RIGHT_CONTROL)
 			//	this->kart->setIsAccelarating(false);
 			//if (keyReleasedEvent.getKey() == GLFW_KEY_LEFT_CONTROL)

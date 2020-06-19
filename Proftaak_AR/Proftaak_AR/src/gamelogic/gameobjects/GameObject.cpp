@@ -30,6 +30,14 @@ void GameLogic::GameObject::draw(OpenGL::Window& window, OpenGL::Camera& camera)
 					tmPair.textures[i].lock()->unbind();
 		}
 	}
+
+	for (std::shared_ptr<Collider> col : this->colliders)
+	{
+		if(CubeCollider* cubeCollider = dynamic_cast<CubeCollider*>(col.get()))
+			OpenGL::Renderer::drawDebugCube(glm::vec3(1.0f, 0.0f, 0.0f), cubeCollider->transform.getWorldPosition(), glm::vec3(cubeCollider->getWidth(), cubeCollider->getHeight(), cubeCollider->getDepth()), window, camera);
+		else if (SphereCollider* sphereCollider = dynamic_cast<SphereCollider*>(col.get()))
+			OpenGL::Renderer::drawDebugSphere(glm::vec3(1.0f, 0.0f, 0.0f), sphereCollider->transform.getWorldPosition(), sphereCollider->getRadius(), window, camera);
+	}
 }
 
 void GameLogic::GameObject::checkCollision(Collider& collider)

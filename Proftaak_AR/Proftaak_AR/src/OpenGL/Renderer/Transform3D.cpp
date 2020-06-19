@@ -56,7 +56,10 @@ void OpenGL::Transform3D::scaleBy(const glm::vec3 scale)
 glm::vec3 OpenGL::Transform3D::getWorldPosition() const
 {
 	if (this->parent != nullptr)
-		return this->parent->getWorldPosition() + this->position;
+	{
+		glm::vec4 rotatedPosition = glm::vec4(this->position, 1.0f) * glm::inverse(getWorldTransform());
+		return this->parent->getWorldPosition() + glm::vec3(rotatedPosition.x, rotatedPosition.y, rotatedPosition.z);
+	}
 	else
 		return this->position;
 }

@@ -63,7 +63,7 @@ GameLogic::Kart::Kart(const glm::vec3 color, const float wheelRadius, const floa
 	this->models.push_back({ &gasPedalTransform, renderer.getRegisteredModel("Gas_Pedal"), textures, true });
 	this->models.push_back({ &brakePedalTransform, renderer.getRegisteredModel("Brake_Pedal"), textures, true });
 
-	std::shared_ptr<SphereCollider> sphereCollider = std::make_shared<SphereCollider>(1.3f);
+	std::shared_ptr<SphereCollider> sphereCollider = std::make_shared<SphereCollider>(2.2f);
 	sphereCollider->transform.translateBy(this->transform.getFront() * 1.13f);
 	sphereCollider->transform.setParent(this->transform);
 	this->colliders.push_back(sphereCollider);

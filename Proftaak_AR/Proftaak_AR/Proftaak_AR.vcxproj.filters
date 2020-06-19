@@ -167,5 +167,6 @@
     <None Include="res\shaders\fragment\F_Lighting.glsl" />
     <None Include="res\shaders\vertex\V_Basic.glsl" />
     <None Include="res\shaders\fragment\F_Kart.glsl" />
+    <None Include="res\shaders\fragment\F_Debug.glsl" />
   </ItemGroup>
 </Project>

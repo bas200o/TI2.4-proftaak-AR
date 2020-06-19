@@ -27,8 +27,8 @@ GameLogic::Collider::CollisionResult GameLogic::SphereCollider::checkSphereColli
 	float distanceBetweenCenters = glm::distance(this->transform.getWorldPosition(), collider.transform.getWorldPosition());
 	if (distanceBetweenCenters < (this->radius + collider.radius))
 	{
-		glm::vec3 displacement = (glm::normalize(collider.transform.getWorldPosition() - this->transform.getWorldPosition()) * ((this->radius + collider.radius) - distanceBetweenCenters));
-		return { true, glm::vec3(displacement.x + 0.1f, displacement.y, displacement.z + 0.1f) };
+		glm::vec3 displacement = (glm::normalize(this->transform.getWorldPosition() - collider.transform.getWorldPosition()) * (((this->radius + collider.radius) - distanceBetweenCenters) + 0.1f));
+		return { true, glm::vec3(displacement.x, displacement.y, displacement.z) };
 	}
 	return { false, glm::vec3(0.0f) };
 }

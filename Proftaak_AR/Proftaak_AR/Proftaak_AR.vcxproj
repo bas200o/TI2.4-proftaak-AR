@@ -165,6 +165,7 @@
   <ItemGroup>
     <None Include="..\..\..\..\..\Users\luket\Downloads\FragmentShader.glsl" />
     <None Include="..\..\..\..\..\Users\luket\Downloads\VertexShader.glsl" />
+    <None Include="res\shaders\fragment\F_Debug.glsl" />
     <None Include="res\shaders\fragment\F_Kart.glsl" />
     <None Include="res\shaders\fragment\F_Lighting.glsl" />
     <None Include="res\shaders\fragment\F_Text.glsl" />

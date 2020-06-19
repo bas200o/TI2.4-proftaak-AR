@@ -16,6 +16,8 @@
 #include "OpenGL/Renderer/shading/Shader.h"
 #include "OpenGL/Renderer/shading/Texture2D.h"
 
+#include "OpenGL/utility/modelloader/OBJModelLoader.h"
+
 namespace OpenGL
 {
 	class Renderer
@@ -38,8 +40,8 @@ namespace OpenGL
 		static void draw(Text& text, Window& window);
 		static void draw3D(Transform3D& modelTranform, RawModel& model, Shader& shader, Window& window, Camera& camera);
 		static void draw3D(Transform3D& modelTranform, RawModel& model, unsigned int shaderId, Window& window, Camera& camera);
-		static void drawDebugCube(Transform3D& modelTranform, Window& window, Camera& camera);
-		static void drawDebugSphere(Transform3D& modelTranform, Window& window, Camera& camera);
+		static void drawDebugCube(const glm::vec3 color, glm::vec3 position, const glm::vec3 size, Window& window, Camera& camera);
+		static void drawDebugSphere(const glm::vec3 color, const glm::vec3 position, const float radius, Window& window, Camera& camera);
 
 	private:
 		static void setMVPUniforms(Transform3D& modelTranform, Window& window, Shader& shader, Camera& camera);
