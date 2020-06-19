@@ -2,12 +2,12 @@
 
 #include <glm/glm.hpp>
 
-#include "OpenGL/GameObject.h"
+#include "GameObject.h"
 #include "OpenGL/utility/modelloader/OBJModelLoader.h"
 
 namespace GameLogic
 {
-	class Kart : public OpenGL::GameObject
+	class Kart : public GameObject
 	{
 	private:
 		glm::vec3 color;
@@ -56,5 +56,8 @@ namespace GameLogic
 		void rotateWheels(float wheelRotationSpeed);
 
 		virtual void setRequiredUniforms(TMTPair& tmPair) override;
+
+		// Inherited via GameObject
+		virtual void onCollision() override;
 	};
 }

@@ -80,3 +80,8 @@ void GameLogic::Track::setRequiredUniforms(TMTPair& tmPair)
 	this->shader.lock()->setUniformBool("useLighting", tmPair.useLighting);
 	this->shader.lock()->unbind();
 }
+
+void GameLogic::Track::onCollision()
+{
+
+}

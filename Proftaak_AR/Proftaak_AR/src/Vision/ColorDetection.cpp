@@ -14,7 +14,7 @@ const bool debugInfo = true;
 const bool debugInfo = false;
 #endif
 
-cv::Mat Vision::ColorDetection::redColorDetection(cv::Mat frame)
+cv::Mat Vision::ColorDetection::colorDetection(cv::Mat frame)
 {
 	cv::Mat hsvImage;
 	cvtColor(frame, hsvImage, CV_RGB2HSV);

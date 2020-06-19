@@ -6,7 +6,7 @@
 
 int main()
 {
-	Game::Application app;
+	GameLogic::Application app;
 	if (!app.run())
 		return -1;
 

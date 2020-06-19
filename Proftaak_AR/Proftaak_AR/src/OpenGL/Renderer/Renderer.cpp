@@ -69,6 +69,16 @@ void OpenGL::Renderer::draw3D(Transform3D& modelTranform, RawModel& model, unsig
 	model.unbind();
 }
 
+void OpenGL::Renderer::drawDebugCube(Transform3D& modelTranform, Window& window, Camera& camera)
+{
+
+}
+
+void OpenGL::Renderer::drawDebugSphere(Transform3D& modelTranform, Window& window, Camera& camera)
+{
+
+}
+
 void OpenGL::Renderer::setMVPUniforms(Transform3D& modelTranform, Window& window, Shader& shader, Camera& camera)
 {
 	shader.setUniformMat4f("model", modelTranform.getWorldTransform());

@@ -48,7 +48,7 @@ void Vision::VisionCamera::activateCamera()
 
 		//flip(frame, frame, 3);
 
-		redDetection = detection.redColorDetection(frame);
+		redDetection = detection.colorDetection(frame);
 
 		if (debugInfo)
 		{

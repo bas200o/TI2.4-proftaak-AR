@@ -38,6 +38,8 @@ namespace OpenGL
 		static void draw(Text& text, Window& window);
 		static void draw3D(Transform3D& modelTranform, RawModel& model, Shader& shader, Window& window, Camera& camera);
 		static void draw3D(Transform3D& modelTranform, RawModel& model, unsigned int shaderId, Window& window, Camera& camera);
+		static void drawDebugCube(Transform3D& modelTranform, Window& window, Camera& camera);
+		static void drawDebugSphere(Transform3D& modelTranform, Window& window, Camera& camera);
 
 	private:
 		static void setMVPUniforms(Transform3D& modelTranform, Window& window, Shader& shader, Camera& camera);

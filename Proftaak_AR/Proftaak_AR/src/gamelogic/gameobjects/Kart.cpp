@@ -62,6 +62,11 @@ GameLogic::Kart::Kart(const glm::vec3 color, const float wheelRadius, const floa
 	this->models.push_back({ &steeringWheelTransform, renderer.getRegisteredModel("Steering_Wheel"), textures, true });
 	this->models.push_back({ &gasPedalTransform, renderer.getRegisteredModel("Gas_Pedal"), textures, true });
 	this->models.push_back({ &brakePedalTransform, renderer.getRegisteredModel("Brake_Pedal"), textures, true });
+
+	std::shared_ptr<SphereCollider> sphereCollider = std::make_shared<SphereCollider>(1.3f);
+	sphereCollider->transform.translateBy(this->transform.getFront() * 1.13f);
+	sphereCollider->transform.setParent(this->transform);
+	this->colliders.push_back(sphereCollider);
 }
 
 void GameLogic::Kart::steer(const float angle)
@@ -177,4 +182,9 @@ void GameLogic::Kart::setRequiredUniforms(TMTPair& tmPair)
 	this->shader.lock()->setUniform1i("diffuseMask", 2);
 	this->shader.lock()->setUniformBool("useLighting", tmPair.useLighting);
 	this->shader.lock()->unbind();
+}
+
+void GameLogic::Kart::onCollision()
+{
+	this->currentSpeed = 0.0f;
 }

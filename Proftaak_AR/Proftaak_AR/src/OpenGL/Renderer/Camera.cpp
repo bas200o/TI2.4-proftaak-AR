@@ -2,7 +2,7 @@
 
 OpenGL::Camera::Camera()
 {
-	FOV = 45.0f;
+	FOV = 60.0f;
 	nearClipPlaneDistance = 0.01f;
 	farClipPlaneDistance = 1000.0f;
 	mouseSensitivity = 0.2;

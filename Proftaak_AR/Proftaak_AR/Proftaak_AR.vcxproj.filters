@@ -45,9 +45,6 @@
     <ClCompile Include="src\OpenGL\Renderer\Transform3D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\OpenGL\GameObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\OpenGL\utility\modelloader\OBJModelLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -67,6 +64,21 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\gamelogic\gameobjects\Track.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gamelogic\GameWorld.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gamelogic\gameobjects\GameObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gamelogic\collision\CubeCollider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gamelogic\collision\SphereCollider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gamelogic\collision\CollisionDetector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -107,9 +119,6 @@
     <ClInclude Include="src\OpenGL\Renderer\Transform3D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\OpenGL\GameObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\OpenGL\utility\modelloader\OBJModelLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -129,6 +138,24 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\gamelogic\gameobjects\Track.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gamelogic\GameWorld.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gamelogic\gameobjects\GameObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gamelogic\collision\Collider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gamelogic\collision\CubeCollider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gamelogic\collision\SphereCollider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gamelogic\collision\CollisionDetector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
