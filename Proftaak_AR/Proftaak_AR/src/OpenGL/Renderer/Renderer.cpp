@@ -1,5 +1,8 @@
 #include "Renderer.h"
 
+OpenGL::Window* OpenGL::Renderer::window;
+OpenGL::Camera* OpenGL::Renderer::camera;
+
 OpenGL::Renderer::Renderer()
 	: lastShaderId(0), lastTextureId(0), lastModelId(0)
 {

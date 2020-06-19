@@ -1,5 +1,7 @@
 #include "Application.h"
 
+#include "gamelogic/collision/CollisionDetector.h"
+
 GameLogic::Application::Application() 
 	: window(OpenGL::Window("Kart racing game", 1280, 720))
 {
@@ -36,6 +38,9 @@ bool GameLogic::Application::run()
 
 	//GameLogic::SphereCollider testCollider(glm::vec3(0.0, 0.0f, 0.0f), 5.0f);
 	GameLogic::CubeCollider testCollider(glm::vec3(0.0, 0.0f, 0.0f), 5.0f, 5.0f, 5.0f);
+
+	OpenGL::Renderer::window = &this->window;
+	OpenGL::Renderer::camera = &this->camera;
 
 	while (!window.shouldClose())
 	{

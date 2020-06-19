@@ -22,6 +22,11 @@ namespace OpenGL
 {
 	class Renderer
 	{
+	public:
+		static Window* window;
+		static Camera* camera;
+
+	private:
 		// Registerd resources
 		std::unordered_map<std::string, unsigned int> registeredFilepaths;
 		std::unordered_map<unsigned int, std::shared_ptr<Shader>> registeredShaders;
