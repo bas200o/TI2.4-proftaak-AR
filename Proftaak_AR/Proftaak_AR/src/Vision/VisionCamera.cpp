@@ -12,7 +12,7 @@ RNG rng(12345);
 #ifdef _DEBUG
 const bool debugInfo = true;
 #else
-const bool debugInfo = false;
+const bool debugInfo = true;
 #endif
 
 void Vision::VisionCamera::activateCamera()

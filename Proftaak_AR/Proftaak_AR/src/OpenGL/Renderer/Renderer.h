@@ -26,6 +26,8 @@ namespace OpenGL
 		static Window* window;
 		static Camera* camera;
 
+		static bool drawDebug;
+
 	private:
 		// Registerd resources
 		std::unordered_map<std::string, unsigned int> registeredFilepaths;

@@ -2,6 +2,7 @@
 
 OpenGL::Window* OpenGL::Renderer::window;
 OpenGL::Camera* OpenGL::Renderer::camera;
+bool OpenGL::Renderer::drawDebug = false;
 
 OpenGL::Renderer::Renderer()
 	: lastShaderId(0), lastTextureId(0), lastModelId(0)
@@ -74,68 +75,74 @@ void OpenGL::Renderer::draw3D(Transform3D& modelTranform, RawModel& model, unsig
 
 void OpenGL::Renderer::drawDebugCube(const glm::vec3 color, const glm::vec3 position, const glm::vec3 size, Window& window, Camera& camera)
 {
-	glDisable(GL_DEPTH_TEST);
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
-	Renderer& renderer = Renderer::getInstance();
-	std::weak_ptr<Shader> shader = renderer.getRegisteredShader(renderer.registerShader("res/shaders/vertex/V_Basic.glsl", "res/shaders/fragment/F_Debug.glsl"));
-
-	std::weak_ptr<RawModel> rawModel = renderer.getRegisteredModel("DebugCube");
-	if (rawModel.expired())
+	if (drawDebug)
 	{
-		OBJModelLoader modelLoader = OBJModelLoader();
-		modelLoader.loadModel("res/models/debug", "DebugCube");
-		OBJModelLoader::Mesh mesh = modelLoader.getLoadedMeshes()[0];
-		rawModel = renderer.getRegisteredModel(renderer.registerModel("DebugCube", mesh.Positions, mesh.Normals, mesh.UVCoordinates, mesh.Indices));
+		glDisable(GL_DEPTH_TEST);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+		Renderer& renderer = Renderer::getInstance();
+		std::weak_ptr<Shader> shader = renderer.getRegisteredShader(renderer.registerShader("res/shaders/vertex/V_Basic.glsl", "res/shaders/fragment/F_Debug.glsl"));
+
+		std::weak_ptr<RawModel> rawModel = renderer.getRegisteredModel("DebugCube");
+		if (rawModel.expired())
+		{
+			OBJModelLoader modelLoader = OBJModelLoader();
+			modelLoader.loadModel("res/models/debug", "DebugCube");
+			OBJModelLoader::Mesh mesh = modelLoader.getLoadedMeshes()[0];
+			rawModel = renderer.getRegisteredModel(renderer.registerModel("DebugCube", mesh.Positions, mesh.Normals, mesh.UVCoordinates, mesh.Indices));
+		}
+
+		shader.lock()->bind();
+		rawModel.lock()->bind();
+		shader.lock()->setUniformVec3f("debugColor", color);
+		shader.lock()->setUniformMat4f("model", (glm::translate(position) * glm::scale(size)));
+		shader.lock()->setUniformMat4f("view", camera.getViewMatrix());
+		shader.lock()->setUniformMat4f("projection", camera.getProjectionMatrix(window));
+
+		glDrawElements(GL_TRIANGLES, rawModel.lock()->getIndexCount(), GL_UNSIGNED_INT, nullptr);
+
+		rawModel.lock()->unbind();
+		shader.lock()->unbind();
+
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		glEnable(GL_DEPTH_TEST);
 	}
-
-	shader.lock()->bind();
-	rawModel.lock()->bind();
-	shader.lock()->setUniformVec3f("debugColor", color);
-	shader.lock()->setUniformMat4f("model", (glm::translate(position) * glm::scale(size)));
-	shader.lock()->setUniformMat4f("view", camera.getViewMatrix());
-	shader.lock()->setUniformMat4f("projection", camera.getProjectionMatrix(window));
-
-	glDrawElements(GL_TRIANGLES, rawModel.lock()->getIndexCount(), GL_UNSIGNED_INT, nullptr);
-
-	rawModel.lock()->unbind();
-	shader.lock()->unbind();
-
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	glEnable(GL_DEPTH_TEST);
 }
 
 void OpenGL::Renderer::drawDebugSphere(const glm::vec3 color, const glm::vec3 position, const float radius, Window& window, Camera& camera)
 {
-	glDisable(GL_DEPTH_TEST);
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
-	Renderer& renderer = Renderer::getInstance();
-	std::weak_ptr<Shader> shader = renderer.getRegisteredShader(renderer.registerShader("res/shaders/vertex/V_Basic.glsl", "res/shaders/fragment/F_Debug.glsl"));
-
-	std::weak_ptr<RawModel> rawModel = renderer.getRegisteredModel("DebugSphere");
-	if (rawModel.expired())
+	if (drawDebug)
 	{
-		OBJModelLoader modelLoader = OBJModelLoader();
-		modelLoader.loadModel("res/models/debug", "DebugSphere");
-		OBJModelLoader::Mesh mesh = modelLoader.getLoadedMeshes()[0];
-		rawModel = renderer.getRegisteredModel(renderer.registerModel("DebugSphere", mesh.Positions, mesh.Normals, mesh.UVCoordinates, mesh.Indices));
+		glDisable(GL_DEPTH_TEST);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+		Renderer& renderer = Renderer::getInstance();
+		std::weak_ptr<Shader> shader = renderer.getRegisteredShader(renderer.registerShader("res/shaders/vertex/V_Basic.glsl", "res/shaders/fragment/F_Debug.glsl"));
+
+		std::weak_ptr<RawModel> rawModel = renderer.getRegisteredModel("DebugSphere");
+		if (rawModel.expired())
+		{
+			OBJModelLoader modelLoader = OBJModelLoader();
+			modelLoader.loadModel("res/models/debug", "DebugSphere");
+			OBJModelLoader::Mesh mesh = modelLoader.getLoadedMeshes()[0];
+			rawModel = renderer.getRegisteredModel(renderer.registerModel("DebugSphere", mesh.Positions, mesh.Normals, mesh.UVCoordinates, mesh.Indices));
+		}
+
+		shader.lock()->bind();
+		rawModel.lock()->bind();
+		shader.lock()->setUniformVec3f("debugColor", color);
+		shader.lock()->setUniformMat4f("model", (glm::translate(position) * glm::scale(glm::vec3(radius))));
+		shader.lock()->setUniformMat4f("view", camera.getViewMatrix());
+		shader.lock()->setUniformMat4f("projection", camera.getProjectionMatrix(window));
+
+		glDrawElements(GL_TRIANGLES, rawModel.lock()->getIndexCount(), GL_UNSIGNED_INT, nullptr);
+
+		rawModel.lock()->unbind();
+		shader.lock()->unbind();
+
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		glEnable(GL_DEPTH_TEST);
 	}
-
-	shader.lock()->bind();
-	rawModel.lock()->bind();
-	shader.lock()->setUniformVec3f("debugColor", color);
-	shader.lock()->setUniformMat4f("model", (glm::translate(position) * glm::scale(glm::vec3(radius))));
-	shader.lock()->setUniformMat4f("view", camera.getViewMatrix());
-	shader.lock()->setUniformMat4f("projection", camera.getProjectionMatrix(window));
-
-	glDrawElements(GL_TRIANGLES, rawModel.lock()->getIndexCount(), GL_UNSIGNED_INT, nullptr);
-
-	rawModel.lock()->unbind();
-	shader.lock()->unbind();
-
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	glEnable(GL_DEPTH_TEST);
 }
 
 void OpenGL::Renderer::setMVPUniforms(Transform3D& modelTranform, Window& window, Shader& shader, Camera& camera)

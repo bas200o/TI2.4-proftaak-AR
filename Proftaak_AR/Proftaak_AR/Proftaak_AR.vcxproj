@@ -108,7 +108,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(SolutionDir)\Dependencies\opencv\build\x64\vc15\lib;$(SolutionDir)\Dependencies\opencv\build\x64\vc15\bin;$(SolutionDir)Dependencies\GLEW\lib\Release\x64;$(SolutionDir)Dependencies\GLFW\lib-vc2019\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32s.lib;glfw3.lib;opengl32.lib;opencv_world430d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glew32s.lib;glfw3.lib;opengl32.lib;opencv_world341.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -163,8 +163,6 @@
     <ClInclude Include="src\Vision\VisionCamera.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\..\..\Users\luket\Downloads\FragmentShader.glsl" />
-    <None Include="..\..\..\..\..\Users\luket\Downloads\VertexShader.glsl" />
     <None Include="res\shaders\fragment\F_Debug.glsl" />
     <None Include="res\shaders\fragment\F_Kart.glsl" />
     <None Include="res\shaders\fragment\F_Lighting.glsl" />

@@ -162,8 +162,6 @@
   <ItemGroup>
     <None Include="res\shaders\vertex\V_Text.glsl" />
     <None Include="res\shaders\fragment\F_Text.glsl" />
-    <None Include="..\..\..\..\..\Users\luket\Downloads\VertexShader.glsl" />
-    <None Include="..\..\..\..\..\Users\luket\Downloads\FragmentShader.glsl" />
     <None Include="res\shaders\fragment\F_Lighting.glsl" />
     <None Include="res\shaders\vertex\V_Basic.glsl" />
     <None Include="res\shaders\fragment\F_Kart.glsl" />

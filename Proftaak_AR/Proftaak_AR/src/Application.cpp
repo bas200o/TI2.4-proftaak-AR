@@ -3,7 +3,7 @@
 #include "gamelogic/collision/CollisionDetector.h"
 
 GameLogic::Application::Application() 
-	: window(OpenGL::Window("Kart racing game", 1280, 720))
+	: window(OpenGL::Window("Lavictus Kart Racer", 1280, 720))
 {
 	this->window.setEventHandler(this);
 
@@ -54,13 +54,13 @@ bool GameLogic::Application::run()
 
 		kart->update(deltatime);
 		//kart->checkCollision(testCollider);
-		for(std::shared_ptr<Collider> collider : track.getColliders())
+		for (std::shared_ptr<Collider> collider : track.getColliders())
 			kart->checkCollision(*collider.get());
 		kart->draw(this->window, this->camera);
 
 		//this->text->setValue(std::string("Speed: ").append(std::to_string(this->kart->getSpeed())).append(" m/s"));
 		this->timeText->setValue(std::string("Time: ").append(this->time.getString()));
-		this->speedText->setValue(std::string("Speed: ").append(std::to_string((int)((this->kart->getSpeed() * 3600.0f) / 1000.0f))).append(" km/h"));
+		this->speedText->setValue(std::string("Speed: ").append(std::to_string((int)((glm::abs(this->kart->getSpeed()) * 3600.0f) / 1000.0f))).append(" km/h"));
 		OpenGL::Renderer::draw(*this->timeText, this->window);
 		OpenGL::Renderer::draw(*this->speedText, this->window);
 
@@ -112,6 +112,9 @@ void GameLogic::Application::handleEvent(OpenGL::Event& event)
 			//	this->kart->setIsAccelarating(false);
 			//if (keyReleasedEvent.getKey() == GLFW_KEY_LEFT_CONTROL)
 			//	this->kart->setIsBraking(false);
+
+			if (keyReleasedEvent.getKey() == GLFW_KEY_C)
+				OpenGL::Renderer::drawDebug = !OpenGL::Renderer::drawDebug;
 			break;
 		}
 		case OpenGL::Event::EventType::WindowResizeEvent:
