@@ -18,7 +18,6 @@ GameLogic::Collider::CollisionResult GameLogic::CollisionDetector::checkCubeToSp
 
 	glm::vec3 cubePosition = cubeCollider.transform.getWorldPosition();
 	glm::vec3 spherePosition = sphereCollider.transform.getWorldPosition();
-	/*glm::vec3 closestPointOnSphere = sphereCollider.transform.getWorldPosition() + (glm::normalize(cubePosition - sphereCollider.transform.getWorldPosition()) * sphereCollider.getRadius());*/
 	closestX = spherePosition.x;
 	closestY = spherePosition.y;
 	closestZ = spherePosition.z;
@@ -40,8 +39,6 @@ GameLogic::Collider::CollisionResult GameLogic::CollisionDetector::checkCubeToSp
 
 	glm::vec3 closestPointOnCube = glm::vec3(closestX, closestY, closestZ);
 	glm::vec3 closestPointOnSphere = sphereCollider.transform.getWorldPosition() + (glm::normalize(closestPointOnCube - sphereCollider.transform.getWorldPosition()) * sphereCollider.getRadius());
-	OpenGL::Renderer::drawDebugSphere(glm::vec3(0.0f, 1.0f, 0.0f), closestPointOnCube, 0.05f, *OpenGL::Renderer::window, *OpenGL::Renderer::camera);
-	OpenGL::Renderer::drawDebugSphere(glm::vec3(0.0f, 0.0f, 1.0f), closestPointOnSphere, 0.05f, *OpenGL::Renderer::window, *OpenGL::Renderer::camera);
 	float distanceToSphereCenter = glm::distance(closestPointOnCube, sphereCollider.transform.getWorldPosition());
 	if (distanceToSphereCenter < sphereCollider.getRadius())
 	{

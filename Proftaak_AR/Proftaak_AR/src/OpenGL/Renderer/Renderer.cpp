@@ -1,7 +1,5 @@
 #include "Renderer.h"
 
-OpenGL::Window* OpenGL::Renderer::window;
-OpenGL::Camera* OpenGL::Renderer::camera;
 bool OpenGL::Renderer::drawDebug = false;
 
 OpenGL::Renderer::Renderer()

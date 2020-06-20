@@ -36,12 +36,6 @@ bool GameLogic::Application::run()
 	std::thread listenerThread = std::thread(&Vision::VisionCamera::activateCamera, this->visionCamera);	// Start thread
 	listenerThread.detach();	// Detach thread from main thread
 
-	//GameLogic::SphereCollider testCollider(glm::vec3(0.0, 0.0f, 0.0f), 5.0f);
-	//GameLogic::CubeCollider testCollider(glm::vec3(0.0, 0.0f, 0.0f), 5.0f, 5.0f, 5.0f);
-
-	OpenGL::Renderer::window = &this->window;
-	OpenGL::Renderer::camera = &this->camera;
-
 	while (!window.shouldClose())
 	{
 		window.updateDeltaTime();
@@ -53,19 +47,14 @@ bool GameLogic::Application::run()
 		track.draw(this->window, this->camera);
 
 		kart->update(deltatime);
-		//kart->checkCollision(testCollider);
 		for (std::shared_ptr<Collider> collider : track.getColliders())
 			kart->checkCollision(*collider.get());
 		kart->draw(this->window, this->camera);
 
-		//this->text->setValue(std::string("Speed: ").append(std::to_string(this->kart->getSpeed())).append(" m/s"));
 		this->timeText->setValue(std::string("Time: ").append(this->time.getString()));
 		this->speedText->setValue(std::string("Speed: ").append(std::to_string((int)((glm::abs(this->kart->getSpeed()) * 3600.0f) / 1000.0f))).append(" km/h"));
 		OpenGL::Renderer::draw(*this->timeText, this->window);
 		OpenGL::Renderer::draw(*this->speedText, this->window);
-
-		//OpenGL::Renderer::drawDebugCube(glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f), glm::vec3(5.0f, 5.0f, 5.0f), this->window, this->camera);
-		//OpenGL::Renderer::drawDebugSphere(glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f), 5.0f, this->window, this->camera);
 
 		window.update();
 	}
@@ -88,10 +77,6 @@ void GameLogic::Application::handleEvent(OpenGL::Event& event)
 				this->kart->steer(20.0f);
 			if (keyPressedEvent.getKey() == GLFW_KEY_RIGHT)
 				this->kart->steer(-20.0f);
-			//if (keyPressedEvent.getKey() == GLFW_KEY_RIGHT_CONTROL)
-			//	this->kart->setIsAccelarating(true);
-			//if (keyPressedEvent.getKey() == GLFW_KEY_LEFT_CONTROL)
-			//	this->kart->setIsBraking(true);
 			break;
 		}
 		case OpenGL::Event::EventType::KeyReleasedEvent:
@@ -108,10 +93,6 @@ void GameLogic::Application::handleEvent(OpenGL::Event& event)
 				this->kart->steer(0.0f);
 			if (keyReleasedEvent.getKey() == GLFW_KEY_RIGHT)
 				this->kart->steer(0.0f);
-			//if (keyReleasedEvent.getKey() == GLFW_KEY_RIGHT_CONTROL)
-			//	this->kart->setIsAccelarating(false);
-			//if (keyReleasedEvent.getKey() == GLFW_KEY_LEFT_CONTROL)
-			//	this->kart->setIsBraking(false);
 
 			if (keyReleasedEvent.getKey() == GLFW_KEY_C)
 				OpenGL::Renderer::drawDebug = !OpenGL::Renderer::drawDebug;

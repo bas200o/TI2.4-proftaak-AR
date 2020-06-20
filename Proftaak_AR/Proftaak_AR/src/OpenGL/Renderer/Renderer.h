@@ -23,9 +23,6 @@ namespace OpenGL
 	class Renderer
 	{
 	public:
-		static Window* window;
-		static Camera* camera;
-
 		static bool drawDebug;
 
 	private:
