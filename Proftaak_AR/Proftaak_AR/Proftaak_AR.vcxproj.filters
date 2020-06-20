@@ -66,9 +66,6 @@
     <ClCompile Include="src\gamelogic\gameobjects\Track.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\gamelogic\GameWorld.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\gamelogic\gameobjects\GameObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -138,9 +135,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\gamelogic\gameobjects\Track.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\gamelogic\GameWorld.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\gamelogic\gameobjects\GameObject.h">

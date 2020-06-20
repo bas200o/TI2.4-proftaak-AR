@@ -1,7 +1,5 @@
 #include "Application.h"
 
-#include "gamelogic/collision/CollisionDetector.h"
-
 GameLogic::Application::Application() 
 	: window(OpenGL::Window("Lavictus Kart Racer", 1280, 720))
 {
