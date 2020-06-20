@@ -39,7 +39,7 @@ bool GameLogic::Application::run()
 		window.updateDeltaTime();
 		float deltatime = window.getDeltaTime();
 		window.clear(OpenGL::Window::ClearType::COLOR_BUFFER | OpenGL::Window::ClearType::DEPTH_BUFFER);
-		this->time.addSeconds(deltatime);
+		this->timer.addSeconds(deltatime);
 		this->camera.update(this->window, deltatime);
 
 		track.draw(this->window, this->camera);
@@ -49,7 +49,7 @@ bool GameLogic::Application::run()
 			kart->checkCollision(*collider.get());
 		kart->draw(this->window, this->camera);
 
-		this->timeText->setValue(std::string("Time: ").append(this->time.getString()));
+		this->timeText->setValue(std::string("Time: ").append(this->timer.getString()));
 		this->speedText->setValue(std::string("Speed: ").append(std::to_string((int)((glm::abs(this->kart->getSpeed()) * 3600.0f) / 1000.0f))).append(" km/h"));
 		OpenGL::Renderer::draw(*this->timeText, this->window);
 		OpenGL::Renderer::draw(*this->speedText, this->window);

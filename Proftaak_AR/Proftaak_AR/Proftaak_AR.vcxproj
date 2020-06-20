@@ -130,6 +130,7 @@
     <ClCompile Include="src\OpenGL\Renderer\ui\text\Text.cpp" />
     <ClCompile Include="src\OpenGL\utility\modelloader\OBJModelLoader.cpp" />
     <ClCompile Include="src\OpenGL\windowhandling\Window.cpp" />
+    <ClCompile Include="src\Timer.cpp" />
     <ClCompile Include="src\Vision\blobdetectionavans.cpp" />
     <ClCompile Include="src\Vision\ColorDetection.cpp" />
     <ClCompile Include="src\Vision\VisionCamera.cpp" />
@@ -155,6 +156,7 @@
     <ClInclude Include="src\OpenGL\windowhandling\EventHandler.h" />
     <ClInclude Include="src\OpenGL\windowhandling\Events.h" />
     <ClInclude Include="src\OpenGL\windowhandling\Window.h" />
+    <ClInclude Include="src\Timer.h" />
     <ClInclude Include="src\utilities\StringUtil.h" />
     <ClInclude Include="src\Vision\blobdetectionavans.h" />
     <ClInclude Include="src\Vision\ColorDetection.h" />
