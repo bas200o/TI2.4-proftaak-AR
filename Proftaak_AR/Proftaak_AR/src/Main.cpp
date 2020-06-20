@@ -1,10 +1,14 @@
-/*
-	TI 2.4 B3
+//#include <opencv2/opencv.hpp>
+//#include "opencv2/imgproc/imgproc.hpp" 
+//#include "opencv2/highgui/highgui.hpp"
 
-*/
+#include "Application.h"
 
-int main(int argc, char* argv[])
+int main()
 {
+	GameLogic::Application app;
+	if (!app.run())
+		return -1;
 
 	return 0;
 }
